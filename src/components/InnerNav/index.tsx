@@ -11,7 +11,7 @@ const InnerNav = ()=>{
     contentCenter,
     contentBetween,
     flexRow,
-    paddingM,
+    paddingS,
     textCenter,
     textWhite,
     fontM,
@@ -20,7 +20,7 @@ const InnerNav = ()=>{
 
   let tabSyle = [
     wHalf,
-    paddingM,
+    paddingS,
     alignCenter,
     contentCenter,
   ]

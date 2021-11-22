@@ -11,14 +11,14 @@ const Header = ()=>{
                     AL.contentBetween,
                     AL.flexRow,
                     AL.alignCenter,
-                    AL.paddingM,
+                    AL.paddingS,
                     AL.shadowS
                 ]}
             >
                 <View>
-                    <View style={[{height: 30, width: 30 }, AL.rounded, AL.bgWhite]}>
+                   {/*  <View style={[{height: 30, width: 30 }, AL.rounded, AL.bgWhite]}>
 
-                    </View>
+                    </View> */}
                 </View>
                 <View
                     style={[

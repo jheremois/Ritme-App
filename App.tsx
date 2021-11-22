@@ -2,7 +2,9 @@ import React from 'react'
 import { SafeAreaView, StatusBar, View, Text } from 'react-native'
 import { AppLooks } from '@src/shared/styles/AppLooks'
 import { AppColors } from '@src/shared/styles/AppResourses'
-import Explore from '@src/screens/Home/Explore'
+import MainRoutes from '@router/Main.routes'
+import Header from "@src/components/Header";
+import InnerHeader from "@src/components/InnerHeader";
 
 const App = ()=>{
   return(
@@ -10,9 +12,9 @@ const App = ()=>{
       <StatusBar
         animated={true}
         backgroundColor={AppColors.gray}/>
-      <View>
-        <Explore/>
-      </View>
+      {/* <InnerHeader tabName={"Home"}/> */}
+      <Header/>
+      <MainRoutes/>
     </SafeAreaView>
   )
 }
