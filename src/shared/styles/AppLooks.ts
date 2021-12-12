@@ -21,6 +21,9 @@ export const AppLooks = StyleSheet.create({
   bgBlue: {
     backgroundColor: AppColors.blue
   },
+  bgRed: {
+    backgroundColor: AppColors.red
+  },
 
   textBlack: {
     color: AppColors.black
@@ -37,6 +40,9 @@ export const AppLooks = StyleSheet.create({
   textBlue: {
     color: AppColors.blue
   },
+  textRed: {
+    color: AppColors.red
+  },
 
 
   // Fonts
@@ -51,20 +57,32 @@ export const AppLooks = StyleSheet.create({
   },
 
   //Texto
-  textXS: {
-    fontSize: 8,
-  },
-  textS: {
+  textXXS: {
     fontSize: 12,
   },
+  textXS: {
+    fontSize: 14,
+  },
+  textS: {
+    fontSize: 16,
+  },
   textM: {
-    fontSize: 15,
+    fontSize: 18,
+  },
+  textXM: {
+    fontSize: 20,
+  },
+  textL: {
+    fontSize: 22,  
   },
   textXl: {
-    fontSize: 19,  
+    fontSize: 24,  
   },
   textXxl: {
-    fontSize: 24,
+    fontSize: 26,
+  },
+  textXxxl: {
+    fontSize: 28,
   },
   textCenter: {
     textAlign: "center",
@@ -224,7 +242,10 @@ export const AppLooks = StyleSheet.create({
     padding: 10,
   },
   paddingM: {
-    padding: 15,
+    padding: 12,
+  },
+  paddingl: {
+    padding: 16,
   },
   paddingXl: {
     padding: 20,

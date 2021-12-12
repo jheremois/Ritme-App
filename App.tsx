@@ -5,6 +5,7 @@ import { AppColors } from '@src/shared/styles/AppResourses'
 import MainRoutes from '@router/Main.routes'
 import Header from "@src/components/Header";
 import InnerHeader from "@src/components/InnerHeader";
+import AuthRoutes from '@src/router/Auth.routes'
 
 const App = ()=>{
   return(
@@ -13,7 +14,6 @@ const App = ()=>{
         animated={true}
         backgroundColor={AppColors.gray}/>
       {/* <InnerHeader tabName={"Home"}/> */}
-      <Header/>
       <MainRoutes/>
     </SafeAreaView>
   )

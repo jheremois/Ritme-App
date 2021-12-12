@@ -1,3 +1,4 @@
+/*
 import React, { useState } from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Explore from './Explore';
@@ -14,3 +15,5 @@ function Home() {
 }
 
 export default Home
+
+*/
