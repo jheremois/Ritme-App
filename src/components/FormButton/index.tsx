@@ -1,24 +1,21 @@
-import React from "react";
+import React, { Children, ComponentType, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { AppLooks as al } from "@src/shared/styles/AppLooks";
 
 interface props{
-    text: string
-    action: void
+    children: any
+    action: VoidFunction
     color: string
-    textColor: string
 }
 
 const FormButton = (props: props)=>{
 
-    const {text, action, color, textColor} = props
+    const {children, action, color} = props
 
     return(
         <View>
             <Pressable
-                onPress={()=>{
-                    action
-                }}
+                onPress={action}
                 style={({ pressed }) => [
                     {
                         backgroundColor: pressed
@@ -31,11 +28,7 @@ const FormButton = (props: props)=>{
                     al.roundedS
                 ]}
             >
-                <Text
-                    style={[{color: textColor}, al.fontM, al.textXM]}
-                >
-                    {text}
-                </Text>
+                {children}
             </Pressable>
         </View>
     )

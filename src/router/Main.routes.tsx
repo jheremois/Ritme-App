@@ -2,6 +2,9 @@ import React from 'react'
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { AppColors } from '@src/shared/styles/AppResourses';
 import AuthRoutes from './Auth.routes';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AppRoutes from './App.routes';
+const Stack = createNativeStackNavigator();
 
 const MyTheme = {
   ...DefaultTheme,
@@ -15,7 +18,10 @@ const MyTheme = {
 function MainRoutes() {
     return (
         <NavigationContainer theme={MyTheme}>
-          <AuthRoutes/>
+          <Stack.Navigator initialRouteName="auth" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="auth" component={AuthRoutes} />
+            <Stack.Screen name="app" component={AppRoutes} />
+          </Stack.Navigator>
         </NavigationContainer>
     )
 }

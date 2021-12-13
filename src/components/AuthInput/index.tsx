@@ -12,11 +12,12 @@ interface props{
     errMsg?: string
     label?: string
     dark?: boolean
+    onchangetext?: any
 }
 
 const AuthInput = (props: props)=>{
 
-    const {value, placeHolder, keyboard, validator, errMsg, label, dark} = props
+    const {value, placeHolder, keyboard, validator, errMsg, label, dark, onchangetext} = props
 
     return(
         <>
@@ -35,6 +36,7 @@ const AuthInput = (props: props)=>{
                     placeholder={placeHolder}
                     placeholderTextColor={dark?`${AppColors.white}70`:`${AppColors.black}70`}
                     value={value}
+                    onChangeText={onchangetext}
                     keyboardType={keyboard}
                     style={[
                         al.roundedS,

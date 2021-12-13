@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { View } from 'react-native';
 import Explore from '@screens/Home/Explore';
-import HomeRoutes from './Home.routes';
 import { AppColors } from '@src/shared/styles/AppResourses';
 import Header from '@src/components/Header';
 
@@ -19,7 +18,7 @@ const setIcons = (iconsPost: number) => {
 
 const Tap = createBottomTabNavigator()
 
-function MainRoutes() {
+function AppRoutes() {
     return (
         <>
             <Header/>
@@ -35,11 +34,11 @@ function MainRoutes() {
                 tabBarBackground: (()=> <View style={{height: 90, padding: 20,}}></View>),
                 }}
             >
-                <Tap.Screen name="Home" component={HomeRoutes} options={setIcons(0)} />
+                <Tap.Screen name="Home" component={Explore} options={setIcons(0)} />
                 <Tap.Screen name="Profile" component={Explore} options={setIcons(1)} />
             </Tap.Navigator>
         </>
     )
 }
 
-export default MainRoutes
+export default AppRoutes

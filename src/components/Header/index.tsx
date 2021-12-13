@@ -34,8 +34,8 @@ const Header = ()=>{
                             AL.marginSRi
                         ]}
                     />
-                    <Text style={[AL.textWhite, AL.fontXl, AL.textXxl]}>
-                        Rame
+                    <Text style={[AL.textWhite, AL.fontXl, AL.textXl]}>
+                        RITME
                     </Text>
                 </View>
             </View>
