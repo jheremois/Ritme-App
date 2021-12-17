@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import InnerNav from "@src/components/InnerNav";
-import { View, Text, FlatList } from "react-native";
-import { AppLooks } from "@src/shared/styles/AppLooks";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from "@src/context/userContext";
-import Post from "@src/components/Post";
+import { userPlacehold } from "@src/helpers/consts";
+import { ProfileInfo } from "@src/components/ProfileInfo";
 
-const Explore = ()=>{
+const Profile = ()=>{
 
     const [username, setUsername] = useState("")
     const {userData} = useContext(UserContext)
@@ -21,20 +19,14 @@ const Explore = ()=>{
     }
 
     useEffect(()=>{
-        readHeaders()
+        readHeaders()    
     })
   
     return(
         <>
-            <InnerNav/> 
-            <View style={{paddingBottom: 42}}>
-                <FlatList
-                    data={[2,3]}
-                    renderItem={Post}
-                />
-            </View>
+            <ProfileInfo username={username} image={userPlacehold} />
         </>
     )
 }
 
-export default Explore
+export default Profile

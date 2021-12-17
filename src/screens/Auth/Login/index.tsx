@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Dimensions, View, Image, Text, Pressable, KeyboardAvoidingView, ActivityIndicator } from "react-native";
 import AuthInput from "@components/AuthInput";
 import { AppLooks as al } from "@src/shared/styles/AppLooks";
@@ -7,6 +7,8 @@ import { AppColors } from "@src/shared/styles/AppResourses";
 import { emailRegex, fullLogo } from "@src/helpers/consts";
 import { formUserType, loginUserType } from "@src/shared/interfaces/user.type";
 import { loginUser } from "@src/services/Auth.services";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { UserContext } from "@src/context/userContext";
 
 const Login = ({navigation}: any)=>{
 
@@ -20,10 +22,27 @@ const Login = ({navigation}: any)=>{
         password: false,
     })
     const [loading, setLoading] = useState<boolean>(false)
+    const { userData, saveCredentials } = useContext(UserContext);
 
     const changeForm = (e: any, field: any) => {
         setForm({ ...form, [field]: e });
     };
+
+    const logUser = ()=>{
+        loginUser(form).then( async (res)=>{
+            setLoading(true)
+            try {
+                console.log("recibe: ", res.data.data)
+                saveCredentials(res.data.data)
+                await setLoading(false)
+            } catch (e) {
+                console.log(e);
+                await setLoading(false)
+            }
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
 
     function sendForm() {
         let condition = {password: form.password.length <= 5, email: !form.email.match(emailRegex)}
@@ -31,13 +50,19 @@ const Login = ({navigation}: any)=>{
             ?
                 setInValidForm(condition)
             :
-                loginUser(form).then((res)=>{
-                    setLoading(true)
-                    console.log(res.data)
-                    console.log(res.config.data)
-                }).catch((err)=>{
-                    console.log(err);
-                })
+                logUser()
+    }
+
+
+    const readHeaders = async()=>{
+        
+        try {
+            const jsonValue = await AsyncStorage.getItem('user_data')
+            jsonValue != null ? console.log(JSON.parse(jsonValue)) : console.log("no hay nada")
+        } catch(e) {
+            console.log(e)
+        }
+  
     }
 
     return(
@@ -76,9 +101,12 @@ const Login = ({navigation}: any)=>{
                     </View>
                 </View>
                 <View style={[al.paddingS, al.marginMTop]}>
-                    <FormButton action={()=> {
-                        sendForm()
-                    }} color={AppColors.indigo}>
+                    <FormButton 
+                        action={()=> {
+                            sendForm()
+                        }} 
+                        color={AppColors.indigo}
+                    >
                         {
                             loading?
                                 <ActivityIndicator size={"large"} color={AppColors.white}/>
@@ -90,6 +118,20 @@ const Login = ({navigation}: any)=>{
                                 </Text>
                         }
                     </FormButton>
+                    {/* <View
+                        style={[al.marginMTop]}
+                    >
+                        <FormButton
+                            action={()=> readHeaders()}
+                            color={AppColors.blue}
+                        >
+                            <Text
+                                style={[al.textWhite, al.fontM, al.textXM]}
+                            >
+                                Get data
+                            </Text>
+                        </FormButton>
+                    </View> */}
                 </View>
                 <View style={[al.flexRow, al.alignCenter, al.contentCenter, al.marginMTop]}>
                     <Text style={[al.textS, al.textWhite]}>

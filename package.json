@@ -12,9 +12,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.14",
+    "@react-native-community/netinfo": "6.0.2",
     "@react-navigation/bottom-tabs": "^6.0.7",
     "@react-navigation/native": "^6.0.4",
     "@react-navigation/native-stack": "^6.2.2",
+    "@types/react-redux": "^7.1.20",
     "axios": "^0.24.0",
     "expo": "~43.0.2",
     "expo-splash-screen": "~0.13.5",
@@ -24,11 +27,14 @@
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-image-view": "^2.1.9",
+    "react-native-lightbox-v2": "^0.8.8",
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "~3.8.0",
     "react-native-vector-icons": "^9.0.0",
     "react-native-web": "0.17.1",
+    "react-redux": "^7.2.6",
     "timeago.js": "^4.0.2"
   },
   "devDependencies": {
