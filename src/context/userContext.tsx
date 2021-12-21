@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { FC, useContext, useState } from "react";
 import { UserType } from "@shared/interfaces/user.type";
+import { getCurrentUser } from "@src/services/User.services";
 
 interface userData{
   user_token:             string | null
@@ -23,7 +24,7 @@ const defaultUserValue: userContext = {
     user: {
       email: "",
       user_id: "",
-      username: ""
+      user_name: ""
     },
   },
   setUser_token: (token) => {},
@@ -39,12 +40,16 @@ export const UserProvider = ({ children }: any) => {
   const [user_token, setUser_token] = useState(defaultUserValue.userData.user_token);
   const [user, setUser] = useState(defaultUserValue.userData.user);
 
-
   const saveC = async (data: userData)=>{
     const jsonValue = JSON.stringify(data)
-    console.log("Guardo cred ->", data);
     await AsyncStorage.setItem('user_data', jsonValue).then(()=>{
       setUser(data.user)
+      /*getCurrentUser(data.user_token!).then((response) => {
+        setUser(response.data.response[0])
+      })
+      .catch((error) => {
+        console.log(error);
+      })*/
       setUser_token(data.user_token)
     }).catch((err)=>{
       console.log(err)
@@ -53,7 +58,7 @@ export const UserProvider = ({ children }: any) => {
   
 
   const saveCredentials = async (data?: userData)=>{
-    console.log(data);
+    //console.log(data);
     
     !data
       ?

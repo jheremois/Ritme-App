@@ -13,13 +13,13 @@ const Register = ({navigation}: any)=>{
     const [form, setForm] = useState<formUserType>({
         email:    "",
         password: "",
-        username: ""
+        user_name: ""
     })
 
     const [inValidForm, setInValidForm] = useState<any>({
         email:    false,
         password: false,
-        username: false
+        user_name: false
     })
 
     const [loading, setLoading] = useState<boolean>(false)
@@ -29,8 +29,8 @@ const Register = ({navigation}: any)=>{
     };
 
     function sendForm() {
-        let condition = {username: form.username.length <= 3, password: form.password.length <= 5, email: !form.email.match(emailRegex)}
-        form.username.length <= 3 || form.password.length <= 5 || !form.email.match(emailRegex)
+        let condition = {user_name: form.user_name.length <= 3, password: form.password.length <= 5, email: !form.email.match(emailRegex)}
+        form.user_name.length <= 3 || form.password.length <= 5 || !form.email.match(emailRegex)
             ?
                 setInValidForm(condition)
             :
@@ -56,11 +56,11 @@ const Register = ({navigation}: any)=>{
                     <View style={[al.paddingS]}>
                         <AuthInput 
                             dark={true}
-                            value={form.username}
-                            onchangetext={(e: any) => changeForm(e, "username")}
+                            value={form.user_name}
+                            onchangetext={(e: any) => changeForm(e, "user_name")}
                             errMsg="Something is wrong"
-                            validator={inValidForm.username}
-                            placeHolder="My username"
+                            validator={inValidForm.user_name}
+                            placeHolder="My user_name"
                             label="User name"
                             keyboard={"name-phone-pad"} 
                         />

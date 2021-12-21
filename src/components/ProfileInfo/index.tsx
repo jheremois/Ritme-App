@@ -18,10 +18,10 @@ export const ProfileInfo = (props: profileInfo)=>{
                 <View style={[AppLooks.flexRow, AppLooks.contentBetween]}>
                     <View>
                         <Text style={[AppLooks.textWhite, AppLooks.fontM,  AppLooks.textXM, AppLooks.paddingSX]}>
-                            {username} Castro
+                            {username}
                         </Text>
-                        <Text style={[AppLooks.textWhite, AppLooks.textS, AppLooks.paddingSX]}>
-                            @{username}
+                        <Text style={[AppLooks.textWhite,  AppLooks.textXS, AppLooks.paddingSX, {maxWidth: "95%"}]}>
+                            (max length 105) psum dolor sit amet con tetur adipisici Lorem ipsum dolor sit amet consectetur adipisi
                         </Text>
                     </View>
                 </View>

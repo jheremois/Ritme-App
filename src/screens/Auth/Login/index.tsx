@@ -32,7 +32,7 @@ const Login = ({navigation}: any)=>{
         loginUser(form).then( async (res)=>{
             setLoading(true)
             try {
-                console.log("recibe: ", res.data.data)
+                console.log("Loged as: ", res.data.data)
                 saveCredentials(res.data.data)
                 await setLoading(false)
             } catch (e) {
