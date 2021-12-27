@@ -5,9 +5,8 @@ import { AppLooks as al } from "@src/shared/styles/AppLooks";
 import FormButton from "@src/components/FormButton";
 import { AppColors } from "@src/shared/styles/AppResourses";
 import { emailRegex, fullLogo } from "@src/helpers/consts";
-import { formUserType, loginUserType } from "@src/shared/interfaces/user.type";
+import { loginUserType } from "@src/shared/interfaces/user.type";
 import { loginUser } from "@src/services/Auth.services";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from "@src/context/userContext";
 
 const Login = ({navigation}: any)=>{
@@ -29,18 +28,23 @@ const Login = ({navigation}: any)=>{
     };
 
     const logUser = ()=>{
+        setLoading(true)
+        setInValidForm({password: form.password.length <= 5, email: !form.email.match(emailRegex)})
         loginUser(form).then( async (res)=>{
-            setLoading(true)
             try {
                 console.log("Loged as: ", res.data.data)
                 saveCredentials(res.data.data)
                 await setLoading(false)
+                navigation.replace("splash")
             } catch (e) {
+                alert(e)
                 console.log(e);
                 await setLoading(false)
             }
-        }).catch((err)=>{
+        }).catch(async (err)=>{
+            alert(err)
             console.log(err)
+            await setLoading(false)
         })
     }
 
@@ -53,27 +57,15 @@ const Login = ({navigation}: any)=>{
                 logUser()
     }
 
-
-    const readHeaders = async()=>{
-        
-        try {
-            const jsonValue = await AsyncStorage.getItem('user_data')
-            jsonValue != null ? console.log(JSON.parse(jsonValue)) : console.log("no hay nada")
-        } catch(e) {
-            console.log(e)
-        }
-  
-    }
-
     return(
         <KeyboardAvoidingView behavior="padding" style={[al.alignCenter, al.flex]}>
             <KeyboardAvoidingView behavior="position" style={[{width: Dimensions.get("screen").width / 1.12}]}>
-                <Pressable onPress={()=> navigation.navigate("app")} style={[al.paddingS, al.marginXxlY, al.alignCenter, al.contentCenter, {height: Dimensions.get("screen").height / 5}]}>
+                <View style={[al.paddingS, al.marginXxlY, al.alignCenter, al.contentCenter, {height: Dimensions.get("screen").height / 5}]}>
                     <Image 
                         source={fullLogo}
                         style={{height: 45, width: Dimensions.get("screen").width / 2.4}}
                     />
-                </Pressable>
+                </View>
                 <View>
                     <View style={[al.paddingS]}>
                         <AuthInput 
@@ -118,20 +110,6 @@ const Login = ({navigation}: any)=>{
                                 </Text>
                         }
                     </FormButton>
-                    {/* <View
-                        style={[al.marginMTop]}
-                    >
-                        <FormButton
-                            action={()=> readHeaders()}
-                            color={AppColors.blue}
-                        >
-                            <Text
-                                style={[al.textWhite, al.fontM, al.textXM]}
-                            >
-                                Get data
-                            </Text>
-                        </FormButton>
-                    </View> */}
                 </View>
                 <View style={[al.flexRow, al.alignCenter, al.contentCenter, al.marginMTop]}>
                     <Text style={[al.textS, al.textWhite]}>

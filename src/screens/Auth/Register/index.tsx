@@ -29,18 +29,24 @@ const Register = ({navigation}: any)=>{
     };
 
     function sendForm() {
-        let condition = {user_name: form.user_name.length <= 3, password: form.password.length <= 5, email: !form.email.match(emailRegex)}
+        setLoading(true)
+        setInValidForm({user_name: form.user_name.length <= 3, password: form.password.length <= 5, email: !form.email.match(emailRegex)})
+
         form.user_name.length <= 3 || form.password.length <= 5 || !form.email.match(emailRegex)
             ?
-                setInValidForm(condition)
+                setLoading(false)
             :
                 RegisterUser(form).then((res)=>{
-                    setLoading(true)
                     console.log(res.data)
                     console.log(res.config.data)
-                }).catch((err)=>{
-                    console.log(err);
-                })
+                    navigation.navigate("login")
+                    setLoading(false)
+                }).catch((error)=> {
+                    if (!error.status) {
+                        setLoading(false)
+                        console.log("Network error");
+                    }
+                });
     }
 
     return(

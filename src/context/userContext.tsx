@@ -15,7 +15,7 @@ interface userContext{
   //saveCredentials?:       (user_token?: string | null, user?: UserType | null) => Promise<void>;
   saveCredentials?:       any//(data?: userData) => Promise<void>
   retrieveCredentials?:   () => Promise<any | null>
-  deleteCredentials?:     () => Promise<any | null>
+  deleteCredentials:     () => Promise<any | null>
 }
 
 const defaultUserValue: userContext = {
@@ -75,7 +75,8 @@ export const UserProvider = ({ children }: any) => {
     <UserContext.Provider
       value={{
         userData: {user_token, user},
-        saveCredentials
+        saveCredentials,
+        deleteCredentials
       }}
     >
       {children}

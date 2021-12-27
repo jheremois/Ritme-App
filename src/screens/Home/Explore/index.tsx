@@ -14,7 +14,7 @@ const Explore = ()=>{
     const readHeaders = async()=>{
         try {
             const jsonValue = await AsyncStorage.getItem('user_data')
-            jsonValue != null ? setUsername(JSON.parse(jsonValue).user.username) : console.log("no hay nada")
+            jsonValue != null ? setUsername(JSON.parse(jsonValue).user.username) : Error
         } catch(e) {
             console.log(e)
         }
@@ -29,7 +29,8 @@ const Explore = ()=>{
             <InnerNav/> 
             <View style={{paddingBottom: 42}}>
                 <FlatList
-                    data={[2,3]}
+                    data={[2,1]}
+                    keyExtractor={item => Math.random() + " 1" + Date.now()}
                     renderItem={Post}
                 />
             </View>

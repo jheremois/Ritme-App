@@ -3,25 +3,27 @@ import { View, Text, Image, Dimensions, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 
 interface profileInfo{
-    username: string
-    image: any
+    user_name: string
+    user_description: string
+    profile_pic: any
+    action: any | undefined
 }
 
 export const ProfileInfo = (props: profileInfo)=>{
 
-    const {username, image} = props
+    const {user_name, user_description, profile_pic, action} = props
 
     return(
         <View style={[AppLooks.paddingXl, AppLooks.bgDarkGray]}>
             <View style={[AppLooks.flexRow, AppLooks.alignCenter, AppLooks.paddingMBot]}>
-                <Image source={image} style={[{marginRight: 10, height: Dimensions.get("screen").width / 4.4, width: Dimensions.get("screen").width / 4.4}]}/>
+                <Image source={profile_pic} style={[{marginRight: 10, height: Dimensions.get("screen").width / 4.4, width: Dimensions.get("screen").width / 4.4}]}/>
                 <View style={[AppLooks.flexRow, AppLooks.contentBetween]}>
                     <View>
                         <Text style={[AppLooks.textWhite, AppLooks.fontM,  AppLooks.textXM, AppLooks.paddingSX]}>
-                            {username}
+                            {user_name}
                         </Text>
                         <Text style={[AppLooks.textWhite,  AppLooks.textXS, AppLooks.paddingSX, {maxWidth: "95%"}]}>
-                            (max length 105) psum dolor sit amet con tetur adipisici Lorem ipsum dolor sit amet consectetur adipisi
+                            {user_description}
                         </Text>
                     </View>
                 </View>
@@ -49,9 +51,12 @@ export const ProfileInfo = (props: profileInfo)=>{
                         </View> 
                     </Pressable>
                     <View style={[]}>
-                        <Pressable style={[AppLooks.paddingS, AppLooks.borderS, AppLooks.roundedS, AppLooks.bgBlack, {borderColor: "#f0f0f020"}]}>
+                        <Pressable 
+                            onPress={action}
+                            style={[AppLooks.paddingSY, AppLooks.paddingMX, AppLooks.borderS, AppLooks.roundedS, AppLooks.bgBlack, {borderColor: "#f0f0f020"}]}
+                        >
                             <Text style={[AppLooks.textWhite, AppLooks.textS]}>
-                                Editar perfil
+                                Settings
                             </Text>
                         </Pressable>
                     </View>

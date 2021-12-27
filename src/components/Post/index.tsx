@@ -5,7 +5,6 @@ import { AppLooks } from "@src/shared/styles/AppLooks";
 import { userPlacehold } from "@src/helpers/consts";
 import { AppColors } from "@src/shared/styles/AppResourses";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-//import ImageView from 'react-native-image-view';
 import Lightbox from 'react-native-lightbox-v2';
  
 const Post = ()=>{

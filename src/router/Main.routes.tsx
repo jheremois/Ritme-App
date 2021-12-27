@@ -5,6 +5,9 @@ import AuthRoutes from './Auth.routes';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppRoutes from './App.routes';
 import CreatePost from '@src/screens/CreatePost';
+import { EditProfile } from '@src/screens/EditProfile';
+import SplashScreen from '@src/screens/SplashScreen';
+import Settings from '@src/screens/Settings';
 const Stack = createNativeStackNavigator();
 
 const MyTheme = {
@@ -19,7 +22,10 @@ const MyTheme = {
 function MainRoutes() {
     return (
         <NavigationContainer theme={MyTheme}>
-          <Stack.Navigator initialRouteName="auth" screenOptions={{ headerShown: false }}>
+          <Stack.Navigator initialRouteName="splash" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="splash" component={SplashScreen} />
+            <Stack.Screen name="editProfile" component={EditProfile} />
+            <Stack.Screen name="settings" component={Settings} />
             <Stack.Screen name="auth" component={AuthRoutes} />
             <Stack.Screen name="app" component={AppRoutes} />
             <Stack.Screen name="createPost" component={CreatePost} />
