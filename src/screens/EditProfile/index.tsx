@@ -1,75 +1,90 @@
-import React, { useState, useEffect, useContext } from "react";
-import { View, Text, Image, Dimensions, Pressable, TextInput, KeyboardTypeOptions } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, Image, Dimensions, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import { userPlacehold } from "@src/helpers/consts";
-import { AppColors } from "@src/shared/styles/AppResourses";
 import { Ionicons } from "@expo/vector-icons";
+import { profileType } from "@src/shared/interfaces/user.type";
+import { getCurrentUser } from "@src/services/User.services";
+import { updateMe } from "@src/services/User.services";
+import { FlatInput } from "@src/components/FlatInput";
+import { showToast } from "@src/helpers/consts";
 
-export const EditProfile = ({route}: any)=>{
+export const EditProfile = ({navigation}: any)=>{
 
-    interface props{
-        value: string
-        placeHolder?: string
-        keyboard?: KeyboardTypeOptions
-        validator?: boolean
-        errMsg?: string
-        label?: string
-        onchangetext?: any
-        textarea?: boolean
+    const [user, setUser] = useState<profileType>(
+        {
+            email: "",
+            profile_pic: userPlacehold,
+            user_description: "",
+            user_id: null,
+            user_name: ""
+        }
+    )
+
+    const [validUser, setValidUser] = useState({
+        profile_pic: false,
+        user_description: false,
+        user_name: false
+    })
+
+    const getMe = ()=> getCurrentUser().then((res)=> {
+        console.log("res user-> ", res?.data.response[0])
+        setUser(res?.data.response[0])
+    }).catch((err)=>{
+        console.log("user err ->", err)
+    })
+
+    useEffect(()=>{
+        getMe()
+    }, [])
+
+    const updateUser = ()=>{
+        setValidUser({user_name: user.user_name.length <= 2, user_description: user.user_description.length > 100, profile_pic: false})
+        let data = {
+            profile_pic: user.profile_pic,
+            user_name: user.user_name,
+            user_description: user.user_description
+        }
+        updateMe(data).then((res)=>{
+            showToast("success", "User updated")
+            console.log("update res: ", "User updated")
+            navigation.goBack()
+        }).catch((err)=>{
+            showToast("error", err.response.data)
+        })
     }
 
-    const FlatInput = (props: props)=>{
-        const {placeHolder, value, onchangetext, keyboard, label, textarea} = props
-        return(
-            <View style={[{marginTop: 20}]}>
-                <Text
-                    style={{color:AppColors.white}}
-                >
-                    {label}
-                </Text>
-                <TextInput 
-                    placeholder={placeHolder}
-                    placeholderTextColor={AppColors.whiteLow}
-                    value={value}
-                    multiline={textarea
-                        ?
-                            true
-                        :
-                            false
-                    }
-                    numberOfLines={textarea
-                        ?
-                            2
-                        :
-                            1
-                    }
-                    onChangeText={onchangetext}
-                    keyboardType={keyboard}
-                    style={[
-                        {
-                            textAlignVertical: "top",
-                            width: Dimensions.get("screen").width / 1.2,
-                            borderColor: "#11111100",
-                            borderBottomColor: "#515151"
-                        },
-                        AppLooks.textM,
-                        AppLooks.paddingS,
-                        AppLooks.textWhite,
-                        AppLooks.borderXl
-                    ]}
-                />
-            </View>
-        )
-    }
+    const changeForm = (e: any, field: any) => {
+        setUser({ ...user, [field]: e });
+    };
 
     return(
         <>
-            <View style={[AppLooks.paddingMX, AppLooks.contentBetween, AppLooks.flexRow,AppLooks.bgGray]}>
-                <Pressable>
-                    <Ionicons name={"close-sharp"} color={"white"} size={27}/>
+            <View style={[AppLooks.paddingSX, AppLooks.contentBetween, AppLooks.flexRow,AppLooks.bgGray]}>
+                <Pressable
+                    style={[AppLooks.paddingS]}
+                    onPress={()=>{
+
+                        navigation.goBack()
+                    }}
+                >
+                    <Ionicons name={"close-sharp"} color={"white"} size={29}/>
                 </Pressable>
-                <Pressable>
-                    <Ionicons name={"checkmark"} color={"white"} size={27}/>
+                <Pressable
+                    onPress={()=>{
+                        user.user_name
+                            ?
+                            user.user_name.length > 2
+                                ?
+                                    updateUser()
+                                :
+                                    setValidUser({user_name: user.user_name.length <= 2, user_description: user.user_description.length > 100, profile_pic: false})
+                            :
+                                setValidUser({user_name: user.user_name.length <= 2, user_description: user.user_description.length > 100, profile_pic: false})
+                    }}
+                    style={[AppLooks.paddingS]}
+                >
+                    <Ionicons name={"checkmark"} color={"white"} size={29}/>
                 </Pressable>
             </View>
             <View style={[AppLooks.paddingXl, AppLooks.bgDarkGray, AppLooks.flex]}>
@@ -78,7 +93,7 @@ export const EditProfile = ({route}: any)=>{
                     style={({ pressed }) => [
                         {
                             backgroundColor: pressed
-                                ? `#ffffff10`
+                                ? `#ffffff05`
                                 : "transparent"
                         },
                         AppLooks.alignCenter,
@@ -97,15 +112,21 @@ export const EditProfile = ({route}: any)=>{
                     </Pressable>
                     <View>
                         <FlatInput
-                            value=""
-                            onchangetext={()=> {}}
+                            maxLength={20}
+                            value={user.user_name}
+                            validator={validUser.user_name}
+                            errMsg={"Invalid user name"}
+                            onchangetext={(e: any) => changeForm(e, "user_name")}
                             label="User name"
                             placeHolder="User name"
                             textarea={false}
                         />
                         <FlatInput
-                            value=""
-                            onchangetext={()=> {}}
+                            maxLength={100}
+                            value={user.user_description}
+                            validator={validUser.user_description}
+                            errMsg={"Invalid user description"}
+                            onchangetext={(e: any) => changeForm(e, "user_description")}
                             label="Description"
                             placeHolder="Description"
                             textarea={true}

@@ -44,7 +44,10 @@ const Register = ({navigation}: any)=>{
                 }).catch((error)=> {
                     if (!error.status) {
                         setLoading(false)
-                        console.log("Network error");
+                        alert(error)
+                    }else{
+                        setLoading(false)
+                        alert(error)
                     }
                 });
     }

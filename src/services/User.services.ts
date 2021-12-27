@@ -31,3 +31,28 @@ export const getCurrentUser = async ()=>{
         return null
     }
 }
+
+interface updateMe{
+    user_description: string,
+    user_name: string,
+    profile_pic: string
+}
+
+export const updateMe = async (data: updateMe)=>{
+  try {
+    const jsonValue = await AsyncStorage.getItem('user_data')
+    if(jsonValue != null){
+      return Api.patch("/user", data, {
+        headers: {
+          "user_token": JSON.parse(jsonValue).user_token
+        }
+      })
+    }else{
+      return null
+    }
+  } catch(e) {
+    console.log("un loged");
+    return e
+  }
+
+}

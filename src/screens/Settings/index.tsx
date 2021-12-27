@@ -4,6 +4,7 @@ import { AppLooks } from "@src/shared/styles/AppLooks";
 import { Ionicons } from "@expo/vector-icons";
 import { AppColors } from "@src/shared/styles/AppResourses";
 import { UserContext } from "@src/context/userContext";
+import GoBack from "@src/components/GoBack";
 
 const Settings = ({navigation}: any)=>{
 
@@ -48,6 +49,7 @@ const Settings = ({navigation}: any)=>{
 
     return(
         <View>
+            <GoBack title="Settings"/>
             <View>
                 <Option icon="ios-person-outline" name="Edit Profile" action={()=> navigation.navigate("editProfile")} />
                 <Option icon="ios-exit-outline" name="Logout" action={()=> LogOut()} />
