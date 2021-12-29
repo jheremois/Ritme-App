@@ -21,6 +21,8 @@
     "@types/react-redux": "^7.1.20",
     "axios": "^0.24.0",
     "expo": "~43.0.2",
+    "expo-image-manipulator": "~10.1.2",
+    "expo-image-picker": "~11.0.3",
     "expo-splash-screen": "~0.13.5",
     "expo-status-bar": "~1.1.0",
     "expo-updates": "~0.10.13",

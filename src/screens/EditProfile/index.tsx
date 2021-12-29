@@ -60,7 +60,7 @@ export const EditProfile = ({navigation}: any)=>{
 
     return(
         <>
-            <View style={[AppLooks.paddingSX, AppLooks.contentBetween, AppLooks.flexRow,AppLooks.bgGray]}>
+            <View style={[AppLooks.paddingSX, AppLooks.alignCenter, AppLooks.contentBetween, AppLooks.flexRow,AppLooks.bgGray]}>
                 <Pressable
                     style={[AppLooks.paddingS]}
                     onPress={()=>{
@@ -70,6 +70,11 @@ export const EditProfile = ({navigation}: any)=>{
                 >
                     <Ionicons name={"close-sharp"} color={"white"} size={29}/>
                 </Pressable>
+                <Text
+                    style={[AppLooks.textWhite, AppLooks.fontM, AppLooks.textS]}
+                >
+                    Edit profile
+                </Text>
                 <Pressable
                     onPress={()=>{
                         user.user_name
