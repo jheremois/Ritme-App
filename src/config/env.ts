@@ -12,6 +12,6 @@ const envDev: envTypes = {
     userServicePort: "https://ritme-users-service-ub3mx35oqq-nn.a.run.app"
 }
 
-const env = envDev
+const env = envLocal
 
 export default env

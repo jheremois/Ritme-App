@@ -35,7 +35,7 @@ export const getCurrentUser = async ()=>{
 interface updateMe{
     user_description: string,
     user_name: string,
-    profile_pic: string
+    profile_pic: string | null
 }
 
 export const updateMe = async (data: updateMe)=>{

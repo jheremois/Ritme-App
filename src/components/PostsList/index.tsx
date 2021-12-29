@@ -20,7 +20,7 @@ function PostsList({ data, header, fixed, actions, TopHead, atScroll, messageEmp
         <Post 
             profile_pic={checkImage(item.profile_pic)}
             user_name={item.user_name}
-            post_image={checkImage(item.post_image)}
+            post_image={{uri: item.post_image}}
             post_tag={item.post_tag}
             post_description={item.post_description}
         />

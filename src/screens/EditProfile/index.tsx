@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, Dimensions, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
-import { userPlacehold } from "@src/helpers/consts";
+import { PlaceholdImg, userPlacehold } from "@src/helpers/consts";
 import { Ionicons } from "@expo/vector-icons";
 import { profileType } from "@src/shared/interfaces/user.type";
 import { getCurrentUser } from "@src/services/User.services";
 import { updateMe } from "@src/services/User.services";
 import { FlatInput } from "@src/components/FlatInput";
 import { showToast } from "@src/helpers/consts";
+import { pickImage } from "@src/helpers/ImageUplader";
 
 export const EditProfile = ({navigation}: any)=>{
 
     const [user, setUser] = useState<profileType>(
         {
             email: "",
-            profile_pic: userPlacehold,
+            profile_pic: "",
             user_description: "",
             user_id: null,
             user_name: ""
@@ -34,6 +35,24 @@ export const EditProfile = ({navigation}: any)=>{
         console.log("user err ->", err)
     })
 
+    async function upImage() {
+        const post_image = await pickImage();
+    
+        setUser({ ...user, profile_pic: post_image })
+    
+    }
+    
+    const checkImage = (img: string | null) => {
+
+        console.log("img: ", img)
+
+        if (img == null || img.length < 10) {
+            return PlaceholdImg
+        }
+        return { uri: img }
+    
+    }
+
     useEffect(()=>{
         getMe()
     }, [])
@@ -50,6 +69,7 @@ export const EditProfile = ({navigation}: any)=>{
             console.log("update res: ", "User updated")
             navigation.goBack()
         }).catch((err)=>{
+            console.log(err.response.data);
             showToast("error", err.response.data)
         })
     }
@@ -95,6 +115,9 @@ export const EditProfile = ({navigation}: any)=>{
             <View style={[AppLooks.paddingXl, AppLooks.bgDarkGray, AppLooks.flex]}>
                 <View style={[AppLooks.alignCenter, AppLooks.paddingMBot]}>
                     <Pressable 
+                    onPress={()=>{
+                        upImage()
+                    }}
                     style={({ pressed }) => [
                         {
                             backgroundColor: pressed
@@ -106,7 +129,8 @@ export const EditProfile = ({navigation}: any)=>{
                     ]}
                     >
                         <Image 
-                            source={userPlacehold}
+                            source={checkImage(user.profile_pic)}
+                            resizeMode="cover"
                             style={[{marginRight: 10, width: Dimensions.get("screen").width / 3.4, height: Dimensions.get("screen").width / 3.4}]}
                         />
                         <View style={[AppLooks.marginMTop]}>
