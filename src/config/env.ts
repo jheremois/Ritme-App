@@ -8,9 +8,10 @@ const envLocal: envTypes = {
 }
 
 const envDev: envTypes = {
-    authServicePort: "https://ritme-server-ub3mx35oqq-uc.a.run.app/"
+    authServicePort: "https://ritme-auth-service-ub3mx35oqq-uc.a.run.app",
+    userServicePort: "https://ritme-users-service-ub3mx35oqq-nn.a.run.app"
 }
 
-const env = envLocal
+const env = envDev
 
 export default env

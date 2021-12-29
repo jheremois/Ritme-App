@@ -97,8 +97,8 @@ const Explore = ()=>{
   
     return(
         <>
-            <InnerNav/> 
-            <View style={{paddingBottom: 42}}>
+            {/* <InnerNav/>  */}
+            <View style={{paddingBottom: 0}}>
                 <PostsList
                     data={feed}
                     state={isFetching}

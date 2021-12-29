@@ -8,6 +8,7 @@ import Header from '@src/components/Header';
 import Profile from '@src/screens/Profile';
 import { AppLooks } from '@src/shared/styles/AppLooks';
 import CreatePost from '@src/screens/CreatePost';
+import FeedRoutes from '@router/Feed.routes';
 
 const icons: any = ["home", "add","person"];
 const getTemplateIcon = (focused: boolean, pos: number) => {
@@ -59,7 +60,7 @@ function AppRoutes({navigation}: any) {
                     tabBarInactiveBackgroundColor: 'f0f0f880', 
                 }}
             >
-                <Tap.Screen name="Home" component={Explore} options={setIcons(0)} />
+                <Tap.Screen name="Home" component={FeedRoutes} options={setIcons(0)} />
                 <Tap.Screen name="create" component={CreatePost} 
                     options={{
                         tabBarIcon: ({poprs}: any)=>(
