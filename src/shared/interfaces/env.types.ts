@@ -1,4 +1,5 @@
 export interface envTypes {
-    environment: string;
-    baseUrl: string;
+    baseUrl?:            string
+    userServicePort?:    string
+    authServicePort?:    string
 }

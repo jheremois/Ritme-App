@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import InnerNav from "@src/components/InnerNav";
 import { View, Text, Image, Dimensions, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
-import { userPlacehold } from "@src/helpers/consts";
 import { AppColors } from "@src/shared/styles/AppResourses";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Lightbox from 'react-native-lightbox-v2';
  
-const Post = ()=>{
+const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, vote }: any)=>{
 
     return(
         <>
             <View style={[AppLooks.marginM, AppLooks.roundedM, AppLooks.bgDarkGray, AppLooks.borderS, {borderColor: "#f0f0f010"}]}>
                 <View style={[AppLooks.paddingS, AppLooks.roundedM, AppLooks.bgDarkGray, {paddingBottom: 0}]}>
                     <View style={[AppLooks.flexRow]}>
-                        <Pressable onPress={()=> {}}>
+                        <Pressable  
+                            onPress={()=> {}}
+                        >
                             <Image 
-                                source={userPlacehold} 
+                                source={profile_pic} 
                                 style={[
+                                    AppLooks.rounded,
                                     {
                                         height: Dimensions.get("screen").width / 9,
                                         width: Dimensions.get("screen").width / 9
@@ -27,25 +28,29 @@ const Post = ()=>{
                         </Pressable>
                         <View style={[AppLooks.alignStart, AppLooks.paddingMX]}>
                             <Text style={[AppLooks.textWhite, AppLooks.fontXl, AppLooks.textS]}>
-                                Jheremy Castro
+                                {user_name}
                             </Text>
                             <View style={[AppLooks.rounded, AppLooks.alignCenter]}>
                                 <Text style={[AppLooks.textWhite, AppLooks.fontXl, AppLooks.textXS]}>
-                                    Etiqueta
+                                    {post_tag}
                                 </Text>
                             </View>
                         </View>
                     </View>
                     <View style={[AppLooks.paddingS]}>
                         <Text style={[AppLooks.textWhite, AppLooks.textXS]}>
-                            Descripcion
+                            {post_description}
                         </Text>
                     </View>
                 </View>
                 <View>
-                    <Lightbox>
+                    <Lightbox
+                        onLongPress={()=>{
+                            console.log("Descargar");
+                        }}
+                    >
                         <Image 
-                            source={{}} 
+                            source={post_image} 
                             style={[
                                 {
                                     backgroundColor: AppColors.whiteLow,
@@ -58,8 +63,20 @@ const Post = ()=>{
                 </View>
                 <View style={[AppLooks.alignCenter, AppLooks.flexRow, AppLooks.contentBetween]}>
                     <Pressable 
-                        style={[
-                            AppLooks.w50,
+                        style={({ pressed }) =>[
+                            pressed
+                                ?
+                                    {
+                                        backgroundColor: AppColors.gray
+                                    }
+                                :
+                                    {
+                                        backgroundColor: AppColors.darkGray
+                                    },
+                            {
+                                width: "50%",
+                                borderBottomLeftRadius: 10,
+                            },
                             AppLooks.alignCenter,
                             AppLooks.contentCenter,
                             AppLooks.paddingM
@@ -68,13 +85,31 @@ const Post = ()=>{
                         <MaterialCommunityIcons name="arrow-up-bold-outline" size={25} color={AppColors.white}/>
                     </Pressable>
                     <Pressable 
-                        style={[
-                            AppLooks.w50,
+                        style={({ pressed }) =>[
+                            pressed
+                                ?
+                                    {
+                                        backgroundColor: AppColors.gray
+                                    }
+                                :
+                                    {
+                                        backgroundColor: AppColors.darkGray
+                                    },
+                            {
+                                width: "50%",
+                                borderBottomRightRadius: 10,
+                            },
                             AppLooks.alignCenter,
                             AppLooks.contentCenter,
-                            AppLooks.paddingMY
+                            AppLooks.paddingM,
+                            AppLooks.flexRow,
                         ]}
                     >
+                       {/*  <Text
+                            style={[AppLooks.textWhite, AppLooks.marginSX, AppLooks.fontM]}
+                        >
+                            90%
+                        </Text> */}
                         <MaterialCommunityIcons name="arrow-down-bold-outline" size={25} color={AppColors.white}/>
                     </Pressable>
                 </View>

@@ -4,7 +4,7 @@ import AuthInput from "@components/AuthInput";
 import { AppLooks as al } from "@src/shared/styles/AppLooks";
 import FormButton from "@src/components/FormButton";
 import { AppColors } from "@src/shared/styles/AppResourses";
-import { emailRegex, fullLogo } from "@src/helpers/consts";
+import { emailRegex, fullLogo, showToast } from "@src/helpers/consts";
 import { formUserType } from "@src/shared/interfaces/user.type";
 import { RegisterUser } from "@src/services/Auth.services";
 
@@ -44,10 +44,13 @@ const Register = ({navigation}: any)=>{
                 }).catch((error)=> {
                     if (!error.status) {
                         setLoading(false)
-                        alert(error)
+                        showToast("error", error.response.data.errMessage)
+                        console.log(error.response.data);
+                        
                     }else{
                         setLoading(false)
-                        alert(error)
+                        console.log(error.response.data);
+                        showToast("error", error.response.data.errMessage)
                     }
                 });
     }

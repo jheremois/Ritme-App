@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Pressable, Text, View, Image, Dimensions, ActivityIndicator } from "react-native";
+import { View, Image, Dimensions, ActivityIndicator } from "react-native";
 import { getCurrentUser } from "@src/services/User.services";
-import { smallLogo, fullLogo } from "@src/helpers/consts";
+import { fullLogo } from "@src/helpers/consts";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import { AppColors } from "@src/shared/styles/AppResourses";
 

@@ -22,7 +22,7 @@ export const ProfileInfo = (props: profileInfo)=>{
                         <Text style={[AppLooks.textWhite, AppLooks.fontM,  AppLooks.textXM, AppLooks.paddingSX]}>
                             {user_name}
                         </Text>
-                        <Text style={[AppLooks.textWhite,  AppLooks.textXS, AppLooks.paddingSX, {maxWidth: "95%"}]}>
+                        <Text style={[AppLooks.textWhite, AppLooks.textXS, AppLooks.paddingSX, {width: Dimensions.get("screen").width / 1.58}]}>
                             {user_description}
                         </Text>
                     </View>

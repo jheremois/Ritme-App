@@ -1,9 +1,9 @@
-import { Api } from "./Api";
+import { users } from "./services";
 import { AxiosRequestHeaders } from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const getUsers = (token: AxiosRequestHeaders)=>{
-    return Api.get("/users", {
+    return users.get("/users", {
         headers: token
       })
       .then((response) => {
@@ -18,7 +18,7 @@ export const getCurrentUser = async ()=>{
     try {
         const jsonValue = await AsyncStorage.getItem('user_data')
         if(jsonValue != null){
-            return Api.get("/user", {
+            return users.get("/user", {
                 headers: {
                     "user_token": JSON.parse(jsonValue).user_token
                 }
@@ -42,7 +42,7 @@ export const updateMe = async (data: updateMe)=>{
   try {
     const jsonValue = await AsyncStorage.getItem('user_data')
     if(jsonValue != null){
-      return Api.patch("/user", data, {
+      return users.patch("/user", data, {
         headers: {
           "user_token": JSON.parse(jsonValue).user_token
         }

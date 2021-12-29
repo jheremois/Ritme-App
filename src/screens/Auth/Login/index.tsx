@@ -8,6 +8,7 @@ import { emailRegex, fullLogo } from "@src/helpers/consts";
 import { loginUserType } from "@src/shared/interfaces/user.type";
 import { loginUser } from "@src/services/Auth.services";
 import { UserContext } from "@src/context/userContext";
+import { showToast } from "@src/helpers/consts";
 
 const Login = ({navigation}: any)=>{
 
@@ -37,13 +38,13 @@ const Login = ({navigation}: any)=>{
                 await setLoading(false)
                 navigation.replace("splash")
             } catch (e) {
-                alert(e)
+                showToast("error", "Error trying to authenticate")
                 console.log(e);
                 await setLoading(false)
             }
         }).catch(async (err)=>{
-            alert(err)
-            console.log(err)
+            showToast("error", err.response.data.errMessage)
+            console.log(err.response.data)
             await setLoading(false)
         })
     }
