@@ -74,7 +74,7 @@ const Register = ({navigation}: any)=>{
                             validator={inValidForm.user_name}
                             placeHolder="My user_name"
                             label="User name"
-                            keyboard={"name-phone-pad"} 
+                            keyboard={"default"} 
                         />
                     </View>
                     <View style={[al.paddingS]}>
@@ -91,6 +91,7 @@ const Register = ({navigation}: any)=>{
                     </View>
                     <View style={[al.paddingS]}>
                         <AuthInput 
+                            visible={true}
                             dark={true}
                             value={form.password}
                             onchangetext={(e: any) => changeForm(e, "password")}
@@ -98,7 +99,7 @@ const Register = ({navigation}: any)=>{
                             validator={inValidForm.password}
                             placeHolder="Private password..."
                             label="Password"
-                            keyboard={"visible-password"} 
+                            keyboard={"ascii-capable"} 
                         />
                     </View>
                     <View style={[al.paddingS, al.marginMTop]}>

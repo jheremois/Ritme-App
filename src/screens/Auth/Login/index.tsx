@@ -81,7 +81,8 @@ const Login = ({navigation}: any)=>{
                         />
                     </View>
                     <View style={[al.paddingS]}>
-                        <AuthInput 
+                        <AuthInput
+                            visible={true}
                             dark={true}
                             value={form.password}
                             onchangetext={(e: any) => changeForm(e, "password")}
@@ -89,7 +90,7 @@ const Login = ({navigation}: any)=>{
                             validator={inValidForm.password}
                             placeHolder="Private password..."
                             label="Password"
-                            keyboard={"visible-password"} 
+                            keyboard={"default"} 
                         />
                     </View>
                 </View>
