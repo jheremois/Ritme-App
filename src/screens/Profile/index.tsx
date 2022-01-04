@@ -5,9 +5,6 @@ import { ProfileInfo } from "@src/components/ProfileInfo";
 import { getCurrentUser } from "@src/services/User.services";
 import { profileType } from "@src/shared/interfaces/user.type";
 import PostsList from "@src/components/PostsList";
-import { Instagram } from "react-content-loader/native";
-import {  Instagram as Lol } from "react-content-loader";
-import PostLoader from "@src/components/PostLoader";
 import ProfileLoader from "@src/components/ProfileLoader";
 
 const Profile = ({navigation}: any)=>{
@@ -15,7 +12,7 @@ const Profile = ({navigation}: any)=>{
   const [username, setUsername] = useState<profileType>(
     {
       email: "",
-      profile_pic: userPlacehold,
+      profile_pic: null,
       user_description: "",
       user_id: null,
       user_name: ""
@@ -89,18 +86,18 @@ const Profile = ({navigation}: any)=>{
                 {
                   isFetching
                     ?
-                    <View>
-                        <View style={{alignItems: "center", width: "100%"}}>
-                            <View style={{maxWidth: Dimensions.get("screen").width, overflow: "hidden"}}>
-                                <ProfileLoader/>
-                            </View>
-                        </View>
-                    </View>
+                      <View>
+                          <View style={{alignItems: "center", width: "100%"}}>
+                              <View style={{maxWidth: Dimensions.get("screen").width, overflow: "hidden"}}>
+                                  <ProfileLoader/>
+                              </View>
+                          </View>
+                      </View>
                     :
                       <ProfileInfo 
                         user_name={username.user_name}
                         user_description={username.user_description}
-                        profile_pic={userPlacehold}
+                        profile_pic={username.profile_pic}
                         action={()=> navigation.navigate("settings")} 
                       />
                   }

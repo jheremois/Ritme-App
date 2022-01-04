@@ -1,3 +1,4 @@
+src/config/env.ts
 node_modules/
 .expo/
 dist/

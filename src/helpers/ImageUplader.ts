@@ -1,5 +1,15 @@
 import * as ImagePicker from "expo-image-picker";
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
+import { PlaceholdImg } from "./consts";
+
+export const checkImage = (img: string | null) => {
+
+    if (img !== null) {
+        return {uri: img}
+    }
+    return PlaceholdImg
+
+}
 
 export async function CompressImage(uri: string) {
     const manipResult = await manipulateAsync(

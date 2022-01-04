@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, Dimensions, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
-import { PlaceholdImg, userPlacehold } from "@src/helpers/consts";
 import { Ionicons } from "@expo/vector-icons";
 import { profileType } from "@src/shared/interfaces/user.type";
 import { getCurrentUser } from "@src/services/User.services";
 import { updateMe } from "@src/services/User.services";
 import { FlatInput } from "@src/components/FlatInput";
 import { showToast } from "@src/helpers/consts";
-import { pickImage } from "@src/helpers/ImageUplader";
+import { checkImage, pickImage } from "@src/helpers/ImageUplader";
 
 export const EditProfile = ({navigation}: any)=>{
 
     const [user, setUser] = useState<profileType>(
         {
             email: "",
-            profile_pic: "",
+            profile_pic: null,
             user_description: "",
             user_id: null,
             user_name: ""
@@ -30,7 +29,15 @@ export const EditProfile = ({navigation}: any)=>{
 
     const getMe = ()=> getCurrentUser().then((res)=> {
         console.log("res user-> ", res?.data.response[0])
-        setUser(res?.data.response[0])
+        setUser(
+            {
+                user_description: res?.data.response[0].user_description,
+                email: res?.data.response[0].email,
+                profile_pic: res?.data.response[0].profile_pic,
+                user_id: res?.data.response[0].user_id,
+                user_name: res?.data.response[0].user_name,
+            }
+        )
     }).catch((err)=>{
         console.log("user err ->", err)
     })
@@ -41,24 +48,13 @@ export const EditProfile = ({navigation}: any)=>{
         setUser({ ...user, profile_pic: post_image })
     
     }
-    
-    const checkImage = (img: string | null) => {
-
-        console.log("img: ", img)
-
-        if (img == null || img.length < 10) {
-            return PlaceholdImg
-        }
-        return { uri: img }
-    
-    }
 
     useEffect(()=>{
         getMe()
     }, [])
 
     const updateUser = ()=>{
-        setValidUser({user_name: user.user_name.length <= 2, user_description: user.user_description.length > 100, profile_pic: false})
+        setValidUser({user_name: user.user_name.length <= 2, user_description: false, profile_pic: false})
         let data = {
             profile_pic: user.profile_pic,
             user_name: user.user_name,
@@ -103,9 +99,9 @@ export const EditProfile = ({navigation}: any)=>{
                                 ?
                                     updateUser()
                                 :
-                                    setValidUser({user_name: user.user_name.length <= 2, user_description: user.user_description.length > 100, profile_pic: false})
+                                    setValidUser({user_name: user.user_name.length <= 2, user_description: false, profile_pic: false})
                             :
-                                setValidUser({user_name: user.user_name.length <= 2, user_description: user.user_description.length > 100, profile_pic: false})
+                                setValidUser({user_name: user.user_name.length <= 2, user_description: false, profile_pic: false})
                     }}
                     style={[AppLooks.paddingS]}
                 >
@@ -131,7 +127,7 @@ export const EditProfile = ({navigation}: any)=>{
                         <Image 
                             source={checkImage(user.profile_pic)}
                             resizeMode="cover"
-                            style={[{marginRight: 10, width: Dimensions.get("screen").width / 3.4, height: Dimensions.get("screen").width / 3.4}]}
+                            style={[AppLooks.rounded, {marginRight: 10, width: Dimensions.get("screen").width / 3.4, height: Dimensions.get("screen").width / 3.4}]}
                         />
                         <View style={[AppLooks.marginMTop]}>
                             <Text style={[AppLooks.textM, AppLooks.textWhite]}>
@@ -151,7 +147,7 @@ export const EditProfile = ({navigation}: any)=>{
                             textarea={false}
                         />
                         <FlatInput
-                            maxLength={100}
+                            maxLength={900}
                             value={user.user_description}
                             validator={validUser.user_description}
                             errMsg={"Invalid user description"}

@@ -8,3 +8,7 @@ export const auth =  axios.create({
 export const users =  axios.create({
     baseURL: `${env.userServicePort}/api/`
 })
+
+export const posts =  axios.create({
+    baseURL: `${env.postsServicePort}/api/`
+})

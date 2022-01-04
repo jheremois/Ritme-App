@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, Text, Image, Dimensions, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
+import { checkImage } from "@src/helpers/ImageUplader";
+import { PlaceholdImg } from "@src/helpers/consts";
 
 interface profileInfo{
     user_name: string
@@ -16,7 +18,9 @@ export const ProfileInfo = (props: profileInfo)=>{
     return(
         <View style={[AppLooks.paddingXl, AppLooks.bgDarkGray]}>
             <View style={[AppLooks.flexRow, AppLooks.alignCenter, AppLooks.paddingMBot]}>
-                <Image source={profile_pic} style={[{marginRight: 10, height: Dimensions.get("screen").width / 4.4, width: Dimensions.get("screen").width / 4.4}]}/>
+                <Image 
+                    source={checkImage(profile_pic)} 
+                    style={[AppLooks.rounded, {marginRight: 10, height: Dimensions.get("screen").width / 4.4, width: Dimensions.get("screen").width / 4.4}]}/>
                 <View style={[AppLooks.flexRow, AppLooks.contentBetween]}>
                     <View>
                         <Text style={[AppLooks.textWhite, AppLooks.fontM,  AppLooks.textXM, AppLooks.paddingSX]}>
@@ -30,32 +34,12 @@ export const ProfileInfo = (props: profileInfo)=>{
             </View>
             <View>
                 <View style={[AppLooks.flexRow, AppLooks.paddingS, AppLooks.contentBetween, AppLooks.alignCenter]}>
-                    <Pressable style={[AppLooks.marginXlRi]}>
-                        <View style={[AppLooks.alignCenter]}>
-                            <Text style={[AppLooks.textM, AppLooks.fontM, AppLooks.textWhite]}>
-                                50k
-                            </Text>
-                            <Text style={[AppLooks.textS, AppLooks.textWhite]}>
-                                Seguidores
-                            </Text>
-                        </View> 
-                    </Pressable>
-                    <Pressable>
-                        <View style={[AppLooks.alignCenter]}>
-                            <Text style={[AppLooks.textM, AppLooks.fontM, AppLooks.textWhite]}>
-                                500
-                            </Text>
-                            <Text style={[AppLooks.textS, AppLooks.textWhite]}>
-                                Seguidos
-                            </Text>
-                        </View> 
-                    </Pressable>
-                    <View style={[]}>
+                    <View style={[AppLooks.wFull]}>
                         <Pressable 
                             onPress={action}
                             style={[AppLooks.paddingSY, AppLooks.paddingMX, AppLooks.borderS, AppLooks.roundedS, AppLooks.bgBlack, {borderColor: "#f0f0f020"}]}
                         >
-                            <Text style={[AppLooks.textWhite, AppLooks.textS]}>
+                            <Text style={[AppLooks.textWhite, AppLooks.textS, AppLooks.textCenter]}>
                                 Settings
                             </Text>
                         </Pressable>
