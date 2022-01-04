@@ -4,10 +4,21 @@ import { View, Text, FlatList } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import { UserContext } from "@src/context/userContext";
 import PostsList from "@src/components/PostsList";
+import { postType } from "@src/shared/interfaces/posts.type";
+import { getPosts } from "@src/services/Posts.services";
 
 const Explore = ()=>{
 
     const [isFetching, setIsFetching] = useState(false);
+    const [posts, setPosts] = useState<postType[]>([
+        {
+            post_description: "La para 01",
+            post_image: "https://lh3.googleusercontent.com/pXGlOyBba25bIdBx6IyETSZvu0u5F4oW-vRC41RuF270L_sX7rxnlgDjeCy3saY-Q_euVweABXs8T8RQIkcd3Jlia0p0m9DbcM9W5h6mwwHtoUT9nbEgb-7ayuPU1ak41ciPI5M5YWZfJD5NL9f04DuNUEbCNJzDD7VnMbbt_xhG29TEMgjThvDXfTyptfM4A0V8io8-5AyGdnvFm-p6pI88fRofwqs3aRiG-qYMLzYhhMsT5Wzq2gEkwesSJotz5fmwO08TY1V9IxxuDgCto_fPmGJ7JqtErillRK7ejLk5MZ9i-bXnyCrjjPLXRu9dvj3KeZa3-4njRAgbopDnM03kTEy5TKne8n0SNjtSN736ok8fHjMN7Ezc0cCrUBhwoxYYdM9s4vJLFQeNTOaYktls4BJbestW03k51MFJ3HF9DK0Rghsvoz2Lb_MTF8A5fQbsNLYqeHZJMyQsE2mWX1zCfUQwELRhAjL8PC81mkLwgDDyukXhy3J2EvBOYZWN99axJN6yTGiVdI_lP7XfuNHPNhX-xkANVPPT5oPZ0UdrK1wuBJos4PpXKFGJSZuaJg4eMsKA8ciu-0orbM7FqNJn70NA9ycyld9mTONsdzeJvSyRt1RUXQMASAd3mUx5eYPxU3JvwA2qb2e6O-MRqD7Yih35O0_wXdPRx_lj26Kchw5qN7F7A_UhwIPxowjOxW_hwhs2Ow5-iS5ilQ=w1050-h882-no?authuser=0",
+            post_tag: "video",
+            upload_time: "2022-01-02T20:49:09.000Z",
+            user_id: 1,
+        }
+    ])
 
     const onRefresh = async () => {
         await setIsFetching(true);
@@ -17,50 +28,24 @@ const Explore = ()=>{
     };
 
     const loadPosts = async()=>{
-        
+        getPosts().then((res)=>{
+            console.log(res.data);
+            //setPosts(res.data)
+        }).catch((err)=>{
+            console.log(err);
+        })
     }
 
     useEffect(()=>{
         loadPosts()
-    })
+    }, [])
 
-    const feed  = [
-        {
-            profile_pic: null,
-            user_name: "juan",
-            post_image: "https://lh3.googleusercontent.com/YTAlbutuhERJtM4eeoRCw6v3Eqen_460tV68l-Ll4yWUg_v5NmDZOBsGo1SAaDpjBva9aMpuwJUUpCnlJQ6kKg3EWmJO3mF_RflJ9M2cM83CIfHZJP6h5HfTTDyqEaeTDbyHjPmy4VhwxT8K5vVNSXysz_fZZ62N6d62EgANsm6ktD6zyQFDwTZ5A6jHxAUEyk1JMebgQpWCCPYRs58aOViHIss4n9HQ9zkM7804qaWjZy8l1Abd4u3ZpAYzL51rb1FMOcFXdV-XZzV-SEj56uYRUSJSNlJ6JI9_2kqojEUt34Il6h6MoJCSoja7DH62Hp50HD3lQxjwTMVp7oLfZXB3rOudenuhJOsN_IrBHvNWW7xDdnURQhXz2zVUO3kW7vRtmiCP7R7T2w5Czgjo8P40Q8s1O26NDtFeRkvuSPbVeUzR2aQ0wp1wCbkvPS2jOHx_2uf5_TyjX0WDytw7RcztFh2UbTbHULKyxIEn3EhFOQ6wmqg4KmVBUvt8S89nBYW3FKDzPd1x8TaNqgl0V-xMTT21KG5MbBigE3H6hpnSvoOwaokWcDorTTKwoIUPKVUGRc3_YEKzCwyy1evhtYXSnYKKAvBzg2Q_vYoXHA05US7WRAnfX0B2F0a4Eg40C_bBWaETXTQBHT0ozur2PLx9U_uoxMt-qIgNyHWW32qp3Qakdb1-xjDFwjU1zQM5yUe7XIP4NhtBKsMxTA=w720-h540-no?authuser=0",
-            post_tag: "Code",
-            post_description: "Jajajajaj la para 01",
-        },
-        {
-            profile_pic: null,
-            user_name: "juan",
-            post_image: "https://lh3.googleusercontent.com/YTAlbutuhERJtM4eeoRCw6v3Eqen_460tV68l-Ll4yWUg_v5NmDZOBsGo1SAaDpjBva9aMpuwJUUpCnlJQ6kKg3EWmJO3mF_RflJ9M2cM83CIfHZJP6h5HfTTDyqEaeTDbyHjPmy4VhwxT8K5vVNSXysz_fZZ62N6d62EgANsm6ktD6zyQFDwTZ5A6jHxAUEyk1JMebgQpWCCPYRs58aOViHIss4n9HQ9zkM7804qaWjZy8l1Abd4u3ZpAYzL51rb1FMOcFXdV-XZzV-SEj56uYRUSJSNlJ6JI9_2kqojEUt34Il6h6MoJCSoja7DH62Hp50HD3lQxjwTMVp7oLfZXB3rOudenuhJOsN_IrBHvNWW7xDdnURQhXz2zVUO3kW7vRtmiCP7R7T2w5Czgjo8P40Q8s1O26NDtFeRkvuSPbVeUzR2aQ0wp1wCbkvPS2jOHx_2uf5_TyjX0WDytw7RcztFh2UbTbHULKyxIEn3EhFOQ6wmqg4KmVBUvt8S89nBYW3FKDzPd1x8TaNqgl0V-xMTT21KG5MbBigE3H6hpnSvoOwaokWcDorTTKwoIUPKVUGRc3_YEKzCwyy1evhtYXSnYKKAvBzg2Q_vYoXHA05US7WRAnfX0B2F0a4Eg40C_bBWaETXTQBHT0ozur2PLx9U_uoxMt-qIgNyHWW32qp3Qakdb1-xjDFwjU1zQM5yUe7XIP4NhtBKsMxTA=w720-h540-no?authuser=0",
-            post_tag: "Code",
-            post_description: "Jajajajaj la para 01",
-        },
-        {
-            profile_pic: null,
-            user_name: "juan",
-            post_image: "https://lh3.googleusercontent.com/YTAlbutuhERJtM4eeoRCw6v3Eqen_460tV68l-Ll4yWUg_v5NmDZOBsGo1SAaDpjBva9aMpuwJUUpCnlJQ6kKg3EWmJO3mF_RflJ9M2cM83CIfHZJP6h5HfTTDyqEaeTDbyHjPmy4VhwxT8K5vVNSXysz_fZZ62N6d62EgANsm6ktD6zyQFDwTZ5A6jHxAUEyk1JMebgQpWCCPYRs58aOViHIss4n9HQ9zkM7804qaWjZy8l1Abd4u3ZpAYzL51rb1FMOcFXdV-XZzV-SEj56uYRUSJSNlJ6JI9_2kqojEUt34Il6h6MoJCSoja7DH62Hp50HD3lQxjwTMVp7oLfZXB3rOudenuhJOsN_IrBHvNWW7xDdnURQhXz2zVUO3kW7vRtmiCP7R7T2w5Czgjo8P40Q8s1O26NDtFeRkvuSPbVeUzR2aQ0wp1wCbkvPS2jOHx_2uf5_TyjX0WDytw7RcztFh2UbTbHULKyxIEn3EhFOQ6wmqg4KmVBUvt8S89nBYW3FKDzPd1x8TaNqgl0V-xMTT21KG5MbBigE3H6hpnSvoOwaokWcDorTTKwoIUPKVUGRc3_YEKzCwyy1evhtYXSnYKKAvBzg2Q_vYoXHA05US7WRAnfX0B2F0a4Eg40C_bBWaETXTQBHT0ozur2PLx9U_uoxMt-qIgNyHWW32qp3Qakdb1-xjDFwjU1zQM5yUe7XIP4NhtBKsMxTA=w720-h540-no?authuser=0",
-            post_tag: "Code",
-            post_description: "Jajajajaj la para 01",
-        },
-        {
-            profile_pic: null,
-            user_name: "juan",
-            post_image: "https://lh3.googleusercontent.com/YTAlbutuhERJtM4eeoRCw6v3Eqen_460tV68l-Ll4yWUg_v5NmDZOBsGo1SAaDpjBva9aMpuwJUUpCnlJQ6kKg3EWmJO3mF_RflJ9M2cM83CIfHZJP6h5HfTTDyqEaeTDbyHjPmy4VhwxT8K5vVNSXysz_fZZ62N6d62EgANsm6ktD6zyQFDwTZ5A6jHxAUEyk1JMebgQpWCCPYRs58aOViHIss4n9HQ9zkM7804qaWjZy8l1Abd4u3ZpAYzL51rb1FMOcFXdV-XZzV-SEj56uYRUSJSNlJ6JI9_2kqojEUt34Il6h6MoJCSoja7DH62Hp50HD3lQxjwTMVp7oLfZXB3rOudenuhJOsN_IrBHvNWW7xDdnURQhXz2zVUO3kW7vRtmiCP7R7T2w5Czgjo8P40Q8s1O26NDtFeRkvuSPbVeUzR2aQ0wp1wCbkvPS2jOHx_2uf5_TyjX0WDytw7RcztFh2UbTbHULKyxIEn3EhFOQ6wmqg4KmVBUvt8S89nBYW3FKDzPd1x8TaNqgl0V-xMTT21KG5MbBigE3H6hpnSvoOwaokWcDorTTKwoIUPKVUGRc3_YEKzCwyy1evhtYXSnYKKAvBzg2Q_vYoXHA05US7WRAnfX0B2F0a4Eg40C_bBWaETXTQBHT0ozur2PLx9U_uoxMt-qIgNyHWW32qp3Qakdb1-xjDFwjU1zQM5yUe7XIP4NhtBKsMxTA=w720-h540-no?authuser=0",
-            post_tag: "Code",
-            post_description: "Jajajajaj la para 01",
-        },
-    ]
-  
     return(
         <>
             {/* <InnerNav/>  */}
             <View style={{paddingBottom: 0}}>
                 <PostsList
-                    data={feed}
+                    data={posts}
                     state={isFetching}
                     refFunc={onRefresh}
                     /* 

@@ -19,7 +19,7 @@ interface props{
 
 const AuthInput = (props: props)=>{
 
-    const [visiblePswrd, setVisiblePswrd] = useState(false)
+    const [visiblePswrd, setVisiblePswrd] = useState(true)
 
     const {value, placeHolder, keyboard, validator, errMsg, label, dark, onchangetext, visible} = props
 
@@ -81,7 +81,7 @@ const AuthInput = (props: props)=>{
                                 "eye"
                                 :
                                 "eye-off"
-                            } size={25} color={"#f0f0f0"} />
+                            } size={25} color={"#f0f0f080"} />
                         </Pressable>
                     :
                         null

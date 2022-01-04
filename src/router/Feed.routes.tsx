@@ -3,6 +3,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Explore from '@src/screens/Home/Explore';
 import { AppLooks } from '@src/shared/styles/AppLooks';
 import { AppColors } from '@src/shared/styles/AppResourses';
+import Trending from '@src/screens/Home/Trending';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -23,7 +24,7 @@ const FeedRoutes = () => {
         
     />
     <Tab.Screen 
-        name="trending" component={Explore}
+        name="trending" component={Trending}
     />
     </Tab.Navigator>
   );

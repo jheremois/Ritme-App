@@ -4,15 +4,7 @@ import { Image, Pressable, Text, FlatList, View, Dimensions } from 'react-native
 import { userPlacehold } from '@src/helpers/consts';
 import Post from '@components/Post';
 import PostLoader from '../PostLoader';
-
-export const checkImage = (img: string | any) => {
-
-    if (img == null) {
-        return userPlacehold
-    }
-    return { uri: img }
-
-}
+import { checkImage } from '@src/helpers/ImageUplader';
 
 function PostsList({ data, header, fixed, actions, TopHead, atScroll, messageEmpy, refFunc, state }: any) {
 
@@ -20,7 +12,7 @@ function PostsList({ data, header, fixed, actions, TopHead, atScroll, messageEmp
         <Post 
             profile_pic={checkImage(item.profile_pic)}
             user_name={item.user_name}
-            post_image={{uri: item.post_image}}
+            post_image={item.post_image}
             post_tag={item.post_tag}
             post_description={item.post_description}
         />
