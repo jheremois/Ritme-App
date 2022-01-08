@@ -4,7 +4,7 @@ import { AppLooks } from "@src/shared/styles/AppLooks";
 import { FlatInput } from "@src/components/FlatInput";
 import { Ionicons } from "@expo/vector-icons";
 import { pickImage } from "@src/helpers/ImageUplader";
-import { PlaceholdImg } from "@src/helpers/consts";
+import { PlaceholdImg, showToast } from "@src/helpers/consts";
 import { createNewPost } from "@src/services/Posts.services";
 import { postType } from "@src/shared/interfaces/posts.type";
 
@@ -45,8 +45,24 @@ const CreatePost = ({navigation}: any)=>{
     }
 
     const uploadPost = (data: postType)=>{
-        //createNewPost(data)
-        console.log(data);
+        setValidPost({
+            post_image: post.post_image?false:true,
+            post_description: post.post_description.length < 1,
+            post_tag: post.post_tag.length < 1
+        })
+        //console.log(data);
+        createNewPost({
+            post_description: data.post_description,
+            post_image: data.post_image,
+            post_tag: data.post_tag
+        }).then((res)=>{
+            console.log("response: ",res);
+            showToast("success", "post Uploaded")
+            navigation.goBack()
+        }).catch((err)=>{
+            console.log(err.response.data);
+            showToast("error", err.response.data)
+        })
     }
   
     return(
@@ -74,13 +90,13 @@ const CreatePost = ({navigation}: any)=>{
                                     uploadPost(post)
                                 :
                                     setValidPost({
-                                        post_image: false,
+                                        post_image: post.post_image?false:true,
                                         post_description: post.post_description.length < 1,
                                         post_tag: post.post_tag.length < 1
                                     })
                             :
                                 setValidPost({
-                                    post_image: false,
+                                    post_image: post.post_image?false:true,
                                     post_description: post.post_description.length < 1,
                                     post_tag: post.post_tag.length < 1
                                 })
@@ -132,6 +148,17 @@ const CreatePost = ({navigation}: any)=>{
                         source={checkImage(post.post_image)}
                         resizeMode="cover"
                     />
+                    {
+                        validPost.post_image
+                        ?
+                            <Text
+                                style={[AppLooks.textRed, AppLooks.textCenter]}
+                            >
+                                Image is required
+                            </Text>
+                        :   
+                            null
+                    }
                 </Pressable>
             </View>
         </>

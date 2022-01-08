@@ -4,6 +4,7 @@ import { postType } from "@src/shared/interfaces/posts.type";
 
 export const getPosts = async ()=>{
     const jsonValue = await AsyncStorage.getItem('user_data')
+    posts.defaults.timeout = 0
     if(jsonValue != null){
         return posts.get("/posts", {
             headers: {
@@ -23,10 +24,20 @@ export const getPosts = async ()=>{
 export const createNewPost = async (data: postType)=>{
     const jsonValue = await AsyncStorage.getItem('user_data')
     if(jsonValue != null){
-        return posts.patch("/post", data,{
+        return posts.post("/post", data,{
             headers: {
                 "user_token": JSON.parse(jsonValue).user_token
             }
         })
     }
+}
+
+export const getMyPosts =async () => {
+    const jsonValue = await AsyncStorage.getItem('user_data')
+
+    return posts.get("/myPosts", {
+        headers: {
+          "user_token": JSON.parse(jsonValue!).user_token
+        }
+    })
 }

@@ -5,6 +5,7 @@ import { AppColors } from "@src/shared/styles/AppResourses";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Lightbox from 'react-native-lightbox-v2';
 import { PlaceholdImg, userPlacehold } from "@src/helpers/consts";
+import { checkImage } from "@src/helpers/ImageUplader";
  
 const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, vote }: any)=>{
 
@@ -18,11 +19,7 @@ const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, 
                         >
                             <Image 
                                 source={
-                                    false
-                                        ?
-                                            {uri: profile_pic}
-                                        :
-                                            userPlacehold
+                                    checkImage(profile_pic)
                                 }
                                 style={[
                                     AppLooks.rounded,
@@ -58,6 +55,8 @@ const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, 
                     >
                         <Image 
                             source={
+                                checkImage(post_image)
+                                /*
                                 post_image?
                                     post_image.match(/^https?:\/\/.+\/.+$/)
                                         ?
@@ -66,6 +65,7 @@ const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, 
                                             PlaceholdImg
                                     :
                                         PlaceholdImg
+                                */
                             } 
                             style={[
                                 {
