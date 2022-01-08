@@ -11,6 +11,7 @@ import { checkImage, pickImage } from "@src/helpers/ImageUplader";
 
 export const EditProfile = ({navigation}: any)=>{
 
+    const [load, setLoad] = useState(false)
     const [user, setUser] = useState<profileType>(
         {
             email: "",
@@ -50,7 +51,10 @@ export const EditProfile = ({navigation}: any)=>{
     }
 
     useEffect(()=>{
-        getMe()
+        setLoad(true)
+        getMe().finally(()=>{
+            setLoad(false)
+        })
     }, [])
 
     const updateUser = ()=>{
@@ -80,7 +84,6 @@ export const EditProfile = ({navigation}: any)=>{
                 <Pressable
                     style={[AppLooks.paddingS]}
                     onPress={()=>{
-
                         navigation.goBack()
                     }}
                 >

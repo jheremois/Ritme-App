@@ -10,7 +10,7 @@ function PostsList({ data, header, fixed, actions, TopHead, atScroll, messageEmp
 
     const renderItem = ({ item }: any) => (
         <Post 
-            profile_pic={checkImage(item.profile_pic)}
+            profile_pic={item.profile_pic}
             user_name={item.user_name}
             post_image={item.post_image}
             post_tag={item.post_tag}
