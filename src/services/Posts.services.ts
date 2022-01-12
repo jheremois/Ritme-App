@@ -32,10 +32,31 @@ export const createNewPost = async (data: postType)=>{
     }
 }
 
-export const getMyPosts =async () => {
+export const getMyPosts = async () => {
     const jsonValue = await AsyncStorage.getItem('user_data')
 
     return posts.get("/myPosts", {
+        headers: {
+          "user_token": JSON.parse(jsonValue!).user_token
+        }
+    })
+}
+
+
+export const Getvotes = async (post_id: any) => {
+    const jsonValue = await AsyncStorage.getItem('user_data')
+
+    return posts.get(`/votes/${post_id}`, {
+        headers: {
+          "user_token": JSON.parse(jsonValue!).user_token
+        }
+    })
+}
+
+export const sendVote = async (post_id: number, vote_type: string) => {
+    const jsonValue = await AsyncStorage.getItem('user_data')
+
+    return posts.post(`/vote/${post_id}/${vote_type}`, {}, {
         headers: {
           "user_token": JSON.parse(jsonValue!).user_token
         }

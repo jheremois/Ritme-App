@@ -54,6 +54,7 @@ const AuthInput = (props: props)=>{
                     onChangeText={onchangetext}
                     keyboardType={keyboard}
                     style={[
+                        {marginBottom: 2},
                         al.roundedS,
                         al.textM,
                         al.paddingS,
@@ -73,7 +74,7 @@ const AuthInput = (props: props)=>{
                             onPress={()=>{
                                 setVisiblePswrd(!visiblePswrd)
                             }}
-                            style={[al.alignCenter, al.contentEnd, al.abasolute, {bottom: 10,right: 10}]}
+                            style={[al.alignCenter, al.contentEnd, al.abasolute, {bottom: 12,right: 10}]}
                         >
                             <Ionicons name={
                                 visiblePswrd
@@ -90,9 +91,9 @@ const AuthInput = (props: props)=>{
                 validator
                     ?
                         <Text
-                            style={[al.textXS, al.textRed]}
+                            style={[al.textXS, al.textRed, al.abasolute, {bottom: -20, left: 5, opacity: 80}]}
                         >
-                            {errMsg}
+                            ({errMsg})
                         </Text>
                     :
                         null

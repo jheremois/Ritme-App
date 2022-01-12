@@ -1,13 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, Dimensions, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import { AppColors } from "@src/shared/styles/AppResourses";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Lightbox from 'react-native-lightbox-v2';
-import { PlaceholdImg, userPlacehold } from "@src/helpers/consts";
 import { checkImage } from "@src/helpers/ImageUplader";
+import { Getvotes, sendVote } from "@src/services/Posts.services";
  
 const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, vote }: any)=>{
+
+    const [upVotes, setUpVotes]= useState([])
+    const [downVotes, setDownVotes]= useState([])
+
+    useEffect(()=>{
+        getVotes()
+    }, [])
+
+    const getVotes = ()=>{
+        Getvotes(vote).then((res)=>{
+            setUpVotes(res.data.upVotes)
+            setDownVotes(res.data.downVotes)
+            console.log("up Votes: ", res.data.upVotes)
+        })
+        .catch((err)=>{
+            alert(err.error.response.data.errMessage);
+        })
+    }
+
+    const voting = (vote: number, voteType: string)=>{
+        sendVote(vote, voteType).then((res)=>{
+            console.log("Respuesta al enviar voto: ", res)
+            getVotes()
+        }).catch((err)=>{
+            alert(err.response.data.errMessage);
+            console.log(err)
+        })
+    }
 
     return(
         <>
@@ -34,7 +62,7 @@ const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, 
                             <Text style={[AppLooks.textWhite, AppLooks.fontXl, AppLooks.textS]}>
                                 {user_name}
                             </Text>
-                            <View style={[AppLooks.rounded, AppLooks.alignCenter]}>
+                            <View style={[AppLooks.roundedXl, AppLooks.alignCenter, AppLooks.paddingMX, AppLooks.borderS, {borderColor: "#ffffff60"}]}>
                                 <Text style={[AppLooks.textWhite, AppLooks.fontXl, AppLooks.textXS]}>
                                     {post_tag}
                                 </Text>
@@ -78,7 +106,10 @@ const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, 
                     </Lightbox>
                 </View>
                 <View style={[AppLooks.alignCenter, AppLooks.flexRow, AppLooks.contentBetween]}>
-                    <Pressable 
+                    <Pressable
+                        onPress={
+                            ()=> voting(vote, "p")
+                        }
                         style={({ pressed }) =>[
                             pressed
                                 ?
@@ -92,15 +123,31 @@ const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, 
                             {
                                 width: "50%",
                                 borderBottomLeftRadius: 10,
+                                backgroundColor: `${AppColors.indigo}30`
                             },
                             AppLooks.alignCenter,
-                            AppLooks.contentCenter,
-                            AppLooks.paddingM
+                            AppLooks.contentAround,
+                            AppLooks.paddingM,
+                            AppLooks.flexRow,
                         ]}
                     >
+                        <Text
+                            style={{
+                                color: "white",
+                                fontSize: 19
+                            }}
+                        >
+                            {
+                                upVotes.length
+                                //votes.length
+                            }
+                        </Text>
                         <MaterialCommunityIcons name="arrow-up-bold-outline" size={25} color={AppColors.white}/>
                     </Pressable>
                     <Pressable 
+                        onPress={
+                            ()=> voting(vote, "n")
+                        }
                         style={({ pressed }) =>[
                             pressed
                                 ?
@@ -114,18 +161,24 @@ const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, 
                             {
                                 width: "50%",
                                 borderBottomRightRadius: 10,
+                                backgroundColor: `${AppColors.red}30`
                             },
                             AppLooks.alignCenter,
-                            AppLooks.contentCenter,
+                            AppLooks.contentAround,
                             AppLooks.paddingM,
                             AppLooks.flexRow,
                         ]}
                     >
-                       {/*  <Text
-                            style={[AppLooks.textWhite, AppLooks.marginSX, AppLooks.fontM]}
+                        <Text
+                            style={{
+                                color: "white",
+                                fontSize: 19
+                            }}
                         >
-                            90%
-                        </Text> */}
+                            {
+                                downVotes.length
+                            }
+                        </Text>
                         <MaterialCommunityIcons name="arrow-down-bold-outline" size={25} color={AppColors.white}/>
                     </Pressable>
                 </View>
