@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, Image, Dimensions, Pressable, TextInput } from "react-native";
+import { View, Text, Image, Dimensions, Pressable, TextInput, ActivityIndicator } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import { FlatInput } from "@src/components/FlatInput";
 import { Ionicons } from "@expo/vector-icons";
@@ -7,9 +7,11 @@ import { pickImage } from "@src/helpers/ImageUplader";
 import { PlaceholdImg, showToast } from "@src/helpers/consts";
 import { createNewPost } from "@src/services/Posts.services";
 import { postType } from "@src/shared/interfaces/posts.type";
+import { AppColors } from "@src/shared/styles/AppResourses";
 
 const CreatePost = ({navigation}: any)=>{
 
+    const [load, setLoad] = useState(false)
     const [post, setPost] = useState<postType>(
         {
             post_description: "",
@@ -45,6 +47,7 @@ const CreatePost = ({navigation}: any)=>{
     }
 
     const uploadPost = (data: postType)=>{
+        setLoad(true)
         setValidPost({
             post_image: post.post_image?false:true,
             post_description: post.post_description.length < 1,
@@ -60,6 +63,7 @@ const CreatePost = ({navigation}: any)=>{
             showToast("success", "post Uploaded")
             navigation.goBack()
         }).catch((err)=>{
+            setLoad(false)
             console.log(err.response.data);
             showToast("error", err.response.data)
         })
@@ -67,44 +71,56 @@ const CreatePost = ({navigation}: any)=>{
   
     return(
         <>
-            <View style={[AppLooks.paddingSX, AppLooks.alignCenter, AppLooks.contentBetween, AppLooks.flexRow,AppLooks.bgGray]}>
-                <Pressable
-                    style={[AppLooks.paddingS]}
-                    onPress={()=>{
-                        navigation.goBack()
-                    }}
-                >
-                    <Ionicons name={"close-sharp"} color={"white"} size={29}/>
-                </Pressable>
-                <Text
-                    style={[AppLooks.textWhite, AppLooks.fontM, AppLooks.textS]}
-                >
-                    Create post
-                </Text>
-                <Pressable
-                    onPress={()=>{
-                        post.post_image && post.post_tag && post.post_description
-                            ?
-                            post.post_description.length > 1 && post.post_tag.length >= 1
-                                ?
-                                    uploadPost(post)
-                                :
-                                    setValidPost({
-                                        post_image: post.post_image?false:true,
-                                        post_description: post.post_description.length < 1,
-                                        post_tag: post.post_tag.length < 1
-                                    })
-                            :
-                                setValidPost({
-                                    post_image: post.post_image?false:true,
-                                    post_description: post.post_description.length < 1,
-                                    post_tag: post.post_tag.length < 1
-                                })
-                    }}
-                    style={[AppLooks.paddingS]}
-                >
-                    <Ionicons name={"checkmark"} color={"white"} size={29}/>
-                </Pressable>
+        <View>
+                {
+                    load
+                    ?
+                        <View
+                            style={[AppLooks.alignCenter, AppLooks.contentCenter, AppLooks.wFull, AppLooks.paddingM]}
+                        >
+                            <ActivityIndicator size={"large"} color={AppColors.indigo}/>
+                        </View>
+                    :
+                        <View style={[AppLooks.paddingSX, AppLooks.alignCenter, AppLooks.contentBetween, AppLooks.flexRow,AppLooks.bgGray]}>
+                            <Pressable
+                                style={[AppLooks.paddingS]}
+                                onPress={()=>{
+                                    navigation.goBack()
+                                }}
+                            >
+                                <Ionicons name={"close-sharp"} color={"white"} size={29}/>
+                            </Pressable>
+                            <Text
+                                style={[AppLooks.textWhite, AppLooks.fontM, AppLooks.textS]}
+                            >
+                                Create post
+                            </Text>
+                            <Pressable
+                                onPress={()=>{
+                                    post.post_image && post.post_tag && post.post_description
+                                        ?
+                                        post.post_description.length > 1 && post.post_tag.length >= 1
+                                            ?
+                                                uploadPost(post)
+                                            :
+                                                setValidPost({
+                                                    post_image: post.post_image?false:true,
+                                                    post_description: post.post_description.length < 1,
+                                                    post_tag: post.post_tag.length < 1
+                                                })
+                                        :
+                                            setValidPost({
+                                                post_image: post.post_image?false:true,
+                                                post_description: post.post_description.length < 1,
+                                                post_tag: post.post_tag.length < 1
+                                            })
+                                }}
+                                style={[AppLooks.paddingS]}
+                            >
+                                <Ionicons name={"checkmark"} color={"white"} size={29}/>
+                            </Pressable>
+                        </View>
+                }
             </View>
             <View
                 style={[AppLooks.alignCenter]}

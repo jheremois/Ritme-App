@@ -138,7 +138,11 @@ const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, 
                             }}
                         >
                             {
-                                upVotes.length
+                                upVotes
+                                ?
+                                    upVotes.length
+                                :
+                                    0
                                 //votes.length
                             }
                         </Text>
@@ -176,7 +180,11 @@ const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, 
                             }}
                         >
                             {
-                                downVotes.length
+                                downVotes
+                                ?
+                                    downVotes.length
+                                :
+                                    0
                             }
                         </Text>
                         <MaterialCommunityIcons name="arrow-down-bold-outline" size={25} color={AppColors.white}/>
