@@ -1,13 +1,42 @@
-import { AppLooks } from '@src/shared/styles/AppLooks';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, FlatList, View, Dimensions } from 'react-native';
 import Post from '@components/Post';
 import PostLoader from '../PostLoader';
+import { Getvotes, sendVote } from '@src/services/Posts.services';
 
-function PostsList({ data, header, fixed, actions, TopHead, atScroll, messageEmpy, refFunc, state }: any) {
+const RenderItem = ({ item }: any) => {
+    const [upVote, setUpvote] = useState([])
+    const [downVote, setDownvote] = useState([])
 
-    const renderItem = ({ item }: any) => (
+    const getVotes = (vote: number)=>{
+        Getvotes(vote).then((res)=>{
+            setUpvote(res.data.upVotes)
+            setDownvote(res.data.downVotes)
+        }).catch((err)=>{
+            setUpvote([])
+        })
+    }
+
+    const voting = (vote: number, voteType: string)=>{
+        sendVote(vote, voteType).then((res)=>{
+            console.log("Respuesta al enviar voto: ", res)
+            getVotes(vote)
+        }).catch((err)=>{
+            alert(err.response.data.errMessage);
+            console.log(err)
+        })
+    }
+
+    useEffect(()=>{
+        getVotes(item.post_id)
+    }, [])
+
+    return(
         <Post
+            votingP={()=> voting(item.post_id, "p")}
+            votingN={()=> voting(item.post_id, "n")}
+            upVotes={upVote}
+            downVotes={downVote}
             profile_pic={item.profile_pic}
             vote={item.post_id}
             user_name={item.user_name}
@@ -16,6 +45,21 @@ function PostsList({ data, header, fixed, actions, TopHead, atScroll, messageEmp
             post_description={item.post_description}
         />
     )
+}
+
+function PostsList({ data, header, fixed, refFunc, state }: any) {
+    
+    const getUpvotes = (vote: number)=>{
+        Getvotes(vote).then((res)=>{
+            console.log(res.data.upVotes)
+        }).catch((err)=>{
+            console.log([0])
+        })
+    }
+
+    useEffect(()=>{
+        getUpvotes(2)
+    }, [])
 
     const LoadPost = ()=>{
         return(
@@ -33,7 +77,14 @@ function PostsList({ data, header, fixed, actions, TopHead, atScroll, messageEmp
 
     return (
         <>
-            {TopHead}
+            {/* {TopHead} */}
+            <View>
+                <Text>
+                    {3
+                    //getVotes(4)
+                    }
+                </Text>
+            </View>
             {
                 //data.length > 0?
                     <FlatList
@@ -47,13 +98,26 @@ function PostsList({ data, header, fixed, actions, TopHead, atScroll, messageEmp
                         }}
                         onEndReachedThreshold={0.3}
                         keyExtractor={item => Math.random() + " 1" + Date.now()}
-                        renderItem={
+                        renderItem={({ item }) => (
                             state
                             ?
-                                LoadPost
+                                <LoadPost/>
                             :
-                                renderItem
+                                <RenderItem
+                                    item={item}
+                                />
+                        )}
+                        /*
+                        renderItem={
+                            (item)=>{
+                                state
+                                ?
+                                    LoadPost
+                                :
+                                    
+                            }
                         }
+                        */
                         showsVerticalScrollIndicator={false}
                         stickyHeaderIndices={fixed ?? []}
                         ListHeaderComponent={header}

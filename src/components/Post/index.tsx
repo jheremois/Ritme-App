@@ -1,41 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, Text, Image, Dimensions, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import { AppColors } from "@src/shared/styles/AppResourses";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Lightbox from 'react-native-lightbox-v2';
 import { checkImage } from "@src/helpers/ImageUplader";
-import { Getvotes, sendVote } from "@src/services/Posts.services";
  
-const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, vote }: any)=>{
-
-    const [upVotes, setUpVotes]= useState([])
-    const [downVotes, setDownVotes]= useState([])
-
-    useEffect(()=>{
-        getVotes()
-    }, [])
-
-    const getVotes = ()=>{
-        Getvotes(vote).then((res)=>{
-            setUpVotes(res.data.upVotes)
-            setDownVotes(res.data.downVotes)
-            console.log("up Votes: ", res.data.upVotes)
-        })
-        .catch((err)=>{
-            alert(err.error.response.data.errMessage);
-        })
-    }
-
-    const voting = (vote: number, voteType: string)=>{
-        sendVote(vote, voteType).then((res)=>{
-            console.log("Respuesta al enviar voto: ", res)
-            getVotes()
-        }).catch((err)=>{
-            alert(err.response.data.errMessage);
-            console.log(err)
-        })
-    }
+const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, votingP, votingN, upVotes, downVotes }: any)=>{
 
     return(
         <>
@@ -84,16 +55,6 @@ const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, 
                         <Image 
                             source={
                                 checkImage(post_image)
-                                /*
-                                post_image?
-                                    post_image.match(/^https?:\/\/.+\/.+$/)
-                                        ?
-                                            {uri: post_image}
-                                        :
-                                            PlaceholdImg
-                                    :
-                                        PlaceholdImg
-                                */
                             } 
                             style={[
                                 {
@@ -108,7 +69,7 @@ const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, 
                 <View style={[AppLooks.alignCenter, AppLooks.flexRow, AppLooks.contentBetween]}>
                     <Pressable
                         onPress={
-                            ()=> voting(vote, "p")
+                            votingP
                         }
                         style={({ pressed }) =>[
                             pressed
@@ -150,7 +111,7 @@ const Post = ({ profile_pic, user_name, post_image, post_tag, post_description, 
                     </Pressable>
                     <Pressable 
                         onPress={
-                            ()=> voting(vote, "n")
+                            votingN
                         }
                         style={({ pressed }) =>[
                             pressed
