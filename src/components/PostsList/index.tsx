@@ -6,15 +6,19 @@ import { Getvotes, sendVote } from '@src/services/Posts.services';
 
 const RenderItem = ({ item }: any) => {
     const [upVote, setUpvote] = useState([])
+    const [iVoted, setIVoted] = useState(false)
     const [downVote, setDownvote] = useState([])
 
     const getVotes = (vote: number)=>{
         Getvotes(vote).then((res)=>{
             setUpvote(res.data.upVotes)
+            setIVoted(res.data.iVoted)
             setDownvote(res.data.downVotes)
+            console.log("Yo vote?: ", res.data.iVoted);
         }).catch((err)=>{
             setUpvote([])
         })
+        
     }
 
     const voting = (vote: number, voteType: string)=>{
@@ -33,6 +37,7 @@ const RenderItem = ({ item }: any) => {
 
     return(
         <Post
+            iVoted={iVoted}
             votingP={()=> voting(item.post_id, "p")}
             votingN={()=> voting(item.post_id, "n")}
             upVotes={upVote}
@@ -77,24 +82,18 @@ function PostsList({ data, header, fixed, refFunc, state }: any) {
 
     return (
         <>
-            {/* {TopHead} */}
-            <View>
-                <Text>
-                    {3
-                    //getVotes(4)
-                    }
-                </Text>
-            </View>
             {
-                //data.length > 0?
                     <FlatList
                         initialNumToRender={4}
                         onRefresh={refFunc}
                         refreshing={state}
                         data={data.slice(0, load)}
                         onEndReached={() => {
-                            setLoad(load + 2)
-                            console.log("end")
+                            data.length > load
+                            ?
+                                setLoad(load + 4)
+                            :
+                                console.log("Final")
                         }}
                         onEndReachedThreshold={0.3}
                         keyExtractor={item => Math.random() + " 1" + Date.now()}
@@ -107,29 +106,11 @@ function PostsList({ data, header, fixed, refFunc, state }: any) {
                                     item={item}
                                 />
                         )}
-                        /*
-                        renderItem={
-                            (item)=>{
-                                state
-                                ?
-                                    LoadPost
-                                :
-                                    
-                            }
-                        }
-                        */
                         showsVerticalScrollIndicator={false}
                         stickyHeaderIndices={fixed ?? []}
                         ListHeaderComponent={header}
                         listKey={`D${Date.now()}`}
                     />
-                /*:
-                    <View>
-                        <Text>
-                            Nothing here
-                        </Text>
-                    </View>
-                */
             }
         </>
     )

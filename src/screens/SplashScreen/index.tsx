@@ -8,15 +8,15 @@ import { AppColors } from "@src/shared/styles/AppResourses";
 const SplashScreen = ({navigation}: any)=>{
 
   const getMe = ()=> getCurrentUser().then((res)=> {
-      res == null
-        ?
-          navigation.replace("auth")
-        :
-          navigation.replace("app")
-    }).catch((err)=>{
-      console.log(err)
-      navigation.replace("auth")
-    }) 
+    res == null
+      ?
+        navigation.replace("auth")
+      :
+        navigation.replace("app")
+  }).catch((err)=>{
+    console.log(err)
+    navigation.replace("auth")
+  })
 
   useEffect(()=>{
     getMe()  

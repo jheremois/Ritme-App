@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Pressable } from "react-native";
 import PostsList from "@src/components/PostsList";
 import { postType } from "@src/shared/interfaces/posts.type";
-import { getPosts, sendVote } from "@src/services/Posts.services";
+import { getPosts } from "@src/services/Posts.services";
 import { showToast } from "@src/helpers/consts";
 
 const Explore = ()=>{
@@ -45,16 +45,6 @@ const Explore = ()=>{
     return(
         <>
             <View style={{paddingBottom: 0}}>
-                {/* <Pressable
-                    style={{padding: 90}}
-                    onPress={()=>{
-                        sendVote(27, "p")
-                    }}
-                >
-                    <Text>
-                        Aaaaaaaaa
-                    </Text>
-                </Pressable> */}
                 <PostsList
                     data={posts}
                     state={isFetching}
