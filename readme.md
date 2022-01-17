@@ -1,16 +1,16 @@
 <img  width="100%" src="https://user-images.githubusercontent.com/61896147/149684953-b8ebfcce-0047-4db2-8be3-42bbb1186ac4.png"/>
 
 # Ritme
-Es una redsocial donde los usuarios pueden crear publicaciones en las que el resto de usuarios puede votar de manera positva o negativa.
+It is a social network where users can create publications in which other users can vote positively or negatively.
 
 ## Features
 - [x] Create your pofile
 - [x] Edit Your profile
 - [x] Create posts
 - [x] Vote any post
-- [ ] Coment posts
+- [ ] Comment posts
 - [ ] Enter in another profile
-- [ ] Fallow another users
+- [ ] Follow other users
 
 <hr>
 
