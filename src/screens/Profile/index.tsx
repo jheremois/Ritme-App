@@ -35,7 +35,6 @@ const Profile = ({navigation}: any)=>{
 
   const getMe = ()=> {
     getCurrentUser().then((res)=> {
-      console.log("res user-> ", res?.data.response[0])
       setUsername(res?.data.response[0])
     }).catch((err)=>{
       console.log("user err ->", err)
@@ -47,7 +46,6 @@ const Profile = ({navigation}: any)=>{
         setPosts(res.data)
     }).catch((err)=>{
         showToast("error", err.message)
-        //console.log(err);
     })
   }
 

@@ -36,9 +36,7 @@ const Register = ({navigation}: any)=>{
             ?
                 setLoading(false)
             :
-                RegisterUser(form).then((res)=>{
-                    console.log(res.data)
-                    console.log(res.config.data)
+                RegisterUser(form).then(()=>{
                     navigation.navigate("login")
                     setLoading(false)
                 }).catch((error)=> {

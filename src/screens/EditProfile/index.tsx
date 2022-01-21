@@ -30,7 +30,6 @@ export const EditProfile = ({navigation}: any)=>{
     })
 
     const getMe = ()=> getCurrentUser().then((res)=> {
-        console.log("res user-> ", res?.data.response[0])
         setUser(
             {
                 user_description: res?.data.response[0].user_description,
@@ -71,7 +70,6 @@ export const EditProfile = ({navigation}: any)=>{
         
         updateMe(data).then((res)=>{
             showToast("success", "User updated")
-            console.log("update res: ", "User updated")
             navigation.goBack()
         }).catch((err)=>{
             setLoad(false)

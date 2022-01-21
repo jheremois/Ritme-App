@@ -53,18 +53,15 @@ const CreatePost = ({navigation}: any)=>{
             post_description: post.post_description.length < 1,
             post_tag: post.post_tag.length < 1
         })
-        //console.log(data);
         createNewPost({
             post_description: data.post_description,
             post_image: data.post_image,
             post_tag: data.post_tag
-        }).then((res)=>{
-            console.log("response: ",res);
+        }).then(()=>{
             showToast("success", "post Uploaded")
             navigation.goBack()
         }).catch((err)=>{
             setLoad(false)
-            console.log(err.response.data);
             showToast("error", err.response.data)
         })
     }

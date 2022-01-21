@@ -21,15 +21,18 @@ const Explore = ()=>{
     const onRefresh = async () => {
         await setIsFetching(true);
         loadPosts()
-        setTimeout(() => {
-            setIsFetching(false);
-        }, 1000);
     };
 
     const loadPosts = async()=>{
         getPosts().then((res)=>{
             setPosts(res.data)
+            setTimeout(() => {
+                setIsFetching(false);
+            }, 1000);
         }).catch((err)=>{
+            setTimeout(() => {
+                setIsFetching(false);
+            }, 1000);
             showToast("error", err.response)
         })
     }
@@ -37,9 +40,6 @@ const Explore = ()=>{
     useEffect(()=>{
         setIsFetching(true);
         loadPosts()
-        setTimeout(() => {
-            setIsFetching(false);
-        }, 1000);
     }, [])
 
     return(
