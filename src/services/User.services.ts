@@ -1,18 +1,5 @@
 import { users } from "./services";
-import { AxiosRequestHeaders } from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-export const getUsers = (token: AxiosRequestHeaders)=>{
-    return users.get("/users", {
-        headers: token
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-}
 
 export const getCurrentUser = async ()=>{
     try {

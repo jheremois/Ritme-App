@@ -14,7 +14,6 @@ const RenderItem = ({ item }: any) => {
             setUpvote(res.data.upVotes)
             setIVoted(res.data.iVoted)
             setDownvote(res.data.downVotes)
-            console.log("Yo vote?: ", res.data.iVoted);
         }).catch((err)=>{
             setUpvote([])
         })
@@ -23,7 +22,6 @@ const RenderItem = ({ item }: any) => {
 
     const voting = (vote: number, voteType: string)=>{
         sendVote(vote, voteType).then((res)=>{
-            console.log("Respuesta al enviar voto: ", res)
             getVotes(vote)
         }).catch((err)=>{
             alert(err.response.data.errMessage);
@@ -53,18 +51,6 @@ const RenderItem = ({ item }: any) => {
 }
 
 function PostsList({ data, header, fixed, refFunc, state }: any) {
-    
-    const getUpvotes = (vote: number)=>{
-        Getvotes(vote).then((res)=>{
-            console.log(res.data.upVotes)
-        }).catch((err)=>{
-            console.log([0])
-        })
-    }
-
-    useEffect(()=>{
-        getUpvotes(2)
-    }, [])
 
     const LoadPost = ()=>{
         return(
@@ -93,7 +79,7 @@ function PostsList({ data, header, fixed, refFunc, state }: any) {
                             ?
                                 setLoad(load + 4)
                             :
-                                console.log("Final")
+                                null
                         }}
                         onEndReachedThreshold={0.3}
                         keyExtractor={item => Math.random() + " 1" + Date.now()}
