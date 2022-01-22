@@ -5,12 +5,13 @@ import { AppColors } from "@src/shared/styles/AppResourses";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Lightbox from 'react-native-lightbox-v2';
 import { checkImage } from "@src/helpers/ImageUplader";
-import { getCurrentUser } from "@src/services/User.services";
+import { useNavigation } from "@react-navigation/native";
 
 
 const Post = (props: any)=>{
 
     const {
+        userId,
         iVoted,
         profile_pic,
         user_name,
@@ -22,6 +23,8 @@ const Post = (props: any)=>{
         upVotes,
         downVotes 
     } = props
+
+    const navigate = useNavigation()
 
     const upChart = 
         (upVotes.length/ (upVotes.length + downVotes.length)) * (100) >= 1
@@ -44,7 +47,11 @@ const Post = (props: any)=>{
                 <View style={[AppLooks.paddingS, AppLooks.roundedM, AppLooks.bgDarkGray, {paddingBottom: 0}]}>
                     <View style={[AppLooks.flexRow]}>
                         <Pressable  
-                            onPress={()=> {}}
+                        
+                            onPress={()=> {
+                                console.log("userId: ", userId)
+                                navigate.navigate('userProfile', {id: userId})
+                            }}
                         >
                             <Image 
                                 source={

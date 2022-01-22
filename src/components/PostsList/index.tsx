@@ -42,6 +42,7 @@ const RenderItem = ({ item }: any) => {
             downVotes={downVote}
             profile_pic={item.profile_pic}
             vote={item.post_id}
+            userId={item.user_id}
             user_name={item.user_name}
             post_image={item.post_image}
             post_tag={item.post_tag}

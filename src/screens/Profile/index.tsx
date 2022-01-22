@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Dimensions, Pressable, Text, View } from "react-native";
 import { ProfileInfo } from "@src/components/ProfileInfo";
-import { getCurrentUser } from "@src/services/User.services";
+import { getCurrentUser, getUser } from "@src/services/User.services";
 import { profileType } from "@src/shared/interfaces/user.type";
 import PostsList from "@src/components/PostsList";
 import ProfileLoader from "@src/components/ProfileLoader";
 import { postType } from "@src/shared/interfaces/posts.type";
 import { getMyPosts } from "@src/services/Posts.services";
 import { showToast } from "@src/helpers/consts";
+import GoBack from "@src/components/GoBack";
 
-const Profile = ({navigation}: any)=>{
+const Profile = ({navigation, route}: any)=>{
 
   const [username, setUsername] = useState<profileType>(
     {
@@ -41,6 +42,16 @@ const Profile = ({navigation}: any)=>{
     })
   }
 
+  const getUsers = (user_id: any)=>{
+    getUser(user_id).then((res)=> {
+      setUsername(res?.data.response[0])
+      console.log("User dara: ", res?.data.response[0]);
+      
+    }).catch((err)=>{
+      console.log("user err ->", err)
+    })
+  }
+
   const loadPosts = async()=>{
     getMyPosts().then((res)=>{
         setPosts(res.data)
@@ -51,11 +62,17 @@ const Profile = ({navigation}: any)=>{
 
   const onRefresh = async () => {
     await setIsFetching(true);
-    await getMe()
-    await loadPosts()
-    await setTimeout(()=>{
-      setIsFetching(false);
-    }, 600)
+    route.params
+    ?
+      await getUsers(route.params.id)
+    :
+      await getMe()
+    await loadPosts().finally(()=>{
+      setTimeout(()=>{
+        setIsFetching(false);
+      }, 600)
+    })
+    
   }
 
   useEffect(()=>{
@@ -64,6 +81,15 @@ const Profile = ({navigation}: any)=>{
   
     return(
         <>
+          {
+            route.params
+            ?
+              <GoBack
+                title={username.user_name}
+              />
+            :
+              null
+          }
           {
             <PostsList
               data={posts}

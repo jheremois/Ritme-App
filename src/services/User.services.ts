@@ -19,6 +19,24 @@ export const getCurrentUser = async ()=>{
     }
 }
 
+export const getUser = async (user_id: number)=>{
+  try {
+      const jsonValue = await AsyncStorage.getItem('user_data')
+      if(jsonValue != null){
+          return users.get(`/user/${user_id}`, {
+              headers: {
+                  "user_token": JSON.parse(jsonValue).user_token
+              }
+          })
+      }else{
+          return null
+      }
+  } catch(e) {
+      console.log("un loged");
+      return null
+  }
+}
+
 interface updateMe{
     user_description: string,
     user_name: string,
