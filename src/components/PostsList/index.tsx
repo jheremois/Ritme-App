@@ -71,14 +71,14 @@ function PostsList({ data, header, fixed, refFunc, state }: any) {
         <>
             {
                     <FlatList
-                        initialNumToRender={4}
+                        initialNumToRender={6}
                         onRefresh={refFunc}
                         refreshing={state}
                         data={data.slice(0, load)}
                         onEndReached={() => {
                             data.length > load
                             ?
-                                setLoad(load + 4)
+                                setLoad(load + 6)
                             :
                                 null
                         }}
