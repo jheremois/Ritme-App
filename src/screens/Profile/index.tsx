@@ -6,7 +6,7 @@ import { profileType } from "@src/shared/interfaces/user.type";
 import PostsList from "@src/components/PostsList";
 import ProfileLoader from "@src/components/ProfileLoader";
 import { postType } from "@src/shared/interfaces/posts.type";
-import { getMyPosts } from "@src/services/Posts.services";
+import { getMyPosts, getUserPosts } from "@src/services/Posts.services";
 import { showToast } from "@src/helpers/consts";
 import GoBack from "@src/components/GoBack";
 
@@ -53,11 +53,20 @@ const Profile = ({navigation, route}: any)=>{
   }
 
   const loadPosts = async()=>{
-    getMyPosts().then((res)=>{
-        setPosts(res.data)
-    }).catch((err)=>{
-        showToast("error", err.message)
-    })
+    
+    route.params
+      ?
+        getUserPosts(route.params.id).then((res)=>{
+          setPosts(res.data)
+        }).catch((err)=>{
+            showToast("error", err.message)
+        })
+      :
+        getMyPosts().then((res)=>{
+            setPosts(res.data)
+        }).catch((err)=>{
+            showToast("error", err.message)
+        })
   }
 
   const onRefresh = async () => {
@@ -109,6 +118,7 @@ const Profile = ({navigation, route}: any)=>{
                         </View>
                       :
                         <ProfileInfo 
+                          isMe={route.params}
                           user_name={username.user_name}
                           user_description={username.user_description}
                           profile_pic={username.profile_pic}

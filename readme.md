@@ -8,8 +8,8 @@ It is a social network where users can create publications in which other users 
 - [x] Edit Your profile
 - [x] Create posts
 - [x] Vote any post
+- [x] Enter in another profile
 - [ ] Comment posts
-- [ ] Enter in another profile
 - [ ] Follow other users
 
 <hr>

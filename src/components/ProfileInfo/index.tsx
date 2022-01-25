@@ -6,6 +6,7 @@ import { PlaceholdImg } from "@src/helpers/consts";
 
 interface profileInfo{
     user_name: string
+    isMe: boolean
     user_description: string
     profile_pic: any
     action: any | undefined
@@ -13,7 +14,7 @@ interface profileInfo{
 
 export const ProfileInfo = (props: profileInfo)=>{
 
-    const {user_name, user_description, profile_pic, action} = props
+    const {user_name, user_description, profile_pic, action, isMe} = props
 
     return(
         <View style={[AppLooks.paddingXl, AppLooks.bgDarkGray]}>
@@ -33,18 +34,24 @@ export const ProfileInfo = (props: profileInfo)=>{
                 </View>
             </View>
             <View>
-                <View style={[AppLooks.flexRow, AppLooks.paddingS, AppLooks.contentBetween, AppLooks.alignCenter]}>
-                    <View style={[AppLooks.wFull]}>
-                        <Pressable 
-                            onPress={action}
-                            style={[AppLooks.paddingSY, AppLooks.paddingMX, AppLooks.borderS, AppLooks.roundedS, AppLooks.bgBlack, {borderColor: "#f0f0f020"}]}
-                        >
-                            <Text style={[AppLooks.textWhite, AppLooks.textS, AppLooks.textCenter]}>
-                                Settings
-                            </Text>
-                        </Pressable>
-                    </View>
-                </View>
+                {
+                    !isMe
+                        ?
+                            <View style={[AppLooks.flexRow, AppLooks.paddingS, AppLooks.contentBetween, AppLooks.alignCenter]}>
+                                <View style={[AppLooks.wFull]}>
+                                    <Pressable 
+                                        onPress={action}
+                                        style={[AppLooks.paddingSY, AppLooks.paddingMX, AppLooks.borderS, AppLooks.roundedS, AppLooks.bgBlack, {borderColor: "#f0f0f020"}]}
+                                    >
+                                        <Text style={[AppLooks.textWhite, AppLooks.textS, AppLooks.textCenter]}>
+                                            Settings
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </View>
+                        :
+                            null
+                }
             </View>
         </View>
     )

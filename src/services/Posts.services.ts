@@ -42,6 +42,16 @@ export const getMyPosts = async () => {
     })
 }
 
+export const getUserPosts = async (id: number) => {
+    const jsonValue = await AsyncStorage.getItem('user_data')
+
+    return posts.get(`/posts/${id}`, {
+        headers: {
+          "user_token": JSON.parse(jsonValue!).user_token
+        }
+    })
+}
+
 
 export const Getvotes = async (post_id: any) => {
     const jsonValue = await AsyncStorage.getItem('user_data')

@@ -61,7 +61,6 @@ const Post = (props: any)=>{
                 <View style={[AppLooks.paddingS, AppLooks.roundedM, AppLooks.bgDarkGray, {paddingBottom: 0}]}>
                     <View style={[AppLooks.flexRow]}>
                         <Pressable  
-                        
                             onPress={()=> {
                                 console.log("userId: ", userId)
                                 navigate.navigate('userProfile', {id: userId})
@@ -81,9 +80,16 @@ const Post = (props: any)=>{
                             />
                         </Pressable>
                         <View style={[AppLooks.alignStart, AppLooks.paddingMX]}>
-                            <Text style={[AppLooks.textWhite, AppLooks.fontXl, AppLooks.textS]}>
-                                {user_name}
-                            </Text>
+                            <Pressable
+                                onPress={()=> {
+                                    console.log("userId: ", userId)
+                                    navigate.navigate('userProfile', {id: userId})
+                                }}
+                            >
+                                <Text style={[AppLooks.textWhite, AppLooks.fontXl, AppLooks.textS]}>
+                                    {user_name}
+                                </Text>
+                            </Pressable>
                             <View style={[AppLooks.roundedXl, AppLooks.alignCenter, AppLooks.paddingMX, AppLooks.borderS, {borderColor: "#ffffff60"}]}>
                                 <Text style={[AppLooks.textWhite, AppLooks.fontXl, AppLooks.textXS]}>
                                     {post_tag}
