@@ -115,6 +115,7 @@ const SearchBar = ({navigation}: any)=>{
                     <Ionicons name="arrow-back" size={22} color={AppColors.white}/>
                 </Pressable>
                 <TextInput
+                    placeholder="user name..."
                     value={search}
                     onChangeText={setSearch}
                     keyboardType="web-search"
