@@ -19,6 +19,24 @@ export const getCurrentUser = async ()=>{
     }
 }
 
+export const getUsers = async ()=>{
+  try {
+      const jsonValue = await AsyncStorage.getItem('user_data')
+      if(jsonValue != null){
+          return users.get(`/users`, {
+              headers: {
+                  "user_token": JSON.parse(jsonValue).user_token
+              }
+          })
+      }else{
+          return null
+      }
+  } catch(e) {
+      console.log("un loged");
+      return null
+  }
+}
+
 export const getUser = async (user_id: number)=>{
   try {
       const jsonValue = await AsyncStorage.getItem('user_data')

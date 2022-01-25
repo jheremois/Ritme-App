@@ -9,6 +9,7 @@ import { EditProfile } from '@src/screens/EditProfile';
 import SplashScreen from '@src/screens/SplashScreen';
 import Settings from '@src/screens/Settings';
 import Profile from '@src/screens/Profile';
+import SearchBar from '@src/screens/SearchBar';
 const Stack = createNativeStackNavigator();
 
 const MyTheme = {
@@ -27,6 +28,7 @@ function MainRoutes() {
             <Stack.Screen name="splash" component={SplashScreen} />
             <Stack.Screen name="editProfile" component={EditProfile} />
             <Stack.Screen name="userProfile" initialParams={{ id: Number }} component={Profile} />
+            <Stack.Screen name="searchBar" component={SearchBar} />
             <Stack.Screen name="settings" component={Settings} />
             <Stack.Screen name="auth" component={AuthRoutes} />
             <Stack.Screen name="app" component={AppRoutes} />

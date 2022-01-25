@@ -4,8 +4,13 @@ import { AppLooks as AL } from "@src/shared/styles/AppLooks";
 import { smallLogo } from "@src/helpers/consts";
 import { Ionicons } from "@expo/vector-icons";
 import { AppColors } from "@src/shared/styles/AppResourses";
+import { useNavigation } from "@react-navigation/native";
 
-const Header = ()=>{
+
+const Header = ({navigation}: any)=>{
+
+    const navigate = useNavigation()
+
     return(
         <>
             <View 
@@ -22,6 +27,9 @@ const Header = ()=>{
                 <Image source={smallLogo} style={{width: Dimensions.get("screen").width / 11, height: Dimensions.get("screen").width / 12}}/>
                 <View>
                     <Pressable
+                        onPress={()=> {
+                            navigate.navigate("searchBar")
+                        }}
                         style={[
                             AL.bgDarkGray,
                             AL.rounded,
