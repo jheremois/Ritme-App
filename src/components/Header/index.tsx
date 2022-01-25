@@ -19,7 +19,9 @@ const Header = ({navigation}: any)=>{
                     AL.contentBetween,
                     AL.flexRow,
                     AL.alignCenter,
-                    AL.paddingS,
+                    {
+                        padding: 5,
+                    },
                     AL.paddingMX,
                     AL.shadowS
                 ]}
@@ -33,12 +35,16 @@ const Header = ({navigation}: any)=>{
                         style={[
                             AL.bgDarkGray,
                             AL.rounded,
+                            AL.contentCenter,
+                            AL.alignCenter,
                             {
-                                padding: 8
+                                width: Dimensions.get("screen").width / 11,
+                                height: Dimensions.get("screen").width / 11,
+                                padding: 5
                             }
                         ]}
                     >
-                        <Ionicons name="search" size={22} color={AppColors.white}/>
+                        <Ionicons name="search" size={21} color={AppColors.white}/>
                     </Pressable>
                 </View>
             </View>
