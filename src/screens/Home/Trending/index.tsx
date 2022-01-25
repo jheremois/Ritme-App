@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, Dimensions } from "react-native";
+import { View, Text, FlatList, Dimensions, Button } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import PostsList from "@src/components/PostsList";
 import { AppColors } from "@src/shared/styles/AppResourses";
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 
 const Trending = ()=>{
 
@@ -22,7 +23,18 @@ const Trending = ()=>{
     useEffect(()=>{
         loadPosts()
     })
-  
+
+    const offset = useSharedValue(0);
+
+    const animatedStyles = useAnimatedStyle(() => {
+        return {
+        width: offset.value * 500,
+        //transform: [{ translateX: offset.value * 255 }],
+        };
+    });
+
+    
+
     return(
         <>
             <View 
@@ -33,7 +45,7 @@ const Trending = ()=>{
                     AppLooks.h50
                 ]}
             >
-                <View
+                <Animated.View
                     style={[
                         AppLooks.shadowM,
                         AppLooks.bgGray,
@@ -67,7 +79,7 @@ const Trending = ()=>{
                             This zone still in development
                         </Text>
                     </View>
-                </View>
+                </Animated.View>
             </View>
         </>
     )

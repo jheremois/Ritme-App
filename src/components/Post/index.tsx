@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Lightbox from 'react-native-lightbox-v2';
 import { checkImage } from "@src/helpers/ImageUplader";
 import { useNavigation } from "@react-navigation/native";
+import Animated, {useAnimatedStyle, FadeInLeft, withSpring} from "react-native-reanimated";
 
 
 const Post = (props: any)=>{
@@ -29,17 +30,30 @@ const Post = (props: any)=>{
     const upChart = 
         (upVotes.length/ (upVotes.length + downVotes.length)) * (100) >= 1
             ?
-                (upVotes.length/ (upVotes.length + downVotes.length)) * (100)
+                (upVotes.length/ (upVotes.length + downVotes.length)) * (Dimensions.get("screen").width - 30)
             :
                 0
+    ;
 
     const downChart = 
         (downVotes.length / (upVotes.length + downVotes.length)) * (100) >= 1
             ?
-                (downVotes.length / (upVotes.length + downVotes.length)) * (100)
+                (downVotes.length / (upVotes.length + downVotes.length)) * (Dimensions.get("screen").width - 30)
             :
                 0
+    ;
 
+    const animationStyleUp = useAnimatedStyle(()=>{
+        return{
+            width: withSpring(upChart)
+        }
+    })
+
+    const animationStyleDown = useAnimatedStyle(()=>{
+        return{
+            width: withSpring(downChart)
+        }
+    })
 
     return(
         <>
@@ -103,96 +117,100 @@ const Post = (props: any)=>{
                         />
                     </Lightbox>
                 </View>
-                <View style={[AppLooks.alignCenter, AppLooks.flexRow, AppLooks.contentBetween]}>
+                <View style={[AppLooks.alignCenter, AppLooks.contentBetween]}>
                     {
-                    iVoted?            
-                    <View
-                        style={[{height: 50, width: "100%", display: "flex", flexDirection: "row"}]}
-                    >
+                    iVoted?       
                         <View
-                            style={[
-                                {
-                                    height: "100%",
-                                    backgroundColor: `${AppColors.indigo}`,
-                                    width: `${upChart}%`,
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    flexDirection: "row",
-                                }
-                            ]}
+                            style={[{height: 50, width: "100%", display: "flex", flexDirection: "row"}]}
                         >
-                            <MaterialCommunityIcons name="arrow-up-bold-outline" size={25} color={AppColors.white}/>
-                        </View>
+                            <Animated.View
+                                onLayout={()=> FadeInLeft.duration(3000)}
+                                style={[
+                                    {
+                                        height: "100%",
+                                        backgroundColor: `${AppColors.indigo}`,
+                                        //width: `${upChart}%`,
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        flexDirection: "row",
+                                    },
+                                    animationStyleUp
+                                ]}
+                            >
+                                <MaterialCommunityIcons name="arrow-up-bold-outline" size={25} color={AppColors.white}/>
+                            </Animated.View>
 
-                        <View
-                            style={[
-                                {
-                                    height: "100%",
-                                    backgroundColor: AppColors.red,
-                                    width: `${downChart}%`,
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                }
-                            ]}
-                        >
-                            <MaterialCommunityIcons name="arrow-down-bold-outline" size={25} color={AppColors.white}/>
+                            <Animated.View
+                                style={[
+                                    {
+                                        height: "100%",
+                                        backgroundColor: AppColors.red,
+                                        //width: `${downChart}%`,
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    },
+                                    animationStyleDown
+                                ]}
+                            >
+                                <MaterialCommunityIcons name="arrow-down-bold-outline" size={25} color={AppColors.white}/>
+                            </Animated.View>
                         </View>
-                    </View>
                     :
-                            <>
-                            
-                        <Pressable
-                            onPress={
-                                votingP
-                            }
-                            style={({ pressed }) =>[
-                                pressed
-                                    ?
-                                        {
-                                            backgroundColor: `${AppColors.indigo}`
-                                        }
-                                    :
-                                        {
-                                            backgroundColor: `${AppColors.indigo}10`
-                                        },
-                                {
-                                    width: "50%",
-                                },
-                                AppLooks.alignCenter,
-                                AppLooks.contentAround,
-                                AppLooks.paddingM,
-                                AppLooks.flexRow,
-                            ]}
+                        <View
+                           style={[{height: 50, width: "100%", display: "flex", flexDirection: "row"}]}
                         >
-                            <MaterialCommunityIcons name="arrow-up-bold-outline" size={25} color={AppColors.white}/>
-                        </Pressable>
-                        <Pressable 
-                            onPress={
-                                votingN
-                            }
-                            style={({ pressed }) =>[
-                                pressed
-                                    ?
-                                        {
-                                            backgroundColor: `${AppColors.red}`
-                                        }
-                                    :
-                                        {
-                                            backgroundColor: `${AppColors.red}10`
-                                        },
-                                {
-                                    width: "50%",
-                                },
+                            <Pressable
+                                onPress={
+                                        votingP
+                                }
+                                style={({ pressed }) =>[
+                                    pressed
+                                        ?
+                                            {
+                                                backgroundColor: `${AppColors.indigo}`
+                                            }
+                                        :
+                                            {
+                                                backgroundColor: `${AppColors.indigo}10`
+                                            },
+                                    {
+                                        width: "50%",
+                                    },
+                                    AppLooks.alignCenter,
+                                    AppLooks.contentAround,
+                                    AppLooks.paddingM,
+                                    AppLooks.flexRow,
+                                ]}
+                            >
+                                <MaterialCommunityIcons name="arrow-up-bold-outline" size={25} color={AppColors.white}/>
+                            </Pressable>
+                            <Pressable 
+                                onPress={
+                                    votingN
+                                }
+                                style={({ pressed }) =>[
+                                    pressed
+                                        ?
+                                            {
+                                                backgroundColor: `${AppColors.red}`
+                                            }
+                                        :
+                                            {
+                                                backgroundColor: `${AppColors.red}10`
+                                            },
+                                    {
+                                        width: "50%",
+                                    },
 
-                                AppLooks.alignCenter,
-                                AppLooks.contentAround,
-                                AppLooks.paddingM,
-                                AppLooks.flexRow,
-                            ]}
-                        >
-                            <MaterialCommunityIcons name="arrow-down-bold-outline" size={25} color={AppColors.white}/>
-                        </Pressable>
-                        </>
+                                    AppLooks.alignCenter,
+                                    AppLooks.contentAround,
+                                    AppLooks.paddingM,
+                                    AppLooks.flexRow,
+                                ]}
+                            >
+                                <MaterialCommunityIcons name="arrow-down-bold-outline" size={25} color={AppColors.white}/>
+                            </Pressable>
+                        </View>
                     }
                 </View>
             </View>
