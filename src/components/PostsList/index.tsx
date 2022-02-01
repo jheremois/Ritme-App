@@ -3,6 +3,7 @@ import { Text, FlatList, View, Dimensions } from 'react-native';
 import Post from '@components/Post';
 import PostLoader from '../PostLoader';
 import { Getvotes, sendVote } from '@src/services/Posts.services';
+import { format } from 'timeago.js';
 
 const RenderItem = ({ item }: any) => {
     const [upVote, setUpvote] = useState([])
@@ -35,6 +36,7 @@ const RenderItem = ({ item }: any) => {
 
     return(
         <Post
+            upload_time={format(item.upload_time)}
             iVoted={iVoted}
             votingP={()=> voting(item.post_id, "p")}
             votingN={()=> voting(item.post_id, "n")}

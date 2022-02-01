@@ -9,10 +9,12 @@ import Profile from '@src/screens/Profile';
 import { AppLooks } from '@src/shared/styles/AppLooks';
 import CreatePost from '@src/screens/CreatePost';
 import FeedRoutes from '@router/Feed.routes';
+import SearchBar from '@src/screens/SearchBar';
+import Settings from '@src/screens/Settings';
 
-const icons: any = ["home", "add","person"];
+const icons: any = ["home", "search", "add","person", "settings"];
 const getTemplateIcon = (focused: boolean, pos: number) => {
-    return (<Ionicons name={icons[pos]} size={25} color={focused ? "#f0f0f0" : "#f0f0f070"} />);
+    return (<Ionicons name={icons[pos]} size={25} color={focused ? AppColors.indigo : "#f0f0f070"} />);
 };
 const setIcons = (iconsPost: number) => {
     return {
@@ -48,7 +50,7 @@ function AppRoutes({navigation}: any) {
 
     return (
         <>
-            <Header/>
+            {/* <Header/> */}
             <Tap.Navigator
                 initialRouteName="Home"
                 screenOptions={{
@@ -56,11 +58,12 @@ function AppRoutes({navigation}: any) {
                     tabBarItemStyle: {justifyContent: 'center', alignItems: 'center'},
                     tabBarLabelStyle: {marginBottom: 5,},
                     headerShown: false,
-                    tabBarActiveTintColor: '#f0f0f8', 
+                    tabBarActiveTintColor: AppColors.indigo, 
                     tabBarInactiveBackgroundColor: 'f0f0f880', 
                 }}
             >
                 <Tap.Screen name="Home" component={FeedRoutes} options={setIcons(0)} />
+                <Tap.Screen name="Search" component={SearchBar} options={setIcons(1)} />
                 <Tap.Screen name="create" component={CreatePost} 
                     options={{
                         tabBarIcon: ({poprs}: any)=>(
@@ -71,7 +74,8 @@ function AppRoutes({navigation}: any) {
                         }
                     }}
                 />
-                <Tap.Screen name="Profile" component={Profile} options={setIcons(2)} />
+                <Tap.Screen name="Profile" component={Profile} options={setIcons(3)} />
+                <Tap.Screen name="Settings" component={Settings} options={setIcons(4)} />
             </Tap.Navigator>
         </>
     )

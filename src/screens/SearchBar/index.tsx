@@ -19,8 +19,6 @@ const SearchBar = ({navigation}: any)=>{
     const getUsersData = ()=>{
         getUsers().then((res: any)=>{
             setUsers(res.data.response)
-            console.log("users data: ", res.data);
-            
         }).catch((err)=>{
             console.log(err)
         })
@@ -92,6 +90,7 @@ const SearchBar = ({navigation}: any)=>{
                 style={[
                     AppLooks.flexRow,
                     AppLooks.alignCenter,
+                    AppLooks.paddingSX,
                     AL.bgGray,
                     {
                         paddingVertical: 10
@@ -104,15 +103,15 @@ const SearchBar = ({navigation}: any)=>{
                     }}
                     
                     style={[
+                        AppLooks.paddingSX,
                         AppLooks.alignCenter,
                         AppLooks.contentCenter,
                         {
-                            width: "12%",
-
+                            width: "10%"
                         }
                     ]}
                 >
-                    <Ionicons name="arrow-back" size={22} color={AppColors.white}/>
+                    <Ionicons name="search" size={22} color={AppColors.white}/>
                 </Pressable>
                 <TextInput
                     placeholder="user name..."
@@ -122,7 +121,7 @@ const SearchBar = ({navigation}: any)=>{
                     autoFocus={true}
                     style={[
                         {
-                            width: "80%",
+                            width: "85%",
                             borderColor: "#f0f0f040",
                             paddingVertical: 5,
                             borderBottomWidth: 1,

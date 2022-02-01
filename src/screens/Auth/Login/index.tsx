@@ -39,7 +39,6 @@ const Login = ({navigation}: any)=>{
                 navigation.replace("splash")
             } catch (e) {
                 showToast("error", "Error trying to authenticate")
-                console.log(e);
                 await setLoading(false)
             }
         }).catch(async (err)=>{

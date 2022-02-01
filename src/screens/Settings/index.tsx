@@ -49,7 +49,7 @@ const Settings = ({navigation}: any)=>{
 
     return(
         <View>
-            <GoBack title="Settings"/>
+            {/* <GoBack title="Settings"/> */}
             <View>
                 <Option icon="ios-person-outline" name="Edit Profile" action={()=> navigation.navigate("editProfile")} />
                 <Option icon="ios-exit-outline" name="Logout" action={()=> LogOut()} />

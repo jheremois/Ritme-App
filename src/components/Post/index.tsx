@@ -8,10 +8,10 @@ import { checkImage } from "@src/helpers/ImageUplader";
 import { useNavigation } from "@react-navigation/native";
 import Animated, {useAnimatedStyle, FadeInLeft, withSpring} from "react-native-reanimated";
 
-
 const Post = (props: any)=>{
 
     const {
+        upload_time,
         userId,
         iVoted,
         profile_pic,
@@ -59,41 +59,52 @@ const Post = (props: any)=>{
         <>
             <View style={[AppLooks.marginM, AppLooks.roundedM, AppLooks.bgDarkGray, AppLooks.borderM, {overflow: "hidden", borderColor: "#f0f0f010"}]}>
                 <View style={[AppLooks.paddingS, AppLooks.roundedM, AppLooks.bgDarkGray, {paddingBottom: 0}]}>
-                    <View style={[AppLooks.flexRow]}>
-                        <Pressable  
-                            onPress={()=> {
-                                console.log("userId: ", userId)
-                                navigate.navigate('userProfile', {id: userId})
-                            }}
-                        >
-                            <Image 
-                                source={
-                                    checkImage(profile_pic)
-                                }
-                                style={[
-                                    AppLooks.rounded,
-                                    {
-                                        height: Dimensions.get("screen").width / 9,
-                                        width: Dimensions.get("screen").width / 9
-                                    }
-                                ]}
-                            />
-                        </Pressable>
-                        <View style={[AppLooks.alignStart, AppLooks.paddingMX]}>
-                            <Pressable
+                    <View
+                        style={[AppLooks.flexRow, AppLooks.contentBetween]}
+                    >
+                        <View style={[AppLooks.flexRow]}>
+                            <Pressable  
                                 onPress={()=> {
-                                    console.log("userId: ", userId)
                                     navigate.navigate('userProfile', {id: userId})
                                 }}
                             >
-                                <Text style={[AppLooks.textWhite, AppLooks.fontXl, AppLooks.textS]}>
-                                    {user_name}
-                                </Text>
+                                <Image 
+                                    source={
+                                        checkImage(profile_pic)
+                                    }
+                                    style={[
+                                        AppLooks.rounded,
+                                        {
+                                            height: Dimensions.get("screen").width / 9,
+                                            width: Dimensions.get("screen").width / 9
+                                        }
+                                    ]}
+                                />
                             </Pressable>
-                            <View style={[AppLooks.roundedXl, AppLooks.alignCenter, AppLooks.paddingMX, AppLooks.borderS, {borderColor: "#ffffff60"}]}>
-                                <Text style={[AppLooks.textWhite, AppLooks.fontXl, AppLooks.textXS]}>
-                                    {post_tag}
-                                </Text>
+                            <View style={[AppLooks.alignStart, AppLooks.paddingMX]}>
+                                <Pressable
+                                    style={[AppLooks.flexRow, AppLooks.alignCenter]}
+                                    onPress={()=> {
+                                        console.log("userId: ", userId)
+                                        navigate.navigate('userProfile', {id: userId})
+                                    }}
+                                >
+                                    <Text style={[AppLooks.textWhite, AppLooks.fontXl, AppLooks.textS]}>
+                                        {user_name}
+                                    </Text>
+                                    <Text style={[{paddingHorizontal: 3.3, opacity: 0.7,}, AppLooks.textWhite, AppLooks.fontXl, AppLooks.textS]}>
+                                        -
+                                    </Text>
+                                    <Text style={[{color: AppColors.whiteLow}, AppLooks.fontS, AppLooks.textXS]}>
+                                        {upload_time}
+                                    </Text>
+                                </Pressable>
+
+                                <View style={[AppLooks.roundedXl, AppLooks.alignCenter, AppLooks.paddingMX, AppLooks.borderS, {borderColor: "#ffffff60"}]}>
+                                    <Text style={[AppLooks.textWhite, AppLooks.fontXl, AppLooks.textXS]}>
+                                        {post_tag}
+                                    </Text>
+                                </View>
                             </View>
                         </View>
                     </View>

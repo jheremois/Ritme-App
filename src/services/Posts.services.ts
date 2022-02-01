@@ -72,3 +72,23 @@ export const sendVote = async (post_id: number, vote_type: string) => {
         }
     })
 }
+
+export const getTags = async () => {
+    const jsonValue = await AsyncStorage.getItem('user_data')
+
+    return posts.get(`/trendTags`, {
+        headers: {
+          "user_token": JSON.parse(jsonValue!).user_token
+        }
+    })
+}
+
+export const getPostsTags = async (tag: string) => {
+    const jsonValue = await AsyncStorage.getItem('user_data')
+
+    return posts.get(`/posts/tag/${tag}`, {
+        headers: {
+          "user_token": JSON.parse(jsonValue!).user_token
+        }
+    })
+}

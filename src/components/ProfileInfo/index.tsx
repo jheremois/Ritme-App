@@ -44,7 +44,7 @@ export const ProfileInfo = (props: profileInfo)=>{
                                         style={[AppLooks.paddingSY, AppLooks.paddingMX, AppLooks.borderS, AppLooks.roundedS, AppLooks.bgBlack, {borderColor: "#f0f0f020"}]}
                                     >
                                         <Text style={[AppLooks.textWhite, AppLooks.textS, AppLooks.textCenter]}>
-                                            Settings
+                                            Edit Profile
                                         </Text>
                                     </Pressable>
                                 </View>

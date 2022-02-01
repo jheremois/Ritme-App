@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, Dimensions, Button } from "react-native";
+import { View, Text, FlatList, Dimensions, Button, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import PostsList from "@src/components/PostsList";
 import { AppColors } from "@src/shared/styles/AppResourses";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
+import { postType } from "@src/shared/interfaces/posts.type";
+import { getPosts, getPostsTags, getTags } from "@src/services/Posts.services";
+import { showToast } from "@src/helpers/consts";
 
 const Trending = ()=>{
 
     const [isFetching, setIsFetching] = useState(false);
+    const [tagList, setTegList] = useState<any[]>()
+    const [activeTag, setActiveTag] = useState<string>("")
+    const [posts, setPosts] = useState<postType[]>([])
 
     const onRefresh = async () => {
         await setIsFetching(true);
@@ -17,26 +23,107 @@ const Trending = ()=>{
     };
 
     const loadPosts = async()=>{
-        
+        getPosts().then((res)=>{
+            setPosts(res.data)
+            setTimeout(() => {
+                setIsFetching(false);
+            }, 1000);
+        }).catch((err)=>{
+            setTimeout(() => {
+                setIsFetching(false)
+            }, 1000);
+            showToast("error", err.response)
+        })
     }
 
-    useEffect(()=>{
-        loadPosts()
-    })
-
-    const offset = useSharedValue(0);
-
-    const animatedStyles = useAnimatedStyle(() => {
-        return {
-        width: offset.value * 500,
-        //transform: [{ translateX: offset.value * 255 }],
-        };
-    });
-
+    const loadPostsByTag = (activeTag: string)=>{
+        getPostsTags(activeTag).then((res)=>{
+            setPosts(res.data)
+            setTimeout(() => {
+                setIsFetching(false);
+            }, 1000);
+        }).catch((err)=>{
+            setTimeout(() => {
+                setIsFetching(false)
+            }, 1000);
+            showToast("error", err.response)
+        })
+    }
     
+    useEffect(()=>{
+        //setIsFetching(true);
+        getTags().then((res)=>{
+            setTegList(res.data)
+        }).catch((err)=>{
+            console.log(err.message);
+        }).finally(()=>{
+            console.log("esto: ", tagList);
+            
+        })
+        //loadPosts()
+    }, []) 
 
     return(
         <>
+            <View>
+                <FlatList
+                    showsHorizontalScrollIndicator={false}
+                    listKey={`D${Date.now()}`}
+                    keyExtractor={item => Math.random() + " 1" + Date.now()}
+                    data={tagList}
+                    horizontal={true}
+                    renderItem={
+                        (data: any)=>{
+                            return(
+                                <View
+                                    style={[
+                                        AppLooks.paddingMY,
+                                        {
+                                            marginHorizontal: 4
+                                        }
+                                    ]}
+                                >
+                                    <Pressable
+                                        onPress={()=>{
+                                            setActiveTag(data.item.post_tag)
+                                            loadPostsByTag(data.item.post_tag)
+                                        }}
+                                        style={[{
+                                            borderRadius: 20,
+                                            borderColor: activeTag == data.item.post_tag? AppColors.indigo : AppColors.whiteLow,
+                                            paddingVertical: 5,
+                                        },
+                                        AppLooks.rounded,
+                                        AppLooks.bgBlack,
+                                        AppLooks.borderXl,
+                                        AppLooks.paddingSX,
+                                        AppLooks.alignCenter,
+                                        AppLooks.contentCenter,
+                                        ]}
+                                    >
+                                        <Text
+                                            style={[
+                                                activeTag == data.item.post_tag? AppLooks.textIndigo : AppLooks.textWhite,
+                                                AppLooks.fontXl
+                                            ]}
+                                        >
+                                            {
+                                                data.item.post_tag
+                                            }
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            )
+                        }
+                    }
+                />
+            </View>
+            <PostsList
+                data={posts}
+                state={isFetching}
+                refFunc={onRefresh}
+            />
+            {/* 
             <View 
                 style={[
                     {paddingBottom: 0}, 
@@ -81,6 +168,7 @@ const Trending = ()=>{
                     </View>
                 </Animated.View>
             </View>
+             */}
         </>
     )
 }

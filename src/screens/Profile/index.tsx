@@ -22,15 +22,7 @@ const Profile = ({navigation, route}: any)=>{
     }
   )
 
-  const [posts, setPosts] = useState<postType[]>([
-    {
-        post_description: "",
-        post_image: "h",
-        post_tag: ".",
-        upload_time: "2022-01-02T20:49:09.000Z",
-        user_id: 1,
-    }
-])
+  const [posts, setPosts] = useState<postType[]>([])
 
   const [isFetching, setIsFetching] = useState(true);
 
@@ -45,8 +37,6 @@ const Profile = ({navigation, route}: any)=>{
   const getUsers = (user_id: any)=>{
     getUser(user_id).then((res)=> {
       setUsername(res?.data.response[0])
-      console.log("User dara: ", res?.data.response[0]);
-      
     }).catch((err)=>{
       console.log("user err ->", err)
     })
@@ -122,7 +112,7 @@ const Profile = ({navigation, route}: any)=>{
                           user_name={username.user_name}
                           user_description={username.user_description}
                           profile_pic={username.profile_pic}
-                          action={()=> navigation.navigate("settings")} 
+                          action={()=> navigation.navigate("editProfile")} 
                         />
                     }
                 </>
