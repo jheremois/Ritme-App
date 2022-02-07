@@ -4,13 +4,12 @@
 It is a social network where users can create publications in which other users can vote positively or negatively.
 
 ## Features
-- [x] Create your pofile
+- [x] Create your user
 - [x] Edit Your profile
 - [x] Create posts
 - [x] Vote any post
 - [x] Enter in another profile
-- [ ] Comment posts
-- [ ] Follow other users
+- [x] Search profiles
 
 <hr>
 
