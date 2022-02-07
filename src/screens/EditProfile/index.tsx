@@ -40,7 +40,7 @@ export const EditProfile = ({navigation}: any)=>{
             }
         )
     }).catch((err)=>{
-        console.log("user err ->", err)
+       
     })
 
     async function upImage() {
@@ -73,7 +73,6 @@ export const EditProfile = ({navigation}: any)=>{
             navigation.goBack()
         }).catch((err)=>{
             setLoad(false)
-            console.log(err.response.data);
             showToast("error", err.response.data)
         })
     }

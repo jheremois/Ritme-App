@@ -52,11 +52,7 @@ export const UserProvider = ({ children }: any) => {
   
 
   const saveCredentials = async (data?: userData)=>{
-    !data
-      ?
-        console.log("fallo al guardar cred")
-      :
-        saveC(data)
+    !data && saveC(data)
   }
 
   const deleteCredentials = async () => {

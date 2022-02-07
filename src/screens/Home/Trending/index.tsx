@@ -3,27 +3,28 @@ import { View, Text, FlatList, Dimensions, Button, Pressable } from "react-nativ
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import PostsList from "@src/components/PostsList";
 import { AppColors } from "@src/shared/styles/AppResourses";
-import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import { postType } from "@src/shared/interfaces/posts.type";
-import { getPosts, getPostsTags, getTags } from "@src/services/Posts.services";
+import { getPosts, getPostsByTag, getTags } from "@src/services/Posts.services";
 import { showToast } from "@src/helpers/consts";
+import { getFeed } from "@src/services/Posts.services";
 
 const Trending = ()=>{
 
     const [isFetching, setIsFetching] = useState(false);
-    const [tagList, setTegList] = useState<any[]>()
+    const [tagList, setTegList] = useState<{}[]>()
     const [activeTag, setActiveTag] = useState<string>("")
-    const [posts, setPosts] = useState<postType[]>([])
+    const [posts, setPosts] = useState<postType[] | any>([])
 
     const onRefresh = async () => {
         await setIsFetching(true);
+        loadPosts()
         setTimeout(() => {
             setIsFetching(false);
         }, 3000);
     };
 
     const loadPosts = async()=>{
-        getPosts().then((res)=>{
+        getFeed().then((res)=>{
             setPosts(res.data)
             setTimeout(() => {
                 setIsFetching(false);
@@ -37,7 +38,7 @@ const Trending = ()=>{
     }
 
     const loadPostsByTag = (activeTag: string)=>{
-        getPostsTags(activeTag).then((res)=>{
+        getPostsByTag(activeTag).then((res)=>{
             setPosts(res.data)
             setTimeout(() => {
                 setIsFetching(false);
@@ -51,16 +52,13 @@ const Trending = ()=>{
     }
     
     useEffect(()=>{
-        //setIsFetching(true);
+        setIsFetching(true);
+        loadPosts()
         getTags().then((res)=>{
             setTegList(res.data)
         }).catch((err)=>{
             console.log(err.message);
-        }).finally(()=>{
-            console.log("esto: ", tagList);
-            
         })
-        //loadPosts()
     }, []) 
 
     return(
@@ -85,8 +83,12 @@ const Trending = ()=>{
                                 >
                                     <Pressable
                                         onPress={()=>{
+                                            setIsFetching(true)
                                             setActiveTag(data.item.post_tag)
                                             loadPostsByTag(data.item.post_tag)
+                                            setTimeout(() => {
+                                                setIsFetching(false)
+                                            }, 1000);
                                         }}
                                         style={[{
                                             borderRadius: 20,
@@ -119,56 +121,20 @@ const Trending = ()=>{
                 />
             </View>
             <PostsList
-                data={posts}
+                data={
+                    posts.sort((a: any, b:any) => {
+                            
+                        if(a.post.upload_time.slice(0,10) < b.post.upload_time.slice(0,10) ) return 1
+                        if(a.post.upload_time.slice(0,10) > b.post.upload_time.slice(0,10) ) return -1
+
+                        if(b.upVotes.length > a.upVotes.length) return 1
+                        if(b.upVotes.length < a.upVotes.length) return -1
+
+                    })
+                }
                 state={isFetching}
                 refFunc={onRefresh}
             />
-            {/* 
-            <View 
-                style={[
-                    {paddingBottom: 0}, 
-                    AppLooks.alignCenter, 
-                    AppLooks.contentCenter, 
-                    AppLooks.h50
-                ]}
-            >
-                <Animated.View
-                    style={[
-                        AppLooks.shadowM,
-                        AppLooks.bgGray,
-                        AppLooks.roundedM,
-                        AppLooks.paddingS,
-                        AppLooks.paddingMY,
-                        {width: Dimensions.get("screen").width / 1.6}
-                    ]}
-                >
-                    <View>
-                        <Text
-                            style={[
-                                AppLooks.textCenter,
-                                AppLooks.fontM,
-                                AppLooks.textL,
-                                AppLooks.textWhite
-                            ]}
-                        >
-                            Coming soon
-                        </Text>
-                    </View>
-                    <View>
-                        <Text
-                            style={[
-                                AppLooks.textCenter,
-                                AppLooks.textS,
-                                AppLooks.paddingSY,
-                                {color: AppColors.whiteLow}
-                            ]}
-                        >
-                            This zone still in development
-                        </Text>
-                    </View>
-                </Animated.View>
-            </View>
-             */}
         </>
     )
 }

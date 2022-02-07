@@ -1,59 +1,61 @@
 import React, { useEffect, useState } from 'react'
-import { Text, FlatList, View, Dimensions } from 'react-native';
+import { Text, FlatList, View, Dimensions, VirtualizedList } from 'react-native';
 import Post from '@components/Post';
 import PostLoader from '../PostLoader';
-import { Getvotes, sendVote } from '@src/services/Posts.services';
+import { sendVote } from '@src/services/Posts.services';
 import { format } from 'timeago.js';
 
-const RenderItem = ({ item }: any) => {
-    const [upVote, setUpvote] = useState([])
-    const [iVoted, setIVoted] = useState(false)
-    const [downVote, setDownvote] = useState([])
+function PostsList({ data, header, fixed, refFunc, state, updateFeed }: any) {
 
-    const getVotes = (vote: number)=>{
-        Getvotes(vote).then((res)=>{
-            setUpvote(res.data.upVotes)
-            setIVoted(res.data.iVoted)
-            setDownvote(res.data.downVotes)
-        }).catch((err)=>{
-            setUpvote([])
+    const RenderItem = ({ item }: any) => {    
+    
+        const [iVoted, setIVoted] = useState(false)
+        const [load, setLoad] = useState(4)
+        const [myVote, setMyVote] = useState({
+            up: 0,
+            down: 0
         })
-        
+
+        const voting = (vote: number, voteType: string)=>{
+            sendVote(vote, voteType).then((res)=>{
+                voteType == 'p'
+                ?
+                    setMyVote({...myVote, up: 1})
+                :
+                    setMyVote({...myVote, down: 1})
+                setIVoted(true)
+
+                setTimeout(() => {
+                    updateFeed()
+                }, 600)
+            }).catch((err)=>{
+                alert(err.response.data.errMessage)
+            })
+        }
+    
+        return(
+            <Post
+                //upload_time={format(item.post.upload_time)}
+                upload_time={`${item.post.upload_time.slice(0, 10)}`}
+                iVoted={item.iVoted?item.iVoted:iVoted}
+                votingP={()=> voting(item.post.post_id, "p")}
+                votingN={()=> voting(item.post.post_id, "n")}
+                upVotes={item.upVotes.length + myVote.up}
+                downVotes={item.downVotes.length + myVote.down}
+                profile_pic={item.post.profile_pic}
+                vote={item.post.post_id}
+                userId={item.post.user_id}
+                user_name={item.post.user_name}
+                post_image={item.post.post_image}
+                post_tag={item.post.post_tag}
+                post_description={item.post.post_description}
+            />
+        )
     }
 
-    const voting = (vote: number, voteType: string)=>{
-        sendVote(vote, voteType).then((res)=>{
-            getVotes(vote)
-        }).catch((err)=>{
-            alert(err.response.data.errMessage);
-            console.log(err)
-        })
+    const onRefresh = ()=>{
+        refFunc()
     }
-
-    useEffect(()=>{
-        getVotes(item.post_id)
-    }, [])
-
-    return(
-        <Post
-            upload_time={format(item.upload_time)}
-            iVoted={iVoted}
-            votingP={()=> voting(item.post_id, "p")}
-            votingN={()=> voting(item.post_id, "n")}
-            upVotes={upVote}
-            downVotes={downVote}
-            profile_pic={item.profile_pic}
-            vote={item.post_id}
-            userId={item.user_id}
-            user_name={item.user_name}
-            post_image={item.post_image}
-            post_tag={item.post_tag}
-            post_description={item.post_description}
-        />
-    )
-}
-
-function PostsList({ data, header, fixed, refFunc, state }: any) {
 
     const LoadPost = ()=>{
         return(
@@ -65,26 +67,56 @@ function PostsList({ data, header, fixed, refFunc, state }: any) {
                 </View>
             </View>
         )
-    }
+    } 
+    const getItem = (data: any, index: number) => (
+        data[index]
+    )
 
-    const [load, setLoad] = useState(4)
+    const getCoun = (data: any) => data.length
 
     return (
         <>
             {
-                    <FlatList
+                <>
+                    <VirtualizedList
                         initialNumToRender={6}
-                        onRefresh={refFunc}
+                        onRefresh={onRefresh}
+                        refreshing={state}
+                        data={data}
+                        keyExtractor={item => item.post.post_id + " 1" + Date.now()}
+                        renderItem={({ item }) => (
+                            state
+                            ?
+                                <LoadPost/>
+                            :
+                                <RenderItem
+                                    item={item}
+                                />
+                        )}
+                        showsVerticalScrollIndicator={false}
+                        stickyHeaderIndices={fixed ?? []}
+                        ListHeaderComponent={header}
+                        listKey={`D${Date.now()}`}
+                        getItemCount={getCoun}
+                        getItem={getItem}
+                    />
+                    {/* 
+                    <FlatList
+                        initialNumToRender={4}
+                        onRefresh={onRefresh}
                         refreshing={state}
                         data={data.slice(0, load)}
                         onEndReached={() => {
+
+                            console.log("carga");
+
                             data.length > load
                             ?
-                                setLoad(load + 6)
+                                setLoad(load + 4)
                             :
                                 null
                         }}
-                        onEndReachedThreshold={0.3}
+                        onEndReachedThreshold={4}
                         keyExtractor={item => Math.random() + " 1" + Date.now()}
                         renderItem={({ item }) => (
                             state
@@ -99,7 +131,8 @@ function PostsList({ data, header, fixed, refFunc, state }: any) {
                         stickyHeaderIndices={fixed ?? []}
                         ListHeaderComponent={header}
                         listKey={`D${Date.now()}`}
-                    />
+                    />  */}
+                </>
             }
         </>
     )

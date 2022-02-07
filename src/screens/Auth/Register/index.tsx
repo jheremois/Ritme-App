@@ -43,11 +43,9 @@ const Register = ({navigation}: any)=>{
                     if (!error.status) {
                         setLoading(false)
                         showToast("error", error.response.data.errMessage)
-                        console.log(error.response.data);
                         
                     }else{
                         setLoading(false)
-                        console.log(error.response.data);
                         showToast("error", error.response.data.errMessage)
                     }
                 });

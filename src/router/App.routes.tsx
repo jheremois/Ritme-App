@@ -37,9 +37,10 @@ function AppRoutes({navigation}: any) {
                     {
                         top: -10,
                         width: Dimensions.get("screen").width / 7,
-                        height: Dimensions.get("screen").width / 7
+                        height: Dimensions.get("screen").width / 7,
+                        borderColor: AppColors.white + 15,
                     },
-                    AppLooks.bgIndigo, AppLooks.alignCenter, AppLooks.contentCenter, AppLooks.rounded
+                    AppLooks.borderS, AppLooks.bgIndigo, AppLooks.alignCenter, AppLooks.contentCenter, AppLooks.rounded
                 ]}            
             >
                 <Ionicons name={"add"} size={40} color={"#f0f0f0"} />

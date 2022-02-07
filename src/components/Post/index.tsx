@@ -28,17 +28,17 @@ const Post = (props: any)=>{
     const navigate = useNavigation()
 
     const upChart = 
-        (upVotes.length/ (upVotes.length + downVotes.length)) * (100) >= 1
+        (upVotes/ (upVotes + downVotes)) * (100) >= 1
             ?
-                (upVotes.length/ (upVotes.length + downVotes.length)) * (Dimensions.get("screen").width - 30)
+                (upVotes/ (upVotes + downVotes)) * (Dimensions.get("screen").width - 30)
             :
                 0
     ;
 
     const downChart = 
-        (downVotes.length / (upVotes.length + downVotes.length)) * (100) >= 1
+        (downVotes / (upVotes + downVotes)) * (100) >= 1
             ?
-                (downVotes.length / (upVotes.length + downVotes.length)) * (Dimensions.get("screen").width - 30)
+                (downVotes / (upVotes + downVotes)) * (Dimensions.get("screen").width - 30)
             :
                 0
     ;
@@ -57,7 +57,7 @@ const Post = (props: any)=>{
 
     return(
         <>
-            <View style={[AppLooks.marginM, AppLooks.roundedM, AppLooks.bgDarkGray, AppLooks.borderM, {overflow: "hidden", borderColor: "#f0f0f010"}]}>
+            <View style={[AppLooks.marginM, AppLooks.roundedM, AppLooks.bgDarkGray, AppLooks.borderM, {overflow: "hidden", borderColor: "#f0f0f020"}]}>
                 <View style={[AppLooks.paddingS, AppLooks.roundedM, AppLooks.bgDarkGray, {paddingBottom: 0}]}>
                     <View
                         style={[AppLooks.flexRow, AppLooks.contentBetween]}
@@ -85,7 +85,6 @@ const Post = (props: any)=>{
                                 <Pressable
                                     style={[AppLooks.flexRow, AppLooks.alignCenter]}
                                     onPress={()=> {
-                                        console.log("userId: ", userId)
                                         navigate.navigate('userProfile', {id: userId})
                                     }}
                                 >
@@ -115,11 +114,7 @@ const Post = (props: any)=>{
                     </View>
                 </View>
                 <View>
-                    <Lightbox
-                        onLongPress={()=>{
-                            console.log("Descargar");
-                        }}
-                    >
+                    <Lightbox>
                         <Image 
                             source={
                                 checkImage(post_image)
@@ -146,21 +141,30 @@ const Post = (props: any)=>{
                                     {
                                         height: "100%",
                                         backgroundColor: `${AppColors.indigo}`,
+                                        flexDirection: "row",
                                         //width: `${upChart}%`,
                                         alignItems: "center",
                                         justifyContent: "center",
-                                        flexDirection: "row",
                                     },
                                     animationStyleUp
                                 ]}
                             >
-                                <MaterialCommunityIcons name="arrow-up-bold-outline" size={25} color={AppColors.white}/>
+                                {
+                                    Math.round(upChart) > 80 && 
+                                    <Text
+                                        style={[AppLooks.textWhite, AppLooks.fontM, {paddingRight: 2}]}
+                                    >
+                                        {Math.round((upVotes/ (upVotes + downVotes)) * (100))}%
+                                    </Text>
+                                }
+                                <MaterialCommunityIcons name="arrow-up-bold-outline" size={18} color={AppColors.white}/>
                             </Animated.View>
 
                             <Animated.View
                                 style={[
                                     {
                                         height: "100%",
+                                        flexDirection: "row",
                                         backgroundColor: AppColors.red,
                                         //width: `${downChart}%`,
                                         alignItems: "center",
@@ -169,7 +173,17 @@ const Post = (props: any)=>{
                                     animationStyleDown
                                 ]}
                             >
-                                <MaterialCommunityIcons name="arrow-down-bold-outline" size={25} color={AppColors.white}/>
+                                {
+                                    Math.round(downChart) > 80 && 
+                                    <Text
+                                        style={[AppLooks.textWhite, AppLooks.fontM, {paddingRight: 2}]}
+                                    >
+                                        {Math.round((downVotes/ (upVotes + downVotes)) * (100))}%
+                                    </Text>
+                                }
+                                {
+                                    <MaterialCommunityIcons name="arrow-down-bold-outline" size={18} color={AppColors.white}/>
+                                }
                             </Animated.View>
                         </View>
                     :

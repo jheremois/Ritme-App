@@ -33,7 +33,6 @@ const Login = ({navigation}: any)=>{
         setInValidForm({password: form.password.length <= 5, email: !form.email.match(emailRegex)})
         loginUser(form).then( async (res)=>{
             try {
-                console.log("Loged as: ", res.data.data)
                 saveCredentials(res.data.data)
                 await setLoading(false)
                 navigation.replace("splash")
@@ -43,7 +42,6 @@ const Login = ({navigation}: any)=>{
             }
         }).catch(async (err)=>{
             showToast("error", err.response.data.errMessage)
-            console.log(err.response.data)
             await setLoading(false)
         })
     }

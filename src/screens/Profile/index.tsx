@@ -6,7 +6,7 @@ import { profileType } from "@src/shared/interfaces/user.type";
 import PostsList from "@src/components/PostsList";
 import ProfileLoader from "@src/components/ProfileLoader";
 import { postType } from "@src/shared/interfaces/posts.type";
-import { getMyPosts, getUserPosts } from "@src/services/Posts.services";
+import { getMyFeed, getMyPosts, getUserFeed, getUserPosts } from "@src/services/Posts.services";
 import { showToast } from "@src/helpers/consts";
 import GoBack from "@src/components/GoBack";
 
@@ -22,7 +22,7 @@ const Profile = ({navigation, route}: any)=>{
     }
   )
 
-  const [posts, setPosts] = useState<postType[]>([])
+  const [posts, setPosts] = useState([])
 
   const [isFetching, setIsFetching] = useState(true);
 
@@ -46,13 +46,13 @@ const Profile = ({navigation, route}: any)=>{
     
     route.params
       ?
-        getUserPosts(route.params.id).then((res)=>{
+        getUserFeed(route.params.id).then((res)=>{
           setPosts(res.data)
         }).catch((err)=>{
             showToast("error", err.message)
         })
       :
-        getMyPosts().then((res)=>{
+        getMyFeed().then((res)=>{
             setPosts(res.data)
         }).catch((err)=>{
             showToast("error", err.message)
@@ -89,7 +89,6 @@ const Profile = ({navigation, route}: any)=>{
             :
               null
           }
-          {
             <PostsList
               data={posts}
               state={isFetching}
@@ -118,7 +117,6 @@ const Profile = ({navigation, route}: any)=>{
                 </>
               }
             />
-          }
         </>
     )
 }
