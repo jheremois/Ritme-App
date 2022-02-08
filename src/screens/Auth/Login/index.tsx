@@ -48,11 +48,12 @@ const Login = ({navigation}: any)=>{
 
     function sendForm() {
         let condition = {password: form.password.length <= 5, email: !form.email.match(emailRegex)}
-            form.password.length <= 5 || !form.email.match(emailRegex)
-            ?
-                setInValidForm(condition)
-            :
-                logUser()
+            !loading &&
+                form.password.length <= 5 || !form.email.match(emailRegex)
+                ?
+                    setInValidForm(condition)
+                :
+                    logUser()
     }
 
     return(

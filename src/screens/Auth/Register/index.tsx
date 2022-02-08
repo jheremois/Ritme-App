@@ -32,23 +32,24 @@ const Register = ({navigation}: any)=>{
         setLoading(true)
         setInValidForm({user_name: form.user_name.length <= 3, password: form.password.length <= 5, email: !form.email.match(emailRegex)})
 
-        form.user_name.length <= 3 || form.password.length <= 5 || !form.email.match(emailRegex)
-            ?
-                setLoading(false)
-            :
-                RegisterUser(form).then(()=>{
-                    navigation.navigate("login")
+        !loading &&
+            form.user_name.length <= 3 || form.password.length <= 5 || !form.email.match(emailRegex)
+                ?
                     setLoading(false)
-                }).catch((error)=> {
-                    if (!error.status) {
+                :
+                    RegisterUser(form).then(()=>{
+                        navigation.navigate("login")
                         setLoading(false)
-                        showToast("error", error.response.data.errMessage)
-                        
-                    }else{
-                        setLoading(false)
-                        showToast("error", error.response.data.errMessage)
-                    }
-                });
+                    }).catch((error)=> {
+                        if (!error.status) {
+                            setLoading(false)
+                            showToast("error", error.response.data.errMessage)
+                            
+                        }else{
+                            setLoading(false)
+                            showToast("error", error.response.data.errMessage)
+                        }
+                    })
     }
 
     return(
