@@ -1,6 +1,6 @@
 {
-  "name": "rame",
-  "version": "1.0.0",
+  "name": "ritme",
+  "version": "0.7.0",
   "scripts": {
     "getApk": "cd android && yarn react-native run-android --variant=release && cd..",
     "expo-start": "expo start --dev-client",
@@ -19,7 +19,6 @@
     "@react-navigation/material-top-tabs": "^6.0.6",
     "@react-navigation/native": "^6.0.4",
     "@react-navigation/native-stack": "^6.2.2",
-    "@types/react-redux": "^7.1.20",
     "axios": "^0.24.0",
     "expo": "~43.0.2",
     "expo-image-manipulator": "~10.1.2",
@@ -31,9 +30,7 @@
     "react-content-loader": "^6.1.0",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
-    "react-native-awesome-alerts": "^1.5.2",
     "react-native-gesture-handler": "~1.10.2",
-    "react-native-image-view": "^2.1.9",
     "react-native-lightbox-v2": "^0.8.8",
     "react-native-locale-detector": "^1.0.1",
     "react-native-pager-view": "5.4.6",
@@ -43,10 +40,7 @@
     "react-native-svg": "^12.1.1",
     "react-native-tab-view": "^3.1.1",
     "react-native-toast-message": "^2.1.1",
-    "react-native-vector-icons": "^9.0.0",
-    "react-native-web": "0.17.1",
-    "react-redux": "^7.2.6",
-    "timeago.js": "^4.0.2"
+    "react-native-vector-icons": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

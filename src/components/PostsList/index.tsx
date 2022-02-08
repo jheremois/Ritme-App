@@ -3,7 +3,7 @@ import { Text, FlatList, View, Dimensions, VirtualizedList } from 'react-native'
 import Post from '@components/Post';
 import PostLoader from '../PostLoader';
 import { sendVote } from '@src/services/Posts.services';
-import { format } from 'timeago.js';
+//import { format } from 'timeago.js';
 
 function PostsList({ data, header, fixed, refFunc, state, updateFeed }: any) {
 

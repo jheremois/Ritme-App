@@ -1,4 +1,4 @@
-package rame.app;
+package ritme.app;
 
 import android.os.Bundle;
 
