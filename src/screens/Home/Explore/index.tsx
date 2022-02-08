@@ -8,7 +8,7 @@ import { showToast } from "@src/helpers/consts";
 const Explore = ()=>{
 
     const [isFetching, setIsFetching] = useState(false);
-    const [posts, setPosts] = useState<postType[] | any>([])
+    const [posts, setPosts] = useState<postType[]>([])
 
     const onRefresh = async () => {
         await setIsFetching(true);
@@ -47,7 +47,7 @@ const Explore = ()=>{
             <View style={{paddingBottom: 0}}>
                 <PostsList
                     updateFeed={loadThem}
-                    data={posts.sort((a: any, b:any) => b.post.post_id - a.post.post_id)}
+                    data={posts.sort((a: postType, b: postType) => b.post.post_id - a.post.post_id)}
                     state={isFetching}
                     refFunc={onRefresh}
                 />

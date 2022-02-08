@@ -1,10 +1,10 @@
 import { posts } from "./services";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { postType } from "@src/shared/interfaces/posts.type";
+import { FormPostType } from "@src/shared/interfaces/posts.type";
 
 // Api v2:
 
-export const getFeed = async (tag?: string) => {
+export const getFeed = async () => {
     const jsonValue = await AsyncStorage.getItem('user_data')
 
     return posts.get(`/feed`, {
@@ -54,7 +54,7 @@ export const getTags = async () => {
     })
 }
 
-export const createNewPost = async (data: postType)=>{
+export const createNewPost = async (data: FormPostType)=>{
     const jsonValue = await AsyncStorage.getItem('user_data')
     if(jsonValue != null){
         return posts.post("/post", data,{
@@ -65,7 +65,7 @@ export const createNewPost = async (data: postType)=>{
     }
 }
 
-export const Getvotes = async (post_id: any) => {
+export const Getvotes = async (post_id: number | string) => {
     const jsonValue = await AsyncStorage.getItem('user_data')
 
     return posts.get(`/votes/${post_id}`, {

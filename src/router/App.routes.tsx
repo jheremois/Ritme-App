@@ -12,7 +12,7 @@ import FeedRoutes from '@router/Feed.routes';
 import SearchBar from '@src/screens/SearchBar';
 import Settings from '@src/screens/Settings';
 
-const icons: any = ["home", "search", "add","person", "settings"];
+const icons: any[] = ["home", "search", "add","person", "settings"];
 const getTemplateIcon = (focused: boolean, pos: number) => {
     return (<Ionicons name={icons[pos]} size={25} color={focused ? AppColors.indigo : "#f0f0f070"} />);
 };
@@ -67,7 +67,7 @@ function AppRoutes({navigation}: any) {
                 <Tap.Screen name="Search" component={SearchBar} options={setIcons(1)} />
                 <Tap.Screen name="create" component={CreatePost} 
                     options={{
-                        tabBarIcon: ({poprs}: any)=>(
+                        tabBarIcon: ()=>(
                             <CreateTab/>
                         ),
                         tabBarLabelStyle: {

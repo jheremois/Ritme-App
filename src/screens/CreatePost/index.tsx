@@ -6,13 +6,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { pickImage } from "@src/helpers/ImageUplader";
 import { PlaceholdImg, showToast } from "@src/helpers/consts";
 import { createNewPost } from "@src/services/Posts.services";
-import { postType } from "@src/shared/interfaces/posts.type";
+import { FormPostType } from "@src/shared/interfaces/posts.type";
 import { AppColors } from "@src/shared/styles/AppResourses";
 
 const CreatePost = ({navigation}: any)=>{
 
     const [load, setLoad] = useState(false)
-    const [post, setPost] = useState<postType>(
+    const [post, setPost] = useState<FormPostType>(
         {
             post_description: "",
             post_image: "",
@@ -46,7 +46,7 @@ const CreatePost = ({navigation}: any)=>{
     
     }
 
-    const uploadPost = (data: postType)=>{
+    const uploadPost = (data: FormPostType)=>{
         setLoad(true)
         setValidPost({
             post_image: post.post_image?false:true,

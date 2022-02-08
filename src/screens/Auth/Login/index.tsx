@@ -70,7 +70,7 @@ const Login = ({navigation}: any)=>{
                         <AuthInput 
                             dark={true}
                             value={form.email}
-                            onchangetext={(e: any) => changeForm(e, "email")}
+                            onchangetext={(e: string) => changeForm(e, "email")}
                             errMsg="Something is wrong"
                             validator={inValidForm.email}
                             placeHolder="valid@email.com"

@@ -7,8 +7,9 @@ import Lightbox from 'react-native-lightbox-v2';
 import { checkImage } from "@src/helpers/ImageUplader";
 import { useNavigation } from "@react-navigation/native";
 import Animated, {useAnimatedStyle, FadeInLeft, withSpring} from "react-native-reanimated";
+import { postDataType } from "@src/shared/interfaces/posts.type";
 
-const Post = (props: any)=>{
+const Post = (props: postDataType)=>{
 
     const {
         upload_time,

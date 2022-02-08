@@ -4,7 +4,11 @@ import { AppLooks as AL } from "@src/shared/styles/AppLooks";
 import { Ionicons } from "@expo/vector-icons";
 import { AppColors } from "@src/shared/styles/AppResourses";
 
-const InnerHeader = (prop: any)=>{
+interface props {
+    tabName: string
+}
+
+const InnerHeader = (prop: props)=>{
     
     let {tabName} = prop
 

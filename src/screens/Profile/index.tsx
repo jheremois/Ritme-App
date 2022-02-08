@@ -22,7 +22,7 @@ const Profile = ({navigation, route}: any)=>{
     }
   )
 
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState<postType[]>([])
 
   const [isFetching, setIsFetching] = useState(true);
 
@@ -34,7 +34,7 @@ const Profile = ({navigation, route}: any)=>{
     })
   }
 
-  const getUsers = (user_id: any)=>{
+  const getUsers = (user_id: number)=>{
     getUser(user_id).then((res)=> {
       setUsername(res?.data.response[0])
     }).catch((err)=>{

@@ -17,15 +17,15 @@ const SearchBar = ({navigation}: any)=>{
     const [users, setUsers] = useState([])
 
     const getUsersData = ()=>{
-        getUsers().then((res: any)=>{
-            setUsers(res.data.response)
+        getUsers().then((res)=>{
+            setUsers(res?.data.response)
         }).catch((err)=>{
             console.log(err)
         })
         
     }
 
-    const filterItems = (query: any) => {
+    const filterItems = (query: string) => {
         return users.filter((el: any) =>(
             search.length !== 0
             ?

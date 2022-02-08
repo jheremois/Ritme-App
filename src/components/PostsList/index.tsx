@@ -3,11 +3,16 @@ import { Text, FlatList, View, Dimensions, VirtualizedList } from 'react-native'
 import Post from '@components/Post';
 import PostLoader from '../PostLoader';
 import { sendVote } from '@src/services/Posts.services';
+import { postType } from '@src/shared/interfaces/posts.type';
 //import { format } from 'timeago.js';
 
 function PostsList({ data, header, fixed, refFunc, state, updateFeed }: any) {
 
-    const RenderItem = ({ item }: any) => {    
+    interface item{
+        item: postType
+    }
+
+    const RenderItem = ({item}: item) => {    
     
         const [iVoted, setIVoted] = useState(false)
         const [load, setLoad] = useState(4)
@@ -43,7 +48,7 @@ function PostsList({ data, header, fixed, refFunc, state, updateFeed }: any) {
                 upVotes={item.upVotes.length + myVote.up}
                 downVotes={item.downVotes.length + myVote.down}
                 profile_pic={item.post.profile_pic}
-                vote={item.post.post_id}
+                //vote={item.post.post_id}
                 userId={item.post.user_id}
                 user_name={item.post.user_name}
                 post_image={item.post.post_image}
@@ -68,11 +73,11 @@ function PostsList({ data, header, fixed, refFunc, state, updateFeed }: any) {
             </View>
         )
     } 
-    const getItem = (data: any, index: number) => (
+    const getItem = (data: postType[], index: number) => (
         data[index]
     )
 
-    const getCoun = (data: any) => data.length
+    const getCoun = (data: postType[]) => data.length
 
     return (
         <>

@@ -13,7 +13,7 @@ const Trending = ()=>{
     const [isFetching, setIsFetching] = useState(false);
     const [tagList, setTegList] = useState<{}[]>()
     const [activeTag, setActiveTag] = useState<string>("")
-    const [posts, setPosts] = useState<postType[] | any>([])
+    const [posts, setPosts] = useState<postType[]>([])
 
     const onRefresh = async () => {
         await setIsFetching(true);
@@ -122,13 +122,15 @@ const Trending = ()=>{
             </View>
             <PostsList
                 data={
-                    posts.sort((a: any, b:any) => {
+                    posts.sort((a: postType, b: postType) => {
                             
                         if(a.post.upload_time.slice(0,10) < b.post.upload_time.slice(0,10) ) return 1
                         if(a.post.upload_time.slice(0,10) > b.post.upload_time.slice(0,10) ) return -1
 
                         if(b.upVotes.length > a.upVotes.length) return 1
                         if(b.upVotes.length < a.upVotes.length) return -1
+
+                        return 0
 
                     })
                 }
