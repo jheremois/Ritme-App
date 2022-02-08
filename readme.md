@@ -17,18 +17,18 @@ It is a social network where users can create publications in which other users 
 
 <div style={{display: "flex"}}>
     <div style={{margin: "8px"}}>
-        <img  height="740px" src="https://user-images.githubusercontent.com/61896147/153057243-f3ee68c3-dd91-429f-935b-2b33f361ebbe.png"/>
+        <img  height="700px" src="https://user-images.githubusercontent.com/61896147/153057243-f3ee68c3-dd91-429f-935b-2b33f361ebbe.png"/>
     </div>
     <div style={{margin: "8px"}}>
-        <img  height="740px" src="https://user-images.githubusercontent.com/61896147/153057957-24ef0f6d-c3ad-43e2-adc2-6e513a043246.png"/>
+        <img  height="700px" src="https://user-images.githubusercontent.com/61896147/153057957-24ef0f6d-c3ad-43e2-adc2-6e513a043246.png"/>
     </div>
 </div>
 
 <div style={{display: "flex"}}>
     <div style={{margin: "8px"}}>
-        <img  height="740px" src="https://user-images.githubusercontent.com/61896147/153057237-67276aef-de27-4b27-8618-3215ac6efbce.png"/>
+        <img  height="700px" src="https://user-images.githubusercontent.com/61896147/153057237-67276aef-de27-4b27-8618-3215ac6efbce.png"/>
     </div>
     <div style={{margin: "8px"}}>
-        <img  height="740px" src="https://user-images.githubusercontent.com/61896147/153057235-2e51b073-a640-4574-9465-39d7d311ce84.png"/>
+        <img  height="700px" src="https://user-images.githubusercontent.com/61896147/153057235-2e51b073-a640-4574-9465-39d7d311ce84.png"/>
     </div>
 </div>
