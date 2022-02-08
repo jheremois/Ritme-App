@@ -4,7 +4,7 @@ import { AppLooks } from "@src/shared/styles/AppLooks";
 import PostsList from "@src/components/PostsList";
 import { AppColors } from "@src/shared/styles/AppResourses";
 import { postType } from "@src/shared/interfaces/posts.type";
-import { getPosts, getPostsByTag, getTags } from "@src/services/Posts.services";
+import { getPostsByTag, getTags } from "@src/services/Posts.services";
 import { showToast } from "@src/helpers/consts";
 import { getFeed } from "@src/services/Posts.services";
 

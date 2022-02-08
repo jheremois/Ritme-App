@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Pressable } from "react-native";
 import PostsList from "@src/components/PostsList";
 import { postType } from "@src/shared/interfaces/posts.type";
-import { getFeed, getPosts } from "@src/services/Posts.services";
+import { getFeed } from "@src/services/Posts.services";
 import { showToast } from "@src/helpers/consts";
 
 const Explore = ()=>{

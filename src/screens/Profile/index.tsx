@@ -6,7 +6,7 @@ import { profileType } from "@src/shared/interfaces/user.type";
 import PostsList from "@src/components/PostsList";
 import ProfileLoader from "@src/components/ProfileLoader";
 import { postType } from "@src/shared/interfaces/posts.type";
-import { getMyFeed, getMyPosts, getUserFeed, getUserPosts } from "@src/services/Posts.services";
+import { getMyFeed, getUserFeed } from "@src/services/Posts.services";
 import { showToast } from "@src/helpers/consts";
 import GoBack from "@src/components/GoBack";
 

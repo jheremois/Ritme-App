@@ -1,6 +1,6 @@
 {
   "name": "ritme",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "scripts": {
     "getApk": "cd android && yarn react-native run-android --variant=release && cd..",
     "expo-start": "expo start --dev-client",

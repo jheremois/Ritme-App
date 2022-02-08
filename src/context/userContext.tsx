@@ -52,7 +52,7 @@ export const UserProvider = ({ children }: any) => {
   
 
   const saveCredentials = async (data?: userData)=>{
-    !data && saveC(data)
+    data && saveC(data)
   }
 
   const deleteCredentials = async () => {

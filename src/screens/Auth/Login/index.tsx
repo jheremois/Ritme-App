@@ -33,6 +33,7 @@ const Login = ({navigation}: any)=>{
         setInValidForm({password: form.password.length <= 5, email: !form.email.match(emailRegex)})
         loginUser(form).then( async (res)=>{
             try {
+                console.log(res.data.data)
                 saveCredentials(res.data.data)
                 await setLoading(false)
                 navigation.replace("splash")

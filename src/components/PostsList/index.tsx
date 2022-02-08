@@ -78,28 +78,34 @@ function PostsList({ data, header, fixed, refFunc, state, updateFeed }: any) {
         <>
             {
                 <>
-                    <VirtualizedList
-                        initialNumToRender={6}
-                        onRefresh={onRefresh}
-                        refreshing={state}
-                        data={data}
-                        keyExtractor={item => item.post.post_id + " 1" + Date.now()}
-                        renderItem={({ item }) => (
-                            state
-                            ?
-                                <LoadPost/>
-                            :
-                                <RenderItem
-                                    item={item}
-                                />
-                        )}
-                        showsVerticalScrollIndicator={false}
-                        stickyHeaderIndices={fixed ?? []}
-                        ListHeaderComponent={header}
-                        listKey={`D${Date.now()}`}
-                        getItemCount={getCoun}
-                        getItem={getItem}
-                    />
+                    {
+                        data.length == 0
+                        ?
+                            <LoadPost/>
+                        :
+                            <VirtualizedList
+                                initialNumToRender={6}
+                                onRefresh={onRefresh}
+                                refreshing={state}
+                                data={data}
+                                keyExtractor={item => item.post.post_id + " 1" + Date.now()}
+                                renderItem={({ item }) => (
+                                    state
+                                    ?
+                                        <LoadPost/>
+                                    :
+                                        <RenderItem
+                                            item={item}
+                                        />
+                                )}
+                                showsVerticalScrollIndicator={false}
+                                stickyHeaderIndices={fixed ?? []}
+                                ListHeaderComponent={header}
+                                listKey={`D${Date.now()}`}
+                                getItemCount={getCoun}
+                                getItem={getItem}
+                            />
+                    }
                     {/* 
                     <FlatList
                         initialNumToRender={4}
