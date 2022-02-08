@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, Dimensions, TextInput, KeyboardTypeOptions } from "react-native";
+import { View, Text, Dimensions, TextInput, KeyboardTypeOptions } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import { AppColors } from "@src/shared/styles/AppResourses";
 

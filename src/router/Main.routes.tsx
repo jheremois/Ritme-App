@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { AppColors } from '@src/shared/styles/AppResourses';
 import AuthRoutes from './Auth.routes';
@@ -10,6 +10,8 @@ import SplashScreen from '@src/screens/SplashScreen';
 import Settings from '@src/screens/Settings';
 import Profile from '@src/screens/Profile';
 import SearchBar from '@src/screens/SearchBar';
+import { ConectionContext } from '@src/context/conectionContext';
+import { showToast } from '@src/helpers/consts';
 const Stack = createNativeStackNavigator();
 
 const MyTheme = {
@@ -22,6 +24,12 @@ const MyTheme = {
 };
 
 function MainRoutes() {
+    const { conection } = useContext(ConectionContext)
+    
+    useEffect(()=>{
+      !conection && showToast("error", "No internet conection")
+    }, [conection])
+    
     return (
         <NavigationContainer theme={MyTheme}>
           <Stack.Navigator initialRouteName="splash" screenOptions={{ headerShown: false }}>

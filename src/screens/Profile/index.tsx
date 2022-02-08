@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Dimensions, Pressable, Text, View } from "react-native";
+import { Dimensions, View } from "react-native";
 import { ProfileInfo } from "@src/components/ProfileInfo";
 import { getCurrentUser, getUser } from "@src/services/User.services";
 import { profileType } from "@src/shared/interfaces/user.type";
@@ -30,7 +30,7 @@ const Profile = ({navigation, route}: any)=>{
     getCurrentUser().then((res)=> {
       setUsername(res?.data.response[0])
     }).catch((err)=>{
-      console.log("user err ->", err)
+      
     })
   }
 
@@ -38,7 +38,7 @@ const Profile = ({navigation, route}: any)=>{
     getUser(user_id).then((res)=> {
       setUsername(res?.data.response[0])
     }).catch((err)=>{
-      console.log("user err ->", err)
+      
     })
   }
 

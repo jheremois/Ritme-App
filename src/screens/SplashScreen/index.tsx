@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { View, Image, Dimensions, ActivityIndicator } from "react-native";
 import { getCurrentUser } from "@src/services/User.services";
 import { fullLogo } from "@src/helpers/consts";
@@ -14,7 +14,6 @@ const SplashScreen = ({navigation}: any)=>{
       :
         navigation.replace("app")
   }).catch((err)=>{
-    console.log(err)
     navigation.replace("auth")
   })
 

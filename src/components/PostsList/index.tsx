@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { Text, FlatList, View, Dimensions, VirtualizedList } from 'react-native';
+import React, { useState } from 'react'
+import { View, Dimensions, VirtualizedList } from 'react-native';
 import Post from '@components/Post';
 import PostLoader from '../PostLoader';
 import { sendVote } from '@src/services/Posts.services';
 import { postType } from '@src/shared/interfaces/posts.type';
+import { showToast } from '@src/helpers/consts';
 //import { format } from 'timeago.js';
 
 function PostsList({ data, header, fixed, refFunc, state, updateFeed }: any) {
@@ -15,7 +16,6 @@ function PostsList({ data, header, fixed, refFunc, state, updateFeed }: any) {
     const RenderItem = ({item}: item) => {    
     
         const [iVoted, setIVoted] = useState(false)
-        const [load, setLoad] = useState(4)
         const [myVote, setMyVote] = useState({
             up: 0,
             down: 0
@@ -34,7 +34,7 @@ function PostsList({ data, header, fixed, refFunc, state, updateFeed }: any) {
                     updateFeed()
                 }, 600)
             }).catch((err)=>{
-                alert(err.response.data.errMessage)
+                showToast("error", err.response.data.errMessage)
             })
         }
     
@@ -111,38 +111,6 @@ function PostsList({ data, header, fixed, refFunc, state, updateFeed }: any) {
                                 getItem={getItem}
                             />
                     }
-                    {/* 
-                    <FlatList
-                        initialNumToRender={4}
-                        onRefresh={onRefresh}
-                        refreshing={state}
-                        data={data.slice(0, load)}
-                        onEndReached={() => {
-
-                            console.log("carga");
-
-                            data.length > load
-                            ?
-                                setLoad(load + 4)
-                            :
-                                null
-                        }}
-                        onEndReachedThreshold={4}
-                        keyExtractor={item => Math.random() + " 1" + Date.now()}
-                        renderItem={({ item }) => (
-                            state
-                            ?
-                                <LoadPost/>
-                            :
-                                <RenderItem
-                                    item={item}
-                                />
-                        )}
-                        showsVerticalScrollIndicator={false}
-                        stickyHeaderIndices={fixed ?? []}
-                        ListHeaderComponent={header}
-                        listKey={`D${Date.now()}`}
-                    />  */}
                 </>
             }
         </>

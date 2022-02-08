@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Dimensions, View, Image, Text, Pressable, KeyboardAvoidingView, ActivityIndicator } from "react-native";
 import AuthInput from "@components/AuthInput";
 import { AppLooks as al } from "@src/shared/styles/AppLooks";
@@ -22,7 +22,7 @@ const Login = ({navigation}: any)=>{
         password: false,
     })
     const [loading, setLoading] = useState<boolean>(false)
-    const { userData, saveCredentials } = useContext(UserContext);
+    const { saveCredentials } = useContext(UserContext);
 
     const changeForm = (e: any, field: any) => {
         setForm({ ...form, [field]: e });
@@ -33,7 +33,6 @@ const Login = ({navigation}: any)=>{
         setInValidForm({password: form.password.length <= 5, email: !form.email.match(emailRegex)})
         loginUser(form).then( async (res)=>{
             try {
-                console.log(res.data.data)
                 saveCredentials(res.data.data)
                 await setLoading(false)
                 navigation.replace("splash")

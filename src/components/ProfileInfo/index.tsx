@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { View, Text, Image, Dimensions, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import { checkImage } from "@src/helpers/ImageUplader";
-import { PlaceholdImg } from "@src/helpers/consts";
 
 interface profileInfo{
     user_name: string
@@ -35,8 +34,7 @@ export const ProfileInfo = (props: profileInfo)=>{
             </View>
             <View>
                 {
-                    !isMe
-                        ?
+                    !isMe &&
                             <View style={[AppLooks.flexRow, AppLooks.paddingS, AppLooks.contentBetween, AppLooks.alignCenter]}>
                                 <View style={[AppLooks.wFull]}>
                                     <Pressable 
@@ -49,8 +47,6 @@ export const ProfileInfo = (props: profileInfo)=>{
                                     </Pressable>
                                 </View>
                             </View>
-                        :
-                            null
                 }
             </View>
         </View>

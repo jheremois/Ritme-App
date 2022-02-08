@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, Text, Image, Dimensions, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import { AppColors } from "@src/shared/styles/AppResourses";

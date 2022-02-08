@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, Pressable } from "react-native";
 import { AppLooks as AL } from "@src/shared/styles/AppLooks";
 import { Ionicons } from "@expo/vector-icons";

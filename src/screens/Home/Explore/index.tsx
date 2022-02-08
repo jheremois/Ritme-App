@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View } from "react-native";
 import PostsList from "@src/components/PostsList";
 import { postType } from "@src/shared/interfaces/posts.type";
 import { getFeed } from "@src/services/Posts.services";

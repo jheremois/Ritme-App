@@ -2,9 +2,7 @@ import React from 'react'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { Dimensions, Pressable, View } from 'react-native';
-import Explore from '@screens/Home/Explore';
 import { AppColors } from '@src/shared/styles/AppResourses';
-import Header from '@src/components/Header';
 import Profile from '@src/screens/Profile';
 import { AppLooks } from '@src/shared/styles/AppLooks';
 import CreatePost from '@src/screens/CreatePost';

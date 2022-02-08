@@ -1,6 +1,5 @@
-import { AppColors } from "@src/shared/styles/AppResourses"
 import React from "react"
-import ContentLoader, { Rect, Circle, Path } from "react-content-loader/native"
+import ContentLoader, { Rect, Circle } from "react-content-loader/native"
 
 const ProfileLoader = (props: any) => (
     <ContentLoader 

@@ -46,7 +46,7 @@ export const UserProvider = ({ children }: any) => {
       setUser(data.user)
       setUser_token(data.user_token)
     }).catch((err)=>{
-      console.log(err)
+      
     })
   }
   

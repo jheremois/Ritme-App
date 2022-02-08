@@ -1,6 +1,5 @@
 import React from "react"
-import ContentLoader, { Rect, Circle, Path } from "react-content-loader/native"
-import { Dimensions } from "react-native"
+import ContentLoader, { Rect, Circle } from "react-content-loader/native"
 
 const PostLoader = (props: any) => (
   <ContentLoader 

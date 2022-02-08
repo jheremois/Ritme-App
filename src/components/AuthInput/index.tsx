@@ -1,4 +1,4 @@
-import React, { Props, useState } from "react";
+import React, { useState } from "react";
 import { TextInput, Text, View, Pressable, } from "react-native";
 import { AppLooks as al } from "@src/shared/styles/AppLooks";
 import { KeyboardTypeOptions } from "react-native";

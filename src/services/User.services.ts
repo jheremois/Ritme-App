@@ -14,7 +14,7 @@ export const getCurrentUser = async ()=>{
             return null
         }
     } catch(e) {
-        console.log("un loged");
+        
         return null
     }
 }
@@ -32,7 +32,7 @@ export const getUsers = async ()=>{
           return null
       }
   } catch(e) {
-      console.log("un loged");
+      
       return null
   }
 }
@@ -50,7 +50,7 @@ export const getUser = async (user_id: number)=>{
           return null
       }
   } catch(e) {
-      console.log("un loged");
+      
       return null
   }
 }
@@ -74,7 +74,7 @@ export const updateMe = async (data: updateMe)=>{
       return null
     }
   } catch(e) {
-    console.log("un loged");
+    
     return e
   }
 

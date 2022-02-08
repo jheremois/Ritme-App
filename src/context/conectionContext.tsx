@@ -5,21 +5,21 @@ let contextValue: any = {
   isConected: true,
 }
 
-export const Datacontext = createContext(contextValue)
+export const ConectionContext = createContext(contextValue)
 
-export const ConectionContext = ({ children }: any) => {
-  const [data, setData] = useState(contextValue)
+export const ConectionProvider = ({ children }: any) => {
+  const [conection, setConection] = useState(contextValue)
 
   useEffect(()=>{
     NetInfo.fetch().then(state => {
-      setData(state.isConnected)
+      setConection(state.isConnected)
     })
   }, [])
 
   return (
-    <Datacontext.Provider value={{data, setData, ConectionContext}}>
+    <ConectionContext.Provider value={{conection, setConection, ConectionProvider}}>
       {children}
-    </Datacontext.Provider>
+    </ConectionContext.Provider>
   )
 }
 

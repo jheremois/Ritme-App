@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { View, Text, Image, Dimensions, Pressable } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import { Ionicons } from "@expo/vector-icons";
 import { AppColors } from "@src/shared/styles/AppResourses";

@@ -6,6 +6,7 @@ import MainRoutes from '@router/Main.routes'
 import { UserProvider } from '@src/context/userContext'
 import { MyToastConfig } from '@src/components/ToastAlert'
 import Toast from 'react-native-toast-message';
+import { ConectionProvider } from '@src/context/conectionContext'
 
 const App = ()=>{
   return(
@@ -14,9 +15,11 @@ const App = ()=>{
         <StatusBar
           animated={true}
           backgroundColor={AppColors.gray}/>
-          <UserProvider>
-            <MainRoutes/>
-          </UserProvider>
+          <ConectionProvider>
+            <UserProvider>
+              <MainRoutes/>
+            </UserProvider>
+          </ConectionProvider>
       </SafeAreaView>
       <Toast config={MyToastConfig} />
     </>

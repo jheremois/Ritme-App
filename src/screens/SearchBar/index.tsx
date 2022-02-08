@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, Dimensions, Pressable, FlatList } from "react-native";
 import { AppLooks as AL, AppLooks } from "@src/shared/styles/AppLooks";
-import { smallLogo } from "@src/helpers/consts";
 import { Ionicons } from "@expo/vector-icons";
 import { AppColors } from "@src/shared/styles/AppResourses";
 import { TextInput } from "react-native-gesture-handler";
@@ -20,7 +19,7 @@ const SearchBar = ({navigation}: any)=>{
         getUsers().then((res)=>{
             setUsers(res?.data.response)
         }).catch((err)=>{
-            console.log(err)
+            
         })
         
     }

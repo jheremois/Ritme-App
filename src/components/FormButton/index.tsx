@@ -1,5 +1,5 @@
-import React, { Children, ComponentType, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import React from "react";
+import { Pressable, View } from "react-native";
 import { AppLooks as al } from "@src/shared/styles/AppLooks";
 
 interface props{

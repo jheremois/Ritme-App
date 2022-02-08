@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, Dimensions, Button, Pressable } from "react-native";
+import { View, Text, FlatList, Pressable } from "react-native";
 import { AppLooks } from "@src/shared/styles/AppLooks";
 import PostsList from "@src/components/PostsList";
 import { AppColors } from "@src/shared/styles/AppResourses";
@@ -57,7 +57,7 @@ const Trending = ()=>{
         getTags().then((res)=>{
             setTegList(res.data)
         }).catch((err)=>{
-            console.log(err.message);
+            
         })
     }, []) 
 
