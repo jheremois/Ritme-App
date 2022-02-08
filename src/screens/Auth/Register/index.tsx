@@ -32,24 +32,23 @@ const Register = ({navigation}: any)=>{
         setLoading(true)
         setInValidForm({user_name: form.user_name.length <= 3, password: form.password.length <= 5, email: !form.email.match(emailRegex)})
 
-        !loading &&
-            form.user_name.length <= 3 || form.password.length <= 5 || !form.email.match(emailRegex)
-                ?
+        form.user_name.length <= 3 || form.password.length <= 5 || !form.email.match(emailRegex)
+            ?
+                setLoading(false)
+            :
+                RegisterUser(form).then(()=>{
+                    navigation.navigate("login")
                     setLoading(false)
-                :
-                    RegisterUser(form).then(()=>{
-                        navigation.navigate("login")
+                }).catch((error)=> {
+                    if (!error.status) {
                         setLoading(false)
-                    }).catch((error)=> {
-                        if (!error.status) {
-                            setLoading(false)
-                            showToast("error", error.response.data.errMessage)
-                            
-                        }else{
-                            setLoading(false)
-                            showToast("error", error.response.data.errMessage)
-                        }
-                    })
+                        showToast("error", error.response.data.errMessage)
+                        
+                    }else{
+                        setLoading(false)
+                        showToast("error", error.response.data.errMessage)
+                    }
+                });
     }
 
     return(
@@ -100,23 +99,29 @@ const Register = ({navigation}: any)=>{
                         />
                     </View>
                     <View style={[al.paddingS, al.marginMTop]}>
-                    <FormButton
-                        action={()=> {
-                            sendForm()
-                        }} 
-                        color={AppColors.indigo}
-                    >
-                        {
-                            loading?
-                                <ActivityIndicator size={"large"} color={AppColors.white}/>
-                            :
-                                <Text
-                                    style={[al.textWhite, al.fontM, al.textXM]}
+                    {
+                        loading
+                            ?
+                                <FormButton
+                                    action={()=> {}} 
+                                    color={AppColors.indigo}
                                 >
-                                    Register
-                                </Text>
-                        }
-                    </FormButton>
+                                    <ActivityIndicator size={"large"} color={AppColors.white}/>
+                                </FormButton>
+                            :
+                                <FormButton
+                                    action={()=> {
+                                        sendForm()
+                                    }} 
+                                    color={AppColors.indigo}
+                                >
+                                    <Text
+                                        style={[al.textWhite, al.fontM, al.textXM]}
+                                    >
+                                        Register
+                                    </Text>
+                                </FormButton>
+                    }
                 </View>
                 </KeyboardAvoidingView>
                 <View style={[al.flexRow, al.alignCenter, al.contentCenter, al.marginXlTop]}>

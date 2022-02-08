@@ -48,12 +48,11 @@ const Login = ({navigation}: any)=>{
 
     function sendForm() {
         let condition = {password: form.password.length <= 5, email: !form.email.match(emailRegex)}
-            !loading &&
-                form.password.length <= 5 || !form.email.match(emailRegex)
-                ?
-                    setInValidForm(condition)
-                :
-                    logUser()
+        form.password.length <= 5 || !form.email.match(emailRegex)
+            ?
+                setInValidForm(condition)
+            :
+                logUser()
     }
 
     return(
@@ -93,23 +92,29 @@ const Login = ({navigation}: any)=>{
                     </View>
                 </View>
                 <View style={[al.paddingS, al.marginMTop]}>
-                    <FormButton 
-                        action={()=> {
-                            sendForm()
-                        }} 
-                        color={AppColors.indigo}
-                    >
-                        {
-                            loading?
-                                <ActivityIndicator size={"large"} color={AppColors.white}/>
-                            :
-                                <Text
-                                    style={[al.textWhite, al.fontM, al.textXM]}
+                    {
+                        loading
+                            ?
+                                <FormButton
+                                    action={()=> {}} 
+                                    color={AppColors.indigo}
                                 >
-                                    Login
-                                </Text>
-                        }
-                    </FormButton>
+                                    <ActivityIndicator size={"large"} color={AppColors.white}/>
+                                </FormButton>
+                            :
+                                <FormButton 
+                                    action={()=> {
+                                        sendForm()
+                                    }} 
+                                    color={AppColors.indigo}
+                                >
+                                    <Text
+                                        style={[al.textWhite, al.fontM, al.textXM]}
+                                    >
+                                        Login
+                                    </Text>
+                                </FormButton>
+                    }
                 </View>
                 <View style={[al.flexRow, al.alignCenter, al.contentCenter, al.marginMTop]}>
                     <Text style={[al.textS, al.textWhite]}>
