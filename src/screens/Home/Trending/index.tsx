@@ -125,9 +125,8 @@ const Trending = ()=>{
                     posts.sort((a: postType, b: postType) => {
                             
                         if(a.post.upload_time.slice(0,10) < b.post.upload_time.slice(0,10) ) return 1
-                        if(a.post.upload_time.slice(0,10) > b.post.upload_time.slice(0,10) ) return -1
-
                         if(b.upVotes.length > a.upVotes.length) return 1
+                        if(a.post.upload_time.slice(0,10) > b.post.upload_time.slice(0,10) ) return -1
                         if(b.upVotes.length < a.upVotes.length) return -1
 
                         return 0
