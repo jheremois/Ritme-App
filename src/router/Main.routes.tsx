@@ -12,6 +12,7 @@ import Profile from '@src/screens/Profile';
 import SearchBar from '@src/screens/SearchBar';
 import { ConectionContext } from '@src/context/conectionContext';
 import { showToast } from '@src/helpers/consts';
+import NoConection from '@src/screens/NoConection';
 const Stack = createNativeStackNavigator();
 
 const MyTheme = {
@@ -41,6 +42,7 @@ function MainRoutes() {
             <Stack.Screen name="auth" component={AuthRoutes} />
             <Stack.Screen name="app" component={AppRoutes} />
             <Stack.Screen name="createPost" component={CreatePost} />
+            <Stack.Screen name="ofLine" component={NoConection} />
           </Stack.Navigator>
         </NavigationContainer>
     )

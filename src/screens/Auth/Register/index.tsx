@@ -126,7 +126,7 @@ const Register = ({navigation}: any)=>{
                 </KeyboardAvoidingView>
                 <View style={[al.flexRow, al.alignCenter, al.contentCenter, al.marginXlTop]}>
                     <Text style={[al.textS, al.textWhite]}>
-                        Allready have an acount? 
+                        already have an acount? 
                     </Text>
                     <Pressable onPress={()=> navigation.navigate("login")}>
                         <Text style={[{paddingHorizontal: 4, paddingVertical: 9}, al.textS, al.textIndigo, al.fontM]}>
