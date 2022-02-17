@@ -1,6 +1,5 @@
 {
   "expo": {
-    "jsEngine": "hermes",
     "name": "Ritme",
     "slug": "Ritme",
     "version": "0.7.3",

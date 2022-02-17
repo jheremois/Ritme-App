@@ -61,7 +61,6 @@ buck-out/
 \.buckd/
 *.keystore
 !debug.keystore
-!ritmeapp.keystore
 
 # Bundle artifacts
 *.jsbundle

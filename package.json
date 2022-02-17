@@ -3,11 +3,14 @@
   "version": "0.7.3",
   "scripts": {
     "getApk": "cd android && yarn react-native run-android --variant=release && cd..",
-    "start": "react-native start",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
+    "expo-start": "expo start --dev-client",
+    "eject": "expo eject",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "start": "react-native start",
+    "mobile": "expo start",
+    "test": "jest"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.14",
