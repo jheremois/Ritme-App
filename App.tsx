@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { SafeAreaView, StatusBar, Text, View } from 'react-native'
+import { AppLooks } from '@src/shared/styles/AppLooks'
+import { AppColors } from '@src/shared/styles/AppResourses'
+import MainRoutes from '@router/Main.routes'
+import { UserProvider } from '@src/context/userContext'
+import { MyToastConfig } from '@src/components/ToastAlert'
+import Toast from 'react-native-toast-message';
+import { ConectionProvider } from '@src/context/conectionContext'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+const App = ()=>{
+  return(
+    <>
+      <SafeAreaView style={[AppLooks.flex, AppLooks.bgBlack]}>
+        <StatusBar
+          animated={true}
+          backgroundColor={AppColors.gray}/>
+          <ConectionProvider>
+            <UserProvider>
+              <MainRoutes/>
+            </UserProvider>
+          </ConectionProvider>
+      </SafeAreaView>
+      <Toast config={MyToastConfig} />
+    </>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
