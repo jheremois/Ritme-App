@@ -2,7 +2,7 @@
   "expo": {
     "name": "Ritme",
     "slug": "Ritme",
-    "version": "0.7.3",
+    "version": "0.7.7",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -25,7 +25,7 @@
         "backgroundColor": "#212121"
       },
       "package": "ritme.app",
-      "versionCode": 1
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"

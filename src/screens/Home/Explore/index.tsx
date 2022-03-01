@@ -47,7 +47,8 @@ const Explore = ()=>{
             <View style={{paddingBottom: 0}}>
                 <PostsList
                     updateFeed={loadThem}
-                    data={posts.sort((a: postType, b: postType) => b.post.post_id - a.post.post_id)}
+                    //data={posts.sort((a: postType, b: postType) => b.post.post_id - a.post.post_id)}
+                    data={posts}
                     state={isFetching}
                     refFunc={onRefresh}
                 />

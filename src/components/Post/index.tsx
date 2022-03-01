@@ -14,7 +14,7 @@ const Post = (props: postDataType)=>{
     const {
         upload_time,
         userId,
-        iVoted,
+        i_voted,
         profile_pic,
         user_name,
         post_image,
@@ -26,7 +26,7 @@ const Post = (props: postDataType)=>{
         downVotes 
     } = props
 
-    const navigate = useNavigation()
+    const navigate = useNavigation<any>()
 
     const upChart = 
         (upVotes/ (upVotes + downVotes)) * (100) >= 1
@@ -132,7 +132,7 @@ const Post = (props: postDataType)=>{
                 </View>
                 <View style={[AppLooks.alignCenter, AppLooks.contentBetween]}>
                     {
-                    iVoted?       
+                    i_voted?
                         <View
                             style={[{height: 50, width: "100%", display: "flex", flexDirection: "row"}]}
                         >

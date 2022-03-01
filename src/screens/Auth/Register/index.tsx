@@ -66,9 +66,9 @@ const Register = ({navigation}: any)=>{
                             dark={true}
                             value={form.user_name}
                             onchangetext={(e: any) => changeForm(e, "user_name")}
-                            errMsg="Something is wrong"
+                            errMsg="Place a valid user name"
                             validator={inValidForm.user_name}
-                            placeHolder="My user_name"
+                            placeHolder="Place your user name"
                             label="User name"
                             keyboard={"default"} 
                         />
@@ -78,9 +78,9 @@ const Register = ({navigation}: any)=>{
                             dark={true}
                             value={form.email}
                             onchangetext={(e: any) => changeForm(e, "email")}
-                            errMsg="Something is wrong"
+                            errMsg="Something is wrong in your email"
                             validator={inValidForm.email}
-                            placeHolder="valid@email.com"
+                            placeHolder="placeYour@email.com"
                             label="Email"
                             keyboard={"email-address"} 
                         />
@@ -91,7 +91,7 @@ const Register = ({navigation}: any)=>{
                             dark={true}
                             value={form.password}
                             onchangetext={(e: any) => changeForm(e, "password")}
-                            errMsg="Something is wrong"
+                            errMsg="Not a valid password"
                             validator={inValidForm.password}
                             placeHolder="Private password..."
                             label="Password"
@@ -118,7 +118,7 @@ const Register = ({navigation}: any)=>{
                                     <Text
                                         style={[al.textWhite, al.fontM, al.textXM]}
                                     >
-                                        Register
+                                        Register!
                                     </Text>
                                 </FormButton>
                     }
@@ -129,7 +129,7 @@ const Register = ({navigation}: any)=>{
                         already have an acount? 
                     </Text>
                     <Pressable onPress={()=> navigation.navigate("login")}>
-                        <Text style={[{paddingHorizontal: 4, paddingVertical: 9}, al.textS, al.textIndigo, al.fontM]}>
+                    <Text style={[{paddingHorizontal: 4, paddingVertical: 9}, al.textS, al.textWhite, {textDecorationLine: "underline"}, al.fontM]}>
                             Login
                         </Text>
                     </Pressable>

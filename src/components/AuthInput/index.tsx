@@ -54,7 +54,11 @@ const AuthInput = (props: props)=>{
                     onChangeText={onchangetext}
                     keyboardType={keyboard}
                     style={[
-                        {marginBottom: 2},
+                        {
+                            marginBottom: 2,
+                            borderWidth: 2,
+                            borderColor: AppColors.white + 40,
+                        },
                         al.roundedS,
                         al.textM,
                         al.paddingS,

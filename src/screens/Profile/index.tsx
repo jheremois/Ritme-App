@@ -90,7 +90,8 @@ const Profile = ({navigation, route}: any)=>{
               null
           }
             <PostsList
-              data={posts.sort((a: postType, b: postType) => b.post.post_id - a.post.post_id)}
+              //data={posts.sort((a: postType, b: postType) => b.post.post_id - a.post.post_id)}
+              data={posts}
               state={isFetching}
               refFunc={onRefresh}
               header={

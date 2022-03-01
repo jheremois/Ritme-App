@@ -70,7 +70,7 @@ const Login = ({navigation}: any)=>{
                             dark={true}
                             value={form.email}
                             onchangetext={(e: string) => changeForm(e, "email")}
-                            errMsg="Something is wrong"
+                            errMsg="Place a valid email"
                             validator={inValidForm.email}
                             placeHolder="valid@email.com"
                             label="Email"
@@ -83,7 +83,7 @@ const Login = ({navigation}: any)=>{
                             dark={true}
                             value={form.password}
                             onchangetext={(e: any) => changeForm(e, "password")}
-                            errMsg="Something is wrong"
+                            errMsg="Invalid password"
                             validator={inValidForm.password}
                             placeHolder="Private password..."
                             label="Password"
@@ -121,7 +121,7 @@ const Login = ({navigation}: any)=>{
                         New here?
                     </Text>
                     <Pressable onPress={()=> navigation.navigate("register")}>
-                        <Text style={[{paddingHorizontal: 4, paddingVertical: 9}, al.textS, al.textIndigo, al.fontM]}>
+                        <Text style={[{paddingHorizontal: 4, paddingVertical: 9}, al.textS, al.textWhite, {textDecorationLine: "underline"}, al.fontM]}>
                             Register
                         </Text>
                     </Pressable>
