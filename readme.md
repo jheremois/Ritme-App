@@ -3,6 +3,8 @@
 # Ritme
 It is a social network where users can create publications in which other users can vote positively or negatively.
 
+- Play strore: https://play.google.com/store/apps/details?id=ritme.app
+
 ## Features
 - [x] Create your user
 - [x] Edit Your profile
